@@ -1,0 +1,7 @@
+npm install mapbox-gl react-map-gl
+
+npm install lucide-react
+
+npm install leaflet react-leaflet
+
+npx shadcn@latest add button
