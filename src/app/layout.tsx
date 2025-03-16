@@ -22,14 +22,13 @@ export default function RootLayout({
         <body
           className={`${inter.className} antialiased`}
         >
-          <div className="min-h-screen bg-[#1D163F] text-white">
-            <Navbar />
-            <main className="py-20">
-              <div className="max-w-7xl mx-auto px-4">
-                {children}
-              </div>
-            </main>
+  
+        <Navbar />
+        <main className="min-h-screen min-w-screen bg-[#1D163F] text-white">
+          <div className="=mx-auto px-4">
+            {children}
           </div>
+        </main>
         </body>
       </html>
     </ClerkProvider>
