@@ -1,0 +1,620 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83448290514538, -6.200326505603853],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2015-0076",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.200328558,
+        "LONGITUDE": 106.8344836,
+        "TAHUN KEJADIAN": "2015"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83448290514538, -6.200326505603853],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2017-0206",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.200328558,
+        "LONGITUDE": 106.8344836,
+        "TAHUN KEJADIAN": "2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83448290514538, -6.200326505603853],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2017-0059",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.200328558,
+        "LONGITUDE": 106.8344836,
+        "TAHUN KEJADIAN": "2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83448290514538, -6.200326505603853],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2016-0092",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.200328558,
+        "LONGITUDE": 106.8344836,
+        "TAHUN KEJADIAN": "2016"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83448290514538, -6.200326505603853],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1996-0495",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.200328558,
+        "LONGITUDE": 106.8344836,
+        "TAHUN KEJADIAN": "1996"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83448290514538, -6.200326505603853],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1977-0014",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.200328558,
+        "LONGITUDE": 106.8344836,
+        "TAHUN KEJADIAN": "1977"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.8350759655855, -6.181228175791944],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2012-0266",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.181229972,
+        "LONGITUDE": 106.8350758,
+        "TAHUN KEJADIAN": "2012"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.8099979812609, -6.272550565366515],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2011-0023",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.27254877,
+        "LONGITUDE": 106.8099972,
+        "TAHUN KEJADIAN": "2011"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.8099979812609, -6.272550565366515],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2009-0121",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.27254877,
+        "LONGITUDE": 106.8099972,
+        "TAHUN KEJADIAN": "2009"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.8099979812609, -6.272550565366515],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2008-0013",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.27254877,
+        "LONGITUDE": 106.8099972,
+        "TAHUN KEJADIAN": "2008"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.90026802298686, -6.255374108108641],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2006-0074",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.255372766,
+        "LONGITUDE": 106.9002684,
+        "TAHUN KEJADIAN": "2006"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.8350759655855, -6.181228175791944],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2002-0054",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.181229972,
+        "LONGITUDE": 106.8350758,
+        "TAHUN KEJADIAN": "2002"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2015-0077",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2015"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2014-0038",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2014"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2014-0057",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2014"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2014-0056",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2014"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2013-0007",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2013"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2011-0094",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2011"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2008-0526",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2008"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2008-0108",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2008"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2008-0092",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2008"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2008-0042",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2008"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2007-0610",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2007"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2007-0050",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2007"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2006-0192",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2006"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2005-0718",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2005"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2004-0098",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2004"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2003-0531",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2003"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2003-0118",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2003"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2003-0074",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2003"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "2000-0791",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "2000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1999-0002",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1999"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1996-0246",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1996"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1996-0082",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1996"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1995-0029",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1995"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1990-0709",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1990"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1990-0005",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1990"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1981-0113",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1981"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1980-0110",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1980"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1967-0076",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1967"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [106.83574037164247, -6.20211014602523],
+        "type": "Point"
+      },
+      "properties": {
+        "KABUPATEN/KOTA": "Jakarta Raya",
+        "disasterno": "1967-0013",
+        "JENIS BENCANA ALAM": "flood",
+        "LATITUDE": -6.202112106,
+        "LONGITUDE": 106.8357425,
+        "TAHUN KEJADIAN": "1967"
+      }
+    }
+  ]
+}
