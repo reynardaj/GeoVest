@@ -18,30 +18,14 @@ const Page = () => {
     jumlahPerempuan: number;
     luasWilayahKm2: number;
   } | null>(null);
-  const [populationFilter, setPopulationFilter] = useState(0);
-  const [incomeFilter, setIncomeFilter] = useState<number>(4500000);
 
   const applyFilters = () => {
     if (!mapRef.current) return;
 
-    const filters: maplibregl.FilterSpecification = [
-      "all",
-      [">=", ["get", "JUMLAH PENDUDUK 2020"], populationFilter],
-      [">=", ["get", "Penghasilan rata-rata"], incomeFilter],
-    ];
+    const filters: maplibregl.FilterSpecification = ["all"];
 
     mapRef.current.setFilter("jakarta_fill", filters);
     mapRef.current.setFilter("jakarta_border", filters);
-  };
-
-  const handlePopulationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPopulationFilter(Number(e.target.value));
-    applyFilters();
-  };
-
-  const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIncomeFilter(Number(e.target.value));
-    applyFilters();
   };
 
   const toggleLayer = () => {
@@ -472,38 +456,6 @@ const Page = () => {
         >
           Toggle Flood Layer
         </button>
-        <div className="flex items-center space-x-4">
-          <div className="flex flex-col">
-            <label className="text-black mb-1">Population Filter</label>
-            <div className="flex items-center space-x-2">
-              <input
-                type="range"
-                min="0"
-                max="2000000"
-                step="10000"
-                value={populationFilter}
-                onChange={handlePopulationChange}
-                className="w-64"
-              />
-              <span>{populationFilter.toLocaleString()}</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <label className="text-black mb-1">Average Income Filter</label>
-            <div className="flex items-center space-x-2">
-              <input
-                type="range"
-                min="4500000"
-                max="6500000"
-                step="100000"
-                value={incomeFilter}
-                onChange={handleIncomeChange}
-                className="w-64"
-              />
-              <span>{(incomeFilter / 1000000).toLocaleString()}M</span>
-            </div>
-          </div>
-        </div>
       </div>
       <div ref={mapContainerRef} className="flex-1" />
       {popupData && (
