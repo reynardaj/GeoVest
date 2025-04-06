@@ -1,3 +1,5 @@
+import Menu from "@/components/Menu";
+
 function page() {
   return (
     <div>
