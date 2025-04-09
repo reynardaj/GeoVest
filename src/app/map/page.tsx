@@ -1,68 +1,104 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import maplibregl from "maplibre-gl";
+import type {
+  Map,
+  MapGeoJSONFeature,
+  FilterSpecification,
+  ExpressionSpecification,
+  LngLatBoundsLike,
+  MapMouseEvent,
+} from "maplibre-gl"; // Added MapMouseEvent
 import "maplibre-gl/dist/maplibre-gl.css";
+import { Range } from "react-range";
+
+// Define the structure for popup data for clarity
+interface PopupData {
+  regionName: string | number;
+  jumlahKecamatan: number;
+  jumlahDesa: number;
+  jumlahPenduduk: number;
+  kepadatanPerKm2: number;
+  jumlahLakiLaki: number;
+  jumlahPerempuan: number;
+  luasWilayahKm2: number;
+}
 
 const Page = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const hoveredStateRef = useRef<string | number | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
-  const [popupData, setPopupData] = useState<{
-    regionName: string | number;
-    jumlahKecamatan: number;
-    jumlahDesa: number;
-    jumlahPenduduk: number;
-    kepadatanPerKm2: number;
-    jumlahLakiLaki: number;
-    jumlahPerempuan: number;
-    luasWilayahKm2: number;
-  } | null>(null);
+  const mapRef = useRef<Map | null>(null);
+  const hoveredRegionIdRef = useRef<string | number | null>(null);
+  const hoveredPropertyIdRef = useRef<string | number | null>(null);
 
-  const applyFilters = () => {
-    if (!mapRef.current) return;
+  // State
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Heatmap
+  const [popupData, setPopupData] = useState<PopupData | null>(null);
+  const [priceRange, setPriceRange] = useState([0, 10000000000]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [clickedRegionId, setClickedRegionId] = useState<
+    string | number | null
+  >(null); // State for clicked region
 
-    const filters: maplibregl.FilterSpecification = ["all"];
+  // Refs to hold latest state for use in listeners
+  const priceRangeRef = useRef(priceRange);
+  const selectedCategoriesRef = useRef(selectedCategories);
+  const clickedRegionIdRef = useRef(clickedRegionId); // Ref for clicked region ID
 
-    mapRef.current.setFilter("jakarta_fill", filters);
-    mapRef.current.setFilter("jakarta_border", filters);
-  };
-
-  const toggleLayer = () => {
-    if (!mapRef.current) return;
-    // Check if the layer exists before toggling
-    if (!mapRef.current.getLayer("flood_heatmap")) return;
-    const visibility = isVisible ? "none" : "visible";
-    mapRef.current.setLayoutProperty("flood_heatmap", "visibility", visibility);
-    setIsVisible(!isVisible);
-  };
-
+  // Keep refs updated
   useEffect(() => {
-    if (mapContainerRef.current) {
-      const mapInstance = new maplibregl.Map({
-        container: mapContainerRef.current,
+    priceRangeRef.current = priceRange;
+  }, [priceRange]);
+  useEffect(() => {
+    selectedCategoriesRef.current = selectedCategories;
+  }, [selectedCategories]);
+  useEffect(() => {
+    clickedRegionIdRef.current = clickedRegionId;
+  }, [clickedRegionId]); // Keep clickedRegionIdRef updated
+
+  const propertyCategories = [
+    "Apartemen",
+    "Ruko",
+    "Rumah",
+    "Gedung",
+    "Gudang",
+    "Kos",
+  ];
+
+  // --- Map Initialization and Static Listener Setup ---
+  useEffect(() => {
+    if (mapContainerRef.current && !mapRef.current) {
+      const map = new maplibregl.Map({
+        /* ... map options ... */ container: mapContainerRef.current,
         style:
-          "https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL",
-        center: [106.8456, -6.2088], // Jakarta coordinates
+          "https://api.maptiler.com/maps/streets/style.json?key=Xyghbo5YEVnVdA3iTYjo",
+        center: [106.8456, -6.2088],
         zoom: 10,
       });
+      mapRef.current = map;
 
-      mapInstance.on("load", () => {
-        mapInstance.addSource("jakarta", {
+      map.on("load", () => {
+        if (!mapRef.current) return;
+
+        // Add Sources (same as before)
+        mapRef.current.addSource("jakarta", {
           type: "geojson",
           data: "/jakarta.geojson",
           generateId: true,
         });
-        mapInstance.addSource("flood", {
+        mapRef.current.addSource("flood", {
           type: "geojson",
           data: "/flood.geojson",
         });
-        mapInstance.addSource("properties", {
+        mapRef.current.addSource("properties", {
           type: "geojson",
           data: "/data-properti.geojson",
+          generateId: true,
         });
 
-        mapInstance.addLayer({
+        // --- Add Layers ---
+        mapRef.current.addLayer({
           id: "jakarta_fill",
           type: "fill",
           source: "jakarta",
@@ -71,31 +107,61 @@ const Page = () => {
             "fill-color": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              "#FF0000", // Color when hovered
-              "#627BC1", // Default color
+              "#FF0000", // Hover color red
+              "#627BC1", // Default color blue
             ],
-            "fill-opacity": 0.6,
+            "fill-opacity": [
+              "case",
+              ["boolean", ["feature-state", "clicked"], false],
+              0.05, // <<< NEARLY TRANSPARENT IF CLICKED
+              ["boolean", ["feature-state", "hover"], false],
+              0.8, // Hover opacity
+              0.6, // Default opacity
+            ],
           },
         });
-
-        mapInstance.addLayer({
+        mapRef.current.addLayer({
           id: "jakarta_border",
           type: "line",
           source: "jakarta",
           layout: {},
+          paint: { "line-color": "#627BC1", "line-width": 2 },
+        });
+        mapRef.current.addLayer({
+          id: "properties",
+          type: "circle",
+          source: "properties",
+          layout: { visibility: "none" },
           paint: {
-            "line-color": "#627BC1",
-            "line-width": 2,
+            /* ... properties paint ... */ "circle-radius": [
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              10,
+              6,
+            ],
+            "circle-color": [
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              "#FF8C00",
+              "#007bff",
+            ],
+            "circle-stroke-width": [
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              2,
+              1,
+            ],
+            "circle-stroke-color": "#ffffff",
           },
         });
-        mapInstance.addLayer({
+        mapRef.current.addLayer({
           id: "flood_heatmap",
           type: "heatmap",
           source: "flood",
           maxzoom: 15,
+          layout: { visibility: isVisible ? "visible" : "none" },
           paint: {
-            // Adjust intensity based on zoom level
-            "heatmap-intensity": [
+            /* ... heatmap paint ... */ "heatmap-intensity": [
               "interpolate",
               ["linear"],
               ["zoom"],
@@ -104,13 +170,12 @@ const Page = () => {
               15,
               3,
             ],
-            // Heatmap color gradient
             "heatmap-color": [
               "interpolate",
               ["linear"],
               ["heatmap-density"],
               0,
-              "rgba(0, 0, 255, 0)", // Blue for low density
+              "rgba(0, 0, 255, 0)",
               0.2,
               "royalblue",
               0.4,
@@ -120,9 +185,8 @@ const Page = () => {
               0.8,
               "yellow",
               1,
-              "red", // Red for high density
+              "red",
             ],
-            // Set heatmap radius based on zoom level
             "heatmap-radius": [
               "interpolate",
               ["linear"],
@@ -132,355 +196,545 @@ const Page = () => {
               15,
               30,
             ],
-            // Set heatmap opacity
             "heatmap-opacity": 0.8,
           },
         });
 
-        // Add property points layer
-        mapInstance.addLayer({
-          id: "property-points",
-          type: "circle",
-          source: "properties",
-          paint: {
-            "circle-radius": 8,
-            "circle-color": "#FF0000",
-            "circle-stroke-width": 1,
-            "circle-stroke-color": "#fff",
-          },
-          minzoom: 12, // Only show when zoom level is 12 or higher
-          maxzoom: 20, // Maximum zoom level
-        });
+        setIsMapLoaded(true);
 
-        // Add hover effect for property points
-        mapInstance.addLayer({
-          id: "property-points-hover",
-          type: "circle",
-          source: "properties",
-          paint: {
-            "circle-radius": 10,
-            "circle-color": "#FF0000",
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#fff",
-            "circle-opacity": [
-              "case",
-              ["boolean", ["feature-state", "hover"], false],
-              1,
-              0,
-            ],
-          },
-          minzoom: 12, // Only show when zoom level is 12 or higher
-          maxzoom: 20, // Maximum zoom level
-        });
+        // --- Event Listeners ---
 
-        let pointsVisible = false;
-        mapInstance.on("zoomend", () => {
-          const currentZoom = mapInstance.getZoom();
+        // --- ZoomEnd Listener ---
+        // Handles hiding/showing properties based on zoom and resetting clicked state
+        mapRef.current.on("zoomend", () => {
+          if (!mapRef.current) return;
+          const currentZoom = mapRef.current.getZoom();
+          const propertiesLayerId = "properties";
 
-          // Handle visibility based on zoom level
-          if (currentZoom >= 12) {
-            if (!pointsVisible) {
-              mapInstance.setLayoutProperty(
-                "property-points",
-                "visibility",
-                "visible"
-              );
-              mapInstance.setLayoutProperty(
-                "property-points-hover",
-                "visibility",
-                "visible"
-              );
-              pointsVisible = true;
-            }
-
-            // Filter properties based on Jakarta region
-            const coordinates = mapInstance.getCenter();
-            const features = mapInstance.queryRenderedFeatures(
-              [coordinates.lng, coordinates.lat],
-              { layers: ["jakarta_fill"] }
+          if (currentZoom < 12) {
+            // --- Zoomed OUT ---
+            // Hide properties
+            mapRef.current.setLayoutProperty(
+              propertiesLayerId,
+              "visibility",
+              "none"
             );
+            mapRef.current.setFilter(propertiesLayerId, null); // Clear filter
 
-            if (features.length > 0) {
-              const regionId = features[0].id;
-              mapInstance.setFilter("property-points", [
-                "==",
-                ["get", "region_id"],
-                regionId as string | number,
-              ]);
-              mapInstance.setFilter("property-points-hover", [
-                "==",
-                ["get", "region_id"],
-                regionId as string | number,
-              ]);
-            } else {
-              // Hide properties if not in Jakarta region
-              mapInstance.setFilter("property-points", [
-                "!",
-                ["has", "region_id"],
-              ]);
-              mapInstance.setFilter("property-points-hover", [
-                "!",
-                ["has", "region_id"],
-              ]);
+            // Reset clicked region state if one was clicked
+            if (clickedRegionIdRef.current !== null) {
+              mapRef.current.setFeatureState(
+                { source: "jakarta", id: clickedRegionIdRef.current },
+                { clicked: false }
+              );
+              setClickedRegionId(null); // Update state (will also update ref)
             }
           } else {
-            // Hide properties when zoom level is less than 12
-            mapInstance.setLayoutProperty(
-              "property-points",
-              "visibility",
-              "none"
-            );
-            mapInstance.setLayoutProperty(
-              "property-points-hover",
-              "visibility",
-              "none"
-            );
-            mapInstance.setFilter("property-points", [
-              "!",
-              ["has", "region_id"],
-            ]);
-            mapInstance.setFilter("property-points-hover", [
-              "!",
-              ["has", "region_id"],
-            ]);
-            pointsVisible = false;
-          }
-        });
+            // --- Zoomed IN or Panning ---
+            // Only filter based on center IF NO region is currently clicked
+            if (clickedRegionIdRef.current === null) {
+              const centerPoint = mapRef.current.project(
+                mapRef.current.getCenter()
+              );
+              const features = mapRef.current.queryRenderedFeatures(
+                centerPoint,
+                { layers: ["jakarta_fill"] }
+              );
 
-        mapInstance.on(
-          "mousemove",
-          "jakarta_fill",
-          (e: maplibregl.MapMouseEvent & { features?: any[] }) => {
-            if (e.features && e.features.length > 0) {
-              const feature = e.features[0];
-              // Check if the feature has an ID (including numeric IDs)
-              const newHoveredId = feature.id;
-              if (newHoveredId === undefined || newHoveredId === null) {
-                console.warn("Feature does not have a valid ID:", feature);
-                return;
+              let filterConditions: ExpressionSpecification[] = [
+                [">=", ["get", "property_price"], priceRangeRef.current[0]],
+                ["<=", ["get", "property_price"], priceRangeRef.current[1]],
+              ];
+              if (selectedCategoriesRef.current.length > 0) {
+                filterConditions.push([
+                  "in",
+                  ["get", "property_category"],
+                  ...selectedCategoriesRef.current.map((c) => ["literal", c]),
+                ]);
               }
 
-              // If a different feature is hovered, reset the previous one
-              if (
-                hoveredStateRef.current !== null &&
-                hoveredStateRef.current !== newHoveredId
-              ) {
-                try {
-                  mapInstance.setFeatureState(
-                    { source: "jakarta", id: hoveredStateRef.current },
-                    { hover: false }
-                  );
-                } catch (error) {
-                  console.error("Error resetting feature state:", error);
-                }
+              if (features.length > 0 && features[0].id !== undefined) {
+                filterConditions.push([
+                  "==",
+                  ["get", "region_id"],
+                  features[0].id,
+                ]);
+              } else {
+                filterConditions.push([
+                  "==",
+                  ["get", "region_id"],
+                  "__NO_REGION_FOUND__",
+                ]);
               }
-              hoveredStateRef.current = newHoveredId;
-              try {
-                mapInstance.setFeatureState(
-                  { source: "jakarta", id: newHoveredId },
-                  { hover: true }
-                );
-              } catch (error) {
-                console.error("Error setting feature state:", error);
-              }
-              mapInstance.getCanvas().style.cursor = "pointer";
-            }
-          }
-        );
 
-        mapInstance.on(
-          "mouseleave",
-          "jakarta_fill",
-          (e: maplibregl.MapMouseEvent) => {
-            if (hoveredStateRef.current) {
-              mapInstance.setFeatureState(
-                { source: "jakarta", id: hoveredStateRef.current },
-                { hover: false }
+              mapRef.current.setFilter(propertiesLayerId, [
+                "all",
+                ...filterConditions,
+              ]);
+              mapRef.current.setLayoutProperty(
+                propertiesLayerId,
+                "visibility",
+                "visible"
               );
             }
-            hoveredStateRef.current = null;
-            mapInstance.getCanvas().style.cursor = "";
-          }
-        );
-
-        // Add mouse interaction for property points
-        mapInstance.on(
-          "mousemove",
-          "property-points",
-          (e: maplibregl.MapMouseEvent & { features?: any[] }) => {
-            if (e.features && e.features.length > 0) {
-              const feature = e.features[0];
-              const featureId = feature.id;
-              if (featureId === undefined || featureId === null) {
-                console.warn(
-                  "Property feature does not have a valid ID:",
-                  feature
-                );
-                return;
-              }
-              try {
-                mapInstance.setFeatureState(
-                  { source: "properties", id: featureId },
-                  { hover: true }
-                );
-              } catch (error) {
-                console.error("Error setting property feature state:", error);
-              }
-            }
-          }
-        );
-
-        mapInstance.on(
-          "mouseleave",
-          "property-points",
-          (e: maplibregl.MapMouseEvent) => {
-            if (hoveredStateRef.current) {
-              try {
-                mapInstance.setFeatureState(
-                  { source: "properties", id: hoveredStateRef.current },
-                  { hover: false }
-                );
-              } catch (error) {
-                console.error("Error resetting property feature state:", error);
-              }
-            }
-            hoveredStateRef.current = null;
-          }
-        );
-
-        // Add click event listener for Jakarta fill layer
-        mapInstance.on(
-          "click",
-          "jakarta_fill",
-          (e: maplibregl.MapMouseEvent & maplibregl.MapLayerMouseEvent) => {
-            const feature = e.features![0];
-            zoomToRegion(mapInstance, feature);
-          }
-        );
-
-        // Add zoomend event listener to reset view
-        mapInstance.on("zoomend", () => {
-          const currentZoom = mapInstance.getZoom();
-
-          // Reset to initial state when zoom level is below 12
-          if (currentZoom < 12) {
-            mapInstance.setLayoutProperty(
-              "property-points",
-              "visibility",
-              "none"
-            );
-            mapInstance.setPaintProperty("jakarta_fill", "fill-opacity", 0.6);
-            mapInstance.setPaintProperty("jakarta_fill", "fill-color", [
-              "case",
-              ["boolean", ["feature-state", "hover"], false],
-              "#FF0000", // Color when hovered
-              "#627BC1", // Default color
-            ]);
+            // Else: A region IS clicked, so we DON'T modify the properties filter/visibility here.
+            // The click handler already set it, and it should persist.
           }
         });
 
-        mapInstance.on(
+        // --- Region Click Listener ---
+        mapRef.current.on(
           "click",
           "jakarta_fill",
-          (e: maplibregl.MapMouseEvent & { features?: any[] }) => {
+          (e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
             const feature = e.features?.[0];
-            if (!feature) return;
-            const { lng, lat } = e.lngLat;
-            setPopupData({
-              regionName: feature.properties.name,
-              jumlahKecamatan: feature.properties["JUMLAH KECAMATAN"],
-              jumlahDesa: feature.properties["JUMLAH DESA"],
-              jumlahPenduduk: feature.properties["JUMLAH PENDUDUK 2020"],
-              kepadatanPerKm2: feature.properties["KEPADATAN PER KM2 (2020)"],
-              jumlahLakiLaki: feature.properties["JUMLAH LAKI-LAKI (2020)"],
-              jumlahPerempuan: feature.properties["JUMLAH PEREMPUAN (2020)"],
-              luasWilayahKm2: feature.properties["LUAS WILAYAH (KM2)"],
-            });
-            mapInstance.flyTo({
-              center: [lng, lat],
-              zoom: 15,
-              essential: true,
-            });
+            if (!feature || !feature.id || !mapRef.current) return;
+
+            const clickedId = feature.id;
+            const propertiesLayerId = "properties";
+
+            // Prevent background click from immediately resetting
+            e.originalEvent.preventDefault(); // Mark event as handled
+
+            // Reset previous clicked state if different region
+            if (
+              clickedRegionIdRef.current !== null &&
+              clickedRegionIdRef.current !== clickedId
+            ) {
+              mapRef.current.setFeatureState(
+                { source: "jakarta", id: clickedRegionIdRef.current },
+                { clicked: false }
+              );
+            }
+
+            // Set new clicked state
+            mapRef.current.setFeatureState(
+              { source: "jakarta", id: clickedId },
+              { clicked: true }
+            );
+            setClickedRegionId(clickedId); // Update state
+
+            // --- Immediately filter and show properties for the CLICKED region ---
+            let filterConditions: ExpressionSpecification[] = [
+              [">=", ["get", "property_price"], priceRangeRef.current[0]],
+              ["<=", ["get", "property_price"], priceRangeRef.current[1]],
+            ];
+            if (selectedCategoriesRef.current.length > 0) {
+              filterConditions.push([
+                "in",
+                ["get", "property_category"],
+                ...selectedCategoriesRef.current.map((c) => ["literal", c]),
+              ]);
+            }
+            // IMPORTANT: Filter by the specifically clicked region ID
+            filterConditions.push(["==", ["get", "region_id"], clickedId]);
+
+            mapRef.current.setFilter(propertiesLayerId, [
+              "all",
+              ...filterConditions,
+            ]);
+            mapRef.current.setLayoutProperty(
+              propertiesLayerId,
+              "visibility",
+              "visible"
+            );
+            // --- End Immediate Filter ---
+
+            // Update sidebar popup (optional, maybe keep this delayed)
+            // setPopupData(null); // Maybe clear immediately?
+            // setTimeout(() => { setPopupData({ /* ... extract properties ... */ regionName: feature.properties!.name ?? "N/A", /* ... */ }); }, 300);
+            // For this example, let's remove the popup update on simple click to focus on transparency/visibility
+            setPopupData(null);
+
+            // Zoom to the region
+            zoomToRegion(mapRef.current, feature);
           }
         );
 
-        mapRef.current = mapInstance;
+        // --- Properties Click Listener --- (Add stop propagation)
+        mapRef.current.on("click", "properties", (e) => {
+          if (!mapRef.current || !e.features || e.features.length === 0) return;
+          // Prevent the background click handler from firing
+          e.originalEvent.preventDefault(); // Mark event as handled
 
-        return () => {
-          mapInstance.remove();
-        };
+          const feature = e.features[0];
+          const coordinates = (
+            feature.geometry as GeoJSON.Point
+          ).coordinates.slice();
+          const description = `<strong>${
+            feature.properties?.property_name || "Property"
+          }</strong><br>Category: ${
+            feature.properties?.property_category || "N/A"
+          }<br>Price: Rp ${
+            feature.properties?.property_price?.toLocaleString("id-ID") || "N/A"
+          }<br><a href="${
+            feature.properties?.property_url || "#"
+          }" target="_blank" rel="noopener noreferrer">Details</a>`;
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          new maplibregl.Popup()
+            .setLngLat(coordinates as [number, number])
+            .setHTML(description)
+            .addTo(mapRef.current);
+        });
+
+        // --- Background Click Listener ---
+        // Resets clicked state if user clicks outside regions/properties
+        mapRef.current.on("click", (e) => {
+          // If the click event was already handled (by region or property click), do nothing
+          if (e.originalEvent.defaultPrevented) {
+            return;
+          }
+
+          if (!mapRef.current) return;
+          const propertiesLayerId = "properties";
+
+          // Reset clicked region state if one was clicked
+          if (clickedRegionIdRef.current !== null) {
+            mapRef.current.setFeatureState(
+              { source: "jakarta", id: clickedRegionIdRef.current },
+              { clicked: false }
+            );
+            setClickedRegionId(null); // Update state
+          }
+
+          // Hide properties and clear filter on background click
+          // (Only if zoom is >= 12, otherwise zoomend handles it)
+          if (mapRef.current.getZoom() >= 12) {
+            mapRef.current.setLayoutProperty(
+              propertiesLayerId,
+              "visibility",
+              "none"
+            );
+            mapRef.current.setFilter(propertiesLayerId, null); // Clear filter
+          }
+          setPopupData(null); // Close sidebar info too
+        });
+
+        // Other listeners (mousemove, mouseleave) remain the same...
+        // ... (mousemove/mouseleave listeners from previous version) ...
+        mapRef.current.on("mousemove", "jakarta_fill", (e) => {
+          /* ... */ if (
+            !mapRef.current ||
+            !e.features ||
+            e.features.length === 0
+          )
+            return;
+          const featureId = e.features[0].id;
+          if (
+            featureId !== undefined &&
+            featureId !== hoveredRegionIdRef.current
+          ) {
+            if (hoveredRegionIdRef.current !== null)
+              mapRef.current.setFeatureState(
+                { source: "jakarta", id: hoveredRegionIdRef.current },
+                { hover: false }
+              );
+            hoveredRegionIdRef.current = featureId;
+            mapRef.current.setFeatureState(
+              { source: "jakarta", id: featureId },
+              { hover: true }
+            );
+          }
+          mapRef.current.getCanvas().style.cursor = "pointer";
+        });
+        mapRef.current.on("mouseleave", "jakarta_fill", () => {
+          /* ... */ if (!mapRef.current) return;
+          if (hoveredRegionIdRef.current !== null)
+            mapRef.current.setFeatureState(
+              { source: "jakarta", id: hoveredRegionIdRef.current },
+              { hover: false }
+            );
+          hoveredRegionIdRef.current = null;
+          if (!hoveredPropertyIdRef.current)
+            mapRef.current.getCanvas().style.cursor = "";
+        });
+        mapRef.current.on("mousemove", "properties", (e) => {
+          /* ... */ if (
+            !mapRef.current ||
+            !e.features ||
+            e.features.length === 0
+          )
+            return;
+          const featureId = e.features[0].id;
+          if (
+            featureId !== undefined &&
+            featureId !== hoveredPropertyIdRef.current
+          ) {
+            if (hoveredPropertyIdRef.current !== null)
+              mapRef.current.setFeatureState(
+                { source: "properties", id: hoveredPropertyIdRef.current },
+                { hover: false }
+              );
+            hoveredPropertyIdRef.current = featureId;
+            mapRef.current.setFeatureState(
+              { source: "properties", id: featureId },
+              { hover: true }
+            );
+          }
+          mapRef.current.getCanvas().style.cursor = "pointer";
+        });
+        mapRef.current.on("mouseleave", "properties", () => {
+          /* ... */ if (!mapRef.current) return;
+          if (hoveredPropertyIdRef.current !== null)
+            mapRef.current.setFeatureState(
+              { source: "properties", id: hoveredPropertyIdRef.current },
+              { hover: false }
+            );
+          hoveredPropertyIdRef.current = null;
+          if (!hoveredRegionIdRef.current)
+            mapRef.current.getCanvas().style.cursor = "";
+        });
+
+        // Trigger initial zoom logic once map is ready
+        mapRef.current.fire("zoomend");
+      }); // End map.on("load")
+
+      map.on("error", (e) => {
+        console.error("MapLibre Error:", e.error);
       });
+    } // End if map needs creation
+
+    // Cleanup
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+        setIsMapLoaded(false);
+      }
+    };
+  }, []); // Runs once on mount
+
+  // Effect for Applying Filters When State Changes (re-triggers zoomend)
+  useEffect(() => {
+    if (!isMapLoaded || !mapRef.current) return;
+    mapRef.current.fire("zoomend");
+  }, [priceRange, selectedCategories, isMapLoaded]);
+
+  // Effect for Toggling Heatmap Layer
+  useEffect(() => {
+    if (!isMapLoaded || !mapRef.current) return;
+    const layerId = "flood_heatmap";
+    if (mapRef.current.getLayer(layerId)) {
+      mapRef.current.setLayoutProperty(
+        layerId,
+        "visibility",
+        isVisible ? "visible" : "none"
+      );
     }
-  }, []);
+  }, [isVisible, isMapLoaded]);
 
-  const zoomToRegion = (
-    map: maplibregl.Map,
-    feature: maplibregl.MapGeoJSONFeature
-  ) => {
-    // Get the bounding box of the clicked feature
-    const geometry = feature.geometry;
-    const coordinates = geometry as { coordinates: number[][][] };
-    const bbox: [number, number, number, number] = [
-      Math.min(
-        ...coordinates.coordinates[0].map((coord: number[]) => coord[0])
-      ),
-      Math.min(
-        ...coordinates.coordinates[0].map((coord: number[]) => coord[1])
-      ),
-      Math.max(
-        ...coordinates.coordinates[0].map((coord: number[]) => coord[0])
-      ),
-      Math.max(
-        ...coordinates.coordinates[0].map((coord: number[]) => coord[1])
-      ),
-    ];
-
-    // Fit the map to the feature's bounds
-    map.fitBounds(bbox, {
-      padding: 20,
-      maxZoom: 14,
-    });
-
-    // Update layer styles
-    map.setLayoutProperty("property-points", "visibility", "visible");
-    map.setPaintProperty("jakarta_fill", "fill-opacity", 0.1);
-    map.setPaintProperty("jakarta_fill", "fill-color", "#627BC1");
+  // --- Event Handlers for Controls ---
+  const handlePriceChange = (values: number[]) => {
+    setPriceRange(values);
+  };
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+  const toggleLayer = () => {
+    setIsVisible((v) => !v);
   };
 
+  // --- Helper Function: Zoom to Region --- (No changes needed)
+  const zoomToRegion = (map: Map, feature: MapGeoJSONFeature) => {
+    /* ... same as before ... */ const geometry = feature.geometry;
+    let bounds: LngLatBoundsLike = [-180, -90, 180, 90];
+    if (geometry.type === "Polygon") {
+      const coords = geometry.coordinates[0];
+      if (coords?.length) {
+        const lons = coords.map((c) => c[0]);
+        const lats = coords.map((c) => c[1]);
+        bounds = [
+          Math.min(...lons),
+          Math.min(...lats),
+          Math.max(...lons),
+          Math.max(...lats),
+        ];
+      }
+    } else if (geometry.type === "MultiPolygon") {
+      const allCoords = geometry.coordinates.flat(2);
+      if (allCoords?.length) {
+        const lons = allCoords.map((c) => c[0]);
+        const lats = allCoords.map((c) => c[1]);
+        bounds = [
+          Math.min(...lons),
+          Math.min(...lats),
+          Math.max(...lons),
+          Math.max(...lats),
+        ];
+      }
+    } else {
+      console.warn("Unsupported geometry for bbox:", geometry.type);
+    }
+    const validBounds =
+      Array.isArray(bounds) &&
+      bounds.length === 4 &&
+      bounds.every((b) => isFinite(b)) &&
+      bounds[0] <= bounds[2] &&
+      bounds[1] <= bounds[3];
+    if (validBounds) {
+      map.fitBounds(bounds, { padding: 40, maxZoom: 15, essential: true });
+    } else {
+      console.warn("Invalid bounds for feature");
+    }
+  };
+
+  // --- JSX Structure --- (No changes needed)
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex justify-between items-center p-4 bg-white">
-        <button
-          onClick={toggleLayer}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Toggle Flood Layer
-        </button>
+    <div className="flex h-screen overflow-hidden">
+      {/* Map Container */}
+      <div className="flex-1 relative">
+        <div
+          ref={mapContainerRef}
+          className="absolute top-0 left-0 w-full h-full"
+        />
       </div>
-      <div ref={mapContainerRef} className="flex-1" />
-      {popupData && (
-        <div className="absolute top-4 left-4 bg-white shadow-md p-4 rounded-md border border-gray-300 w-64 z-[3] text-gray-900">
-          {Object.entries(popupData).map(([key, value]) => (
-            <p key={key}>
-              {key
-                .replace(/([A-Z])/g, " $1")
-                .replace(/^./, (str) => str.toUpperCase())}
-              :{" "}
-              {typeof value === "number"
-                ? value.toLocaleString("id-ID")
-                : value}
-            </p>
-          ))}
-          <button
-            onClick={() => setPopupData(null)}
-            className="mt-2 py-1  text-gray-900 rounded-md "
-          >
-            <u>
-              <i>See more...</i>
-            </u>
-          </button>
+      {/* Sidebar */}
+      <div className="w-80 bg-white p-4 border-l overflow-y-auto">
+        {/* Filter Section ... */}
+        <div className="mb-4">
+          {" "}
+          <h2 className="text-lg font-bold mb-2 text-gray-800">
+            Filter Properti
+          </h2>{" "}
+          <div className="mb-4">
+            {" "}
+            <h3 className="font-semibold mb-2 text-gray-700">
+              Jenis Properti
+            </h3>{" "}
+            <div className="space-y-1">
+              {" "}
+              {propertyCategories.map((category) => (
+                <label
+                  key={category}
+                  className="flex items-center space-x-2 text-sm text-gray-600"
+                >
+                  {" "}
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(category)}
+                    onChange={() => handleCategoryChange(category)}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+                  />{" "}
+                  <span>{category}</span>{" "}
+                </label>
+              ))}{" "}
+            </div>{" "}
+          </div>{" "}
+          <div className="mb-4">
+            {" "}
+            <h3 className="font-semibold mb-2 text-gray-700">Harga</h3>{" "}
+            <Range
+              values={priceRange}
+              step={10000000}
+              min={0}
+              max={10000000000}
+              onChange={handlePriceChange}
+              renderTrack={({ props, children }) => (
+                <div
+                  onMouseDown={props.onMouseDown}
+                  onTouchStart={props.onTouchStart}
+                  style={{
+                    ...props.style,
+                    height: "6px",
+                    width: "100%",
+                    display: "flex",
+                  }}
+                  className="bg-gray-200 rounded-full"
+                >
+                  {" "}
+                  <div
+                    ref={props.ref}
+                    style={{
+                      height: "6px",
+                      width: "100%",
+                      borderRadius: "3px",
+                      background: `linear-gradient(to right, #ccc ${
+                        (priceRange[0] / 10000000000) * 100
+                      }%, #3b82f6 ${
+                        (priceRange[0] / 10000000000) * 100
+                      }%, #3b82f6 ${
+                        (priceRange[1] / 10000000000) * 100
+                      }%, #ccc ${(priceRange[1] / 10000000000) * 100}%)`,
+                      alignSelf: "center",
+                    }}
+                  >
+                    {" "}
+                    {children}{" "}
+                  </div>{" "}
+                </div>
+              )}
+              renderThumb={({ props, isDragged }) => (
+                <div
+                  {...props}
+                  style={{ ...props.style }}
+                  className={`w-4 h-4 bg-blue-500 rounded-full shadow-md cursor-grab ${
+                    isDragged ? "bg-blue-600" : ""
+                  } focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2`}
+                />
+              )}
+            />{" "}
+            <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
+              {" "}
+              <span>Rp {priceRange[0].toLocaleString("id-ID")}</span>{" "}
+              <span>Rp {priceRange[1].toLocaleString("id-ID")}</span>{" "}
+            </div>{" "}
+          </div>{" "}
         </div>
-      )}
+        {/* Layer Toggle ... */}
+        <div className="mb-4">
+          {" "}
+          <h3 className="font-semibold mb-2 text-gray-700">Layer Data</h3>{" "}
+          <label className="flex items-center space-x-2 text-sm text-gray-600">
+            {" "}
+            <input
+              type="checkbox"
+              checked={isVisible}
+              onChange={toggleLayer}
+              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+            />{" "}
+            <span>Tampilkan Peta Banjir</span>{" "}
+          </label>{" "}
+        </div>
+        {/* Region Info Display ... */}
+        {popupData && (
+          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md shadow">
+            {" "}
+            <h3 className="text-base font-semibold mb-2 text-blue-800">
+              {popupData.regionName}
+            </h3>{" "}
+            <div className="text-xs space-y-1 text-gray-700">
+              {" "}
+              <p>
+                Kecamatan: {popupData.jumlahKecamatan.toLocaleString("id-ID")}
+              </p>{" "}
+              <p>Desa/Kel: {popupData.jumlahDesa.toLocaleString("id-ID")}</p>{" "}
+              <p>
+                Penduduk: {popupData.jumlahPenduduk.toLocaleString("id-ID")}
+              </p>{" "}
+              <p>
+                Kepadatan: {popupData.kepadatanPerKm2.toLocaleString("id-ID")}{" "}
+                /km²
+              </p>{" "}
+              <p>
+                Luas: {popupData.luasWilayahKm2.toLocaleString("id-ID")} km²
+              </p>{" "}
+            </div>{" "}
+            <button
+              onClick={() => setPopupData(null)}
+              className="mt-3 text-xs text-blue-600 hover:text-blue-800 hover:underline focus:outline-none"
+            >
+              {" "}
+              Tutup Info{" "}
+            </button>{" "}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
