@@ -11,6 +11,7 @@ import type {
 } from "maplibre-gl"; // Added MapMouseEvent
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Range } from "react-range";
+import DemographicMap2 from "@/components/DemographicMap2";
 
 // Define the structure for popup data for clarity
 interface PopupData {
@@ -1036,6 +1037,9 @@ const Page = () => {
             </button>
           </div>
         )}
+      </div>
+      <div className="container">
+        <DemographicMap2 />
       </div>
     </div>
   );
