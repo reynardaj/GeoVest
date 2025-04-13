@@ -1038,9 +1038,6 @@ const Page = () => {
           </div>
         )}
       </div>
-      <div className="container">
-        <DemographicMap2 />
-      </div>
     </div>
   );
 };

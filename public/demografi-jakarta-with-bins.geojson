@@ -8,7 +8,6 @@
   "features": [
     {
       "type": "Feature",
-
       "properties": {
         "fid": 1,
         "opacity": 0.5,
@@ -99,7 +98,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -260,7 +265,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -393,7 +404,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -547,7 +564,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -681,7 +704,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -820,7 +849,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -984,7 +1019,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1101,7 +1142,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1229,7 +1276,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1344,7 +1397,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1463,7 +1522,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1578,7 +1643,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1704,7 +1775,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1839,7 +1916,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1970,7 +2053,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2113,7 +2202,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2249,7 +2344,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2379,7 +2480,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2515,7 +2622,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2646,7 +2759,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 5.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2770,7 +2889,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2902,7 +3027,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3022,7 +3153,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3145,7 +3282,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3275,7 +3418,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3387,7 +3536,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3502,7 +3657,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3618,7 +3779,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3731,7 +3898,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3842,7 +4015,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3956,7 +4135,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4070,7 +4255,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4185,7 +4376,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4297,7 +4494,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4410,7 +4613,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4525,7 +4734,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4648,7 +4863,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4771,7 +4992,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4885,7 +5112,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5004,7 +5237,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5118,7 +5357,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5250,7 +5495,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 5.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5390,7 +5641,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5504,7 +5761,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5617,7 +5880,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5736,7 +6005,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5857,7 +6132,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6004,7 +6285,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6154,7 +6441,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6282,7 +6575,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6395,7 +6694,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6507,7 +6812,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6632,7 +6943,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 4.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6754,7 +7071,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6870,7 +7193,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6985,7 +7314,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7098,7 +7433,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7211,7 +7552,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7324,7 +7671,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7438,7 +7791,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7554,7 +7913,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7672,7 +8037,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7795,7 +8166,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7915,7 +8292,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8035,7 +8418,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8153,7 +8542,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8271,7 +8666,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8396,7 +8797,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8517,7 +8924,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8630,7 +9043,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8747,7 +9166,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8875,7 +9300,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8992,7 +9423,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9111,7 +9548,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9233,7 +9676,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9352,7 +9801,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9466,7 +9921,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9581,7 +10042,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9694,7 +10161,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9808,7 +10281,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9931,7 +10410,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10059,7 +10544,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10174,7 +10665,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10290,7 +10787,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10407,7 +10910,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10533,7 +11042,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10650,7 +11165,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10772,7 +11293,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10883,7 +11410,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10994,7 +11527,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 4.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11117,7 +11656,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11235,7 +11780,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11349,7 +11900,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11465,7 +12022,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11587,7 +12150,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11708,7 +12277,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11824,7 +12399,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11940,7 +12521,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12064,7 +12651,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12182,7 +12775,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12297,7 +12896,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12461,7 +13066,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12599,7 +13210,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12764,7 +13381,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12902,7 +13525,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13037,7 +13666,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13187,7 +13822,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13327,7 +13968,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13476,7 +14123,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13628,7 +14281,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13783,7 +14442,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13898,7 +14563,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14020,7 +14691,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14159,7 +14836,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14294,7 +14977,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14430,7 +15119,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14557,7 +15252,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14678,7 +15379,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14811,7 +15518,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14947,7 +15660,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15063,7 +15782,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15198,7 +15923,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15312,7 +16043,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15433,7 +16170,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15566,7 +16309,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15692,7 +16441,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15807,7 +16562,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15931,7 +16692,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16058,7 +16825,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16210,7 +16983,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16391,7 +17170,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16545,7 +17330,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16668,7 +17459,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16832,7 +17629,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16977,7 +17780,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17108,7 +17917,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17246,7 +18061,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17410,7 +18231,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17558,7 +18385,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17682,7 +18515,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17824,7 +18663,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17984,7 +18829,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18111,7 +18962,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18259,7 +19116,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18392,7 +19255,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18515,7 +19384,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18632,7 +19507,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18769,7 +19650,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18920,7 +19807,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19050,7 +19943,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19170,7 +20069,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19290,7 +20195,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19402,7 +20313,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19520,7 +20437,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19650,7 +20573,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19778,7 +20707,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19908,7 +20843,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20023,7 +20964,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20141,7 +21088,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20261,7 +21214,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20372,7 +21331,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20487,7 +21452,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20607,7 +21578,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20720,7 +21697,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20841,7 +21824,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20951,7 +21940,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21062,7 +22057,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21185,7 +22186,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21307,7 +22314,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21436,7 +22449,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21558,7 +22577,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21679,7 +22704,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21800,7 +22831,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21927,7 +22964,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22058,7 +23101,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22173,7 +23222,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22316,7 +23371,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22448,7 +23509,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22571,7 +23638,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22692,7 +23765,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22828,7 +23907,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22951,7 +24036,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23093,7 +24184,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23223,7 +24320,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23368,7 +24471,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23503,7 +24612,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23642,7 +24757,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23795,7 +24916,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23938,7 +25065,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24086,7 +25219,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24242,7 +25381,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24392,7 +25537,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 5.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24518,7 +25669,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24664,7 +25821,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 5.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24803,7 +25966,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24930,7 +26099,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25074,7 +26249,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 5.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25227,7 +26408,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25355,7 +26542,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25506,7 +26699,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25647,7 +26846,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25779,7 +26984,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25924,7 +27135,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26046,7 +27263,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26168,7 +27391,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26292,7 +27521,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26424,7 +27659,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26561,7 +27802,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26756,7 +28003,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26906,7 +28159,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27046,7 +28305,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27216,7 +28481,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27344,7 +28615,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27471,7 +28748,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27623,7 +28906,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27756,7 +29045,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27914,7 +29209,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28074,7 +29375,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28196,7 +29503,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28348,7 +29661,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28487,7 +29806,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28648,7 +29973,13 @@
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28774,14 +30105,19 @@
         "Lansia (>60 tahun)": 1941,
         "TANI_TRNK": 4.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28891,14 +30227,19 @@
         "Lansia (>60 tahun)": 3639,
         "TANI_TRNK": 7.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29016,14 +30357,19 @@
         "Lansia (>60 tahun)": 3912,
         "TANI_TRNK": 11.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 5.0,
         "Anak_anak_6_15_tahun_bin": 5.0,
         "Remaja_16_20_tahun_bin": 5.0,
         "Dewasa_Muda_21_30_tahun_bin": 5.0,
         "Dewasa_31_40_tahun_bin": 5.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 5.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29158,14 +30504,19 @@
         "Lansia (>60 tahun)": 762,
         "TANI_TRNK": 7.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 1.0,
         "Anak_anak_6_15_tahun_bin": 1.0,
         "Remaja_16_20_tahun_bin": 1.0,
         "Dewasa_Muda_21_30_tahun_bin": 1.0,
         "Dewasa_31_40_tahun_bin": 1.0,
         "Dewasa_Akhir_41_60_tahun_bin": 1.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29308,14 +30659,19 @@
         "Lansia (>60 tahun)": 2285,
         "TANI_TRNK": 10.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 4.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29443,14 +30799,19 @@
         "Lansia (>60 tahun)": 6058,
         "TANI_TRNK": 28.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 5.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29573,14 +30934,19 @@
         "Lansia (>60 tahun)": 5883,
         "TANI_TRNK": 2.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 4.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29741,14 +31107,19 @@
         "Lansia (>60 tahun)": 1718,
         "TANI_TRNK": 7.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -29911,14 +31282,19 @@
         "Lansia (>60 tahun)": 4144,
         "TANI_TRNK": 12.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 4.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30033,14 +31409,19 @@
         "Lansia (>60 tahun)": 2977,
         "TANI_TRNK": 7.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30151,14 +31532,19 @@
         "Lansia (>60 tahun)": 1932,
         "TANI_TRNK": 11.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30273,14 +31659,19 @@
         "Lansia (>60 tahun)": 1585,
         "TANI_TRNK": 2.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 2.0,
         "Anak_anak_6_15_tahun_bin": 2.0,
         "Remaja_16_20_tahun_bin": 2.0,
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30396,14 +31787,19 @@
         "Lansia (>60 tahun)": 3012,
         "TANI_TRNK": 8.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30512,14 +31908,19 @@
         "Lansia (>60 tahun)": 5694,
         "TANI_TRNK": 6.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 5.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30638,14 +32039,19 @@
         "Lansia (>60 tahun)": 2184,
         "TANI_TRNK": 9.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30749,14 +32155,19 @@
         "Lansia (>60 tahun)": 1333,
         "TANI_TRNK": 2.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 2.0,
         "Anak_anak_6_15_tahun_bin": 2.0,
         "Remaja_16_20_tahun_bin": 2.0,
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30874,14 +32285,19 @@
         "Lansia (>60 tahun)": 1343,
         "TANI_TRNK": 8.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -30996,14 +32412,19 @@
         "Lansia (>60 tahun)": 1773,
         "TANI_TRNK": 12.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31111,14 +32532,19 @@
         "Lansia (>60 tahun)": 1909,
         "TANI_TRNK": 8.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31261,14 +32687,19 @@
         "Lansia (>60 tahun)": 2052,
         "TANI_TRNK": 65.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 3.0
+        "Lansia_>60_tahun_bin": 3.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 3.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31392,14 +32823,19 @@
         "Lansia (>60 tahun)": 960,
         "TANI_TRNK": 42.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 1.0
+        "Lansia_>60_tahun_bin": 1.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31542,14 +32978,19 @@
         "Lansia (>60 tahun)": 2778,
         "TANI_TRNK": 83.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 5.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31688,14 +33129,19 @@
         "Lansia (>60 tahun)": 1797,
         "TANI_TRNK": 24.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 2.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31806,14 +33252,19 @@
         "Lansia (>60 tahun)": 1554,
         "TANI_TRNK": 189.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 3.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 1.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31949,14 +33400,19 @@
         "Lansia (>60 tahun)": 3426,
         "TANI_TRNK": 9.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 1.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -32073,14 +33529,19 @@
         "Lansia (>60 tahun)": 3186,
         "TANI_TRNK": 3.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 4.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 4.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -32196,14 +33657,19 @@
         "Lansia (>60 tahun)": 4371,
         "TANI_TRNK": 6.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 4.0,
         "Anak_anak_6_15_tahun_bin": 4.0,
         "Remaja_16_20_tahun_bin": 4.0,
         "Dewasa_Muda_21_30_tahun_bin": 4.0,
         "Dewasa_31_40_tahun_bin": 4.0,
         "Dewasa_Akhir_41_60_tahun_bin": 5.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 4.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 3.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 3.0,
+        "KONGHUCU_bin": 3.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -32311,14 +33777,19 @@
         "Lansia (>60 tahun)": 1303,
         "TANI_TRNK": 4.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 2.0,
         "Anak_anak_6_15_tahun_bin": 2.0,
         "Remaja_16_20_tahun_bin": 2.0,
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 2.0,
         "Dewasa_Akhir_41_60_tahun_bin": 2.0,
-        "Lansia_>60_tahun_bin": 2.0
+        "Lansia_>60_tahun_bin": 2.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 1.0,
+        "KATHOLIK_bin": 2.0,
+        "HINDU_bin": 1.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 1.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -32487,14 +33958,19 @@
         "Lansia (>60 tahun)": 4629,
         "TANI_TRNK": 5.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 2.0,
         "Anak_anak_6_15_tahun_bin": 2.0,
         "Remaja_16_20_tahun_bin": 2.0,
         "Dewasa_Muda_21_30_tahun_bin": 2.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 1.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -32610,14 +34086,19 @@
         "Lansia (>60 tahun)": 4168,
         "TANI_TRNK": 17.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 3.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 4.0,
-        "Lansia_>60_tahun_bin": 5.0
+        "Lansia_>60_tahun_bin": 5.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 5.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 2.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -32747,14 +34228,19 @@
         "Lansia (>60 tahun)": 3226,
         "TANI_TRNK": 4.0,
         "layer": "demografi-jakut-processed",
-
         "Balita_0_5_tahun_bin": 2.0,
         "Anak_anak_6_15_tahun_bin": 3.0,
         "Remaja_16_20_tahun_bin": 3.0,
         "Dewasa_Muda_21_30_tahun_bin": 3.0,
         "Dewasa_31_40_tahun_bin": 3.0,
         "Dewasa_Akhir_41_60_tahun_bin": 3.0,
-        "Lansia_>60_tahun_bin": 4.0
+        "Lansia_>60_tahun_bin": 4.0,
+        "ISLAM_bin": 2.0,
+        "KRISTEN_bin": 4.0,
+        "KATHOLIK_bin": 5.0,
+        "HINDU_bin": 3.0,
+        "BUDHA_bin": 2.0,
+        "KONGHUCU_bin": 2.0
       },
       "geometry": {
         "type": "MultiPolygon",

@@ -39,7 +39,7 @@ const DemographicMap2: React.FC = () => {
 
   // Fetch breakpoints
   useEffect(() => {
-    fetch("/umur_jenks_breakpoints.json")
+    fetch("/jenks_breakpoints.json")
       .then((res) => res.json())
       .then((data) => setBinRanges(data))
       .catch((err) => console.error("Failed to load breakpoints:", err));
