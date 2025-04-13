@@ -32,6 +32,16 @@ interface InfrastructureLayer {
   iconUrl: string; // Placeholder image URL
   iconId: string; // ID used in MapLibre style
 }
+interface SelectedPropertyData {
+  propertyName: string;
+  category: string;
+  status: string;
+  buildingArea: number | string; // Allow string for "N/A" or similar
+  landArea: number | string; // Allow string for "N/A" or similar
+  certificateType: string;
+  price: number | string; // Allow string for "N/A" or similar
+  url?: string; // Optional: If you want to use the URL for "See More"
+}
 
 const Page = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -51,7 +61,8 @@ const Page = () => {
   const [clickedRegionId, setClickedRegionId] = useState<
     string | number | null
   >(null); // State for clicked region
-
+  const [selectedPropertyData, setSelectedPropertyData] =
+    useState<SelectedPropertyData | null>(null);
   // NEW: State for infrastructure layer visibility
   const [infrastructureVisibility, setInfrastructureVisibility] = useState<{
     [key: string]: boolean;
@@ -188,7 +199,12 @@ const Page = () => {
     map.setFilter(propertiesLayerId, ["all", ...filterConditions]);
     map.setLayoutProperty(propertiesLayerId, "visibility", "visible");
   }, [mapRef, selectedCategoriesRef]);
-
+  useEffect(() => {
+    // Apply filter immediately when categories change
+    applyPropertiesFilter();
+    // Make sure applyPropertiesFilter is memoized with useCallback if it causes issues,
+    // but given its dependencies, it should be stable enough.
+  }, [selectedCategories, applyPropertiesFilter]);
   // Update the price change handler
   const handlePriceChange = (values: number[]) => {
     setPriceRange(values);
@@ -504,27 +520,25 @@ const Page = () => {
           e.originalEvent.preventDefault(); // Prevent background click
 
           const feature = e.features[0];
-          const coordinates = (
-            feature.geometry as GeoJSON.Point
-          ).coordinates.slice();
-          const description = `<strong>${
-            feature.properties?.property_name || "Property"
-          }</strong><br>Category: ${
-            feature.properties?.property_category || "N/A"
-          }<br>Price: Rp ${
-            feature.properties?.property_price?.toLocaleString("id-ID") || "N/A"
-          }<br><a href="${
-            feature.properties?.property_url || "#"
-          }" target="_blank" rel="noopener noreferrer">Details</a>`;
+          const props = feature.properties;
 
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          if (props) {
+            // Extract and format data for the new container
+            const propertyData: SelectedPropertyData = {
+              propertyName: props.property_name || "Nama Tidak Tersedia",
+              category: props.property_category || "N/A",
+              status: props.property_status || "N/A",
+              buildingArea:
+                props.building_area?.toLocaleString("id-ID") ?? "N/A", // Format with locale
+              landArea: props.land_area?.toLocaleString("id-ID") ?? "N/A", // Format with locale
+              certificateType: props.certificate_type || "N/A",
+              price: props.property_price?.toLocaleString("id-ID") ?? "N/A", // Format with locale
+              url: props.property_url, // Include URL if needed for "See More"
+            };
+            setSelectedPropertyData(propertyData);
+          } else {
+            setSelectedPropertyData(null); // Hide container if no properties
           }
-
-          new maplibregl.Popup()
-            .setLngLat(coordinates as [number, number])
-            .setHTML(description)
-            .addTo(map);
         });
 
         // --- Background Click Listener ---
@@ -540,12 +554,6 @@ const Page = () => {
               { clicked: false }
             );
             setClickedRegionId(null);
-          }
-
-          // Hide properties and clear filter only if zoomed in enough
-          if (map.getZoom() >= 12) {
-            map.setLayoutProperty(propertiesLayerId, "visibility", "none");
-            map.setFilter(propertiesLayerId, null);
           }
 
           setPopupData(null); // Close sidebar info
@@ -787,7 +795,7 @@ const Page = () => {
 
   // --- JSX Structure ---
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden relative">
       {/* Map Container */}
       <div className="flex-1 relative">
         <div
@@ -801,7 +809,68 @@ const Page = () => {
           </div>
         )}
       </div>
-
+      {selectedPropertyData && (
+        <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
+          <h3 className="text-base font-bold mb-2">
+            {selectedPropertyData.propertyName}
+          </h3>
+          <div className="space-y-1">
+            <p>
+              <strong className="font-semibold">Kategori:</strong>{" "}
+              {selectedPropertyData.category}
+            </p>
+            <p>
+              <strong className="font-semibold">Status Properti:</strong>{" "}
+              {selectedPropertyData.status}
+            </p>
+            <p>
+              <strong className="font-semibold">Harga Jual:</strong> Rp{" "}
+              {selectedPropertyData.price}
+            </p>
+            <p>
+              <strong className="font-semibold">Luas Bangunan:</strong>{" "}
+              {selectedPropertyData.buildingArea}{" "}
+              {selectedPropertyData.buildingArea !== "N/A" && "m²"}
+            </p>
+            <p>
+              <strong className="font-semibold">Luas Tanah:</strong>{" "}
+              {selectedPropertyData.landArea}{" "}
+              {selectedPropertyData.landArea !== "N/A" && "m²"}
+            </p>
+            <p>
+              <strong className="font-semibold">Jenis Sertifikat:</strong>{" "}
+              {selectedPropertyData.certificateType}
+            </p>
+          </div>
+          <div className="mt-3 flex justify-between items-center">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedPropertyData(null)}
+              className="text-xs text-red-600 hover:text-red-800 hover:underline focus:outline-none"
+            >
+              Tutup
+            </button>
+            {/* See More Link/Text */}
+            {/* If you have a URL in your data: */}
+            {selectedPropertyData.url ? (
+              <a
+                href={selectedPropertyData.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+              >
+                See More
+              </a>
+            ) : (
+              <span className="text-xs text-blue-600 hover:underline cursor-pointer">
+                {" "}
+                {/* Or make this a button if it triggers an action */}
+                See More
+              </span>
+            )}
+          </div>
+        </div>
+      )}
       {/* Sidebar */}
       <div className="w-80 bg-white p-4 border-l overflow-y-auto">
         {/* Filter Section */}
@@ -998,7 +1067,7 @@ const Page = () => {
 
         {/* Region Info Display */}
         {popupData && (
-          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md shadow">
+          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md shadow text-black">
             <h3 className="text-base font-semibold mb-2 text-blue-800">
               {popupData.regionName}
             </h3>
