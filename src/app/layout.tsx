@@ -19,15 +19,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${inter.className} antialiased`}
-        >
+        <body className={`${inter.className} antialiased`}>
           <div className="min-h-screen bg-[#1D163F] text-white">
             <Navbar />
-            <main className="py-20">
-              <div className="max-w-7xl mx-auto px-4">
-                {children}
-              </div>
+            <main className="">
+              <div className="mx-auto ">{children}</div>
             </main>
           </div>
         </body>
