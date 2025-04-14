@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Filters from "./menu/Filters";
 import { InfrastructureVisibilityState } from "@/types/map";
 
-interface filtersComponentProps {
+interface FiltersProps {
   priceRange: [number, number];
   onPriceChange: (values: number[]) => void;
   selectedCategories: string[];
@@ -15,6 +15,9 @@ interface filtersComponentProps {
   onToggleHeatmap: () => void;
   infrastructureVisibility: InfrastructureVisibilityState;
   onToggleInfrastructure: (layerId: string) => void;
+  selectedReligionBin: string | null;
+  onReligionBinChange: (bin: string) => void;
+  binRanges: { [key: string]: number[] };
 }
 
 function Menu({
@@ -28,7 +31,10 @@ function Menu({
   onToggleHeatmap,
   infrastructureVisibility,
   onToggleInfrastructure,
-}: filtersComponentProps) {
+  selectedReligionBin,
+  onReligionBinChange,
+  binRanges,
+}: FiltersProps) {
   const [activeTab, setActiveTab] = useState("Analytics");
 
   return (
@@ -91,6 +97,9 @@ function Menu({
             onToggleHeatmap={onToggleHeatmap}
             infrastructureVisibility={infrastructureVisibility}
             onToggleInfrastructure={onToggleInfrastructure}
+            binRanges={binRanges}
+            onReligionBinChange={onReligionBinChange}
+            selectedReligionBin={selectedReligionBin}
           />
         )}
         {activeTab === "Analytics" && <div>Analytics Content</div>}

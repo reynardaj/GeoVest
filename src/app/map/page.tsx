@@ -1,7 +1,7 @@
 // src/app/your-map-route/page.tsx
 /* eslint-disable react-hooks/exhaustive-deps */ // Keep if needed for useCallback dependencies
 "use client";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import type { MapGeoJSONFeature, Map, LngLatBoundsLike } from "maplibre-gl"; // Import necessary types
 
 // Import Components
@@ -54,13 +54,19 @@ export default function MapPage() {
   const [selectedPropertyData, setSelectedPropertyData] =
     useState<SelectedPropertyData | null>(null);
 
-  // Refs for map interaction state (optional, hover state is now managed in useMapEvents)
-  // const hoveredRegionIdRef = useRef<string | number | null>(null);
-  // const hoveredPropertyIdRef = useRef<string | number | null>(null);
+  // New state for religion layers
+  const [selectedReligionBin, setSelectedReligionBin] = useState<string | null>(
+    null
+  );
+  const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
 
-  // --- Map Interaction Logic (Callbacks) ---
-
-  // src/app/map/page.tsx (~line 80+)
+  // Fetch bin ranges
+  useEffect(() => {
+    fetch("/jenks_breakpoints.json")
+      .then((res) => res.json())
+      .then((data) => setBinRanges(data))
+      .catch((err) => console.error("Failed to load breakpoints:", err));
+  }, []);
 
   const handleRegionClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
@@ -162,18 +168,6 @@ export default function MapPage() {
     [clickedRegionId]
   ); // Depends on clickedRegionId
 
-  // Hover handlers are now primarily managed within useMapEvents for visual feedback (feature state).
-  // If you need to react to hover *in the Page component* (e.g., update a tooltip state),
-  // you would add onRegionHover/onPropertyHover callbacks here.
-  // const handleRegionHover = useCallback((featureId: string | number | null, map: Map) => {
-  //   console.log("Region Hovered:", featureId);
-  //   // Update some state based on hover if needed
-  // }, []);
-  // const handlePropertyHover = useCallback((featureId: string | number | null, map: Map) => {
-  //   console.log("Property Hovered:", featureId);
-  //   // Update some state based on hover if needed
-  // }, []);
-
   // Memoize the handlers passed to the map component
   const mapEventHandlers: MapEventHandlers = useMemo(
     () => ({
@@ -223,7 +217,10 @@ export default function MapPage() {
   const handleClosePropertyInfo = useCallback(() => {
     setSelectedPropertyData(null);
   }, []);
-
+  // New handler for religion bin
+  const handleReligionBinChange = useCallback((bin: string) => {
+    setSelectedReligionBin(bin);
+  }, []);
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
@@ -232,6 +229,8 @@ export default function MapPage() {
       priceRange,
       selectedCategories,
       selectedInvestmentTypes,
+      selectedReligionBin,
+      binRanges,
     }),
     [
       heatmapVisible,
@@ -239,6 +238,8 @@ export default function MapPage() {
       priceRange,
       selectedCategories,
       selectedInvestmentTypes,
+      selectedReligionBin,
+      binRanges,
     ]
   );
 
@@ -410,6 +411,9 @@ export default function MapPage() {
         onToggleHeatmap={handleToggleHeatmap}
         infrastructureVisibility={infrastructureVisibility}
         onToggleInfrastructure={handleInfrastructureToggle}
+        selectedReligionBin={selectedReligionBin}
+        onReligionBinChange={handleReligionBinChange}
+        binRanges={binRanges}
       />
       {/* Sidebar Component */}
       {/* <SidebarComponent

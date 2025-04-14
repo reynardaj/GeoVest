@@ -20,6 +20,9 @@ interface FiltersProps {
   onToggleHeatmap: () => void;
   infrastructureVisibility: InfrastructureVisibilityState;
   onToggleInfrastructure: (layerId: string) => void;
+  selectedReligionBin: string | null;
+  onReligionBinChange: (bin: string) => void;
+  binRanges: { [key: string]: number[] };
 }
 
 const Filters = ({
@@ -33,6 +36,9 @@ const Filters = ({
   onToggleHeatmap,
   infrastructureVisibility,
   onToggleInfrastructure,
+  selectedReligionBin,
+  onReligionBinChange,
+  binRanges,
 }: FiltersProps) => {
   const [selectedReligions, setSelectedReligions] = useState<string | null>(
     null
@@ -44,14 +50,14 @@ const Filters = ({
   const [income, setIncome] = useState([5, 100]);
 
   const religions = [
-    "Islam",
-    "Kristen",
-    "Katolik",
-    "Hindu",
-    "Buddha",
-    "Khonghucu",
+    { label: "Islam", value: "ISLAM_bin" },
+    { label: "Kristen", value: "KRISTEN_bin" },
+    { label: "Katolik", value: "KATHOLIK_bin" },
+    { label: "Hindu", value: "HINDU_bin" },
+    { label: "Buddha", value: "BUDHA_bin" },
+    { label: "Khonghucu", value: "KONGHUCU_bin" },
   ];
-
+  const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
   const minPrice = 100_000_000;
   const maxPrice = 5_000_000_000;
   const scalePrice = (value: number) => {
@@ -68,7 +74,17 @@ const Filters = ({
       return `Rp ${(value / 1_000_000).toFixed(0)} Juta`;
     }
   };
-
+  const getRangeLabels = (binField: string) => {
+    if (!binRanges[binField])
+      return ["Bin 1", "Bin 2", "Bin 3", "Bin 4", "Bin 5"];
+    const breaks = binRanges[binField];
+    return breaks.slice(0, -1).map((start, i) => {
+      const end = breaks[i + 1];
+      return i === breaks.length - 2
+        ? `${Math.round(start)}+`
+        : `${Math.round(start)}–${Math.round(end)}`;
+    });
+  };
   const toggleSelection = (
     item: string,
     selectedList: string[],
@@ -285,30 +301,43 @@ const Filters = ({
           </div>
 
           <h3 className="mt-4 text-lg font-bold">Agama</h3>
-          {religions.map((type) => {
-            const isChecked = selectedReligions === type;
-            return (
-              <label
-                key={type}
-                className="flex items-center space-x-2 cursor-pointer w-fit"
-              >
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => setSelectedReligions(isChecked ? null : type)}
-                  className="hidden"
-                />
-                <div
-                  className={`w-4 h-4 border-2 rounded ${
-                    isChecked
-                      ? "bg-[#17488D] border-[#17488D]"
-                      : "border-gray-400"
-                  }`}
-                ></div>
-                <span>{type}</span>
-              </label>
-            );
-          })}
+          {religions.map((religion) => (
+            <label
+              key={religion.value}
+              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
+            >
+              <input
+                type="radio"
+                name="religion"
+                value={religion.value}
+                checked={selectedReligionBin === religion.value}
+                onChange={() => onReligionBinChange(religion.value)}
+                className="hidden"
+              />
+              <div
+                className={`w-4 h-4 border-2 rounded ${
+                  selectedReligionBin === religion.value
+                    ? "bg-[#17488D] border-[#17488D]"
+                    : "border-gray-400"
+                }`}
+              ></div>
+              <span>{religion.label}</span>
+            </label>
+          ))}
+          {selectedReligionBin && (
+            <div className="mt-4">
+              <h4 className="font-bold mb-2 text-sm">Legend</h4>
+              {getRangeLabels(selectedReligionBin).map((range, index) => (
+                <div key={index} className="flex items-center mb-1 text-sm">
+                  <span
+                    className="w-4 h-4 mr-2 inline-block"
+                    style={{ backgroundColor: colorScale[index] }}
+                  ></span>
+                  <span>{range}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
       {/* Infrastructure Dropdown */}
