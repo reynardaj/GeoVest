@@ -157,7 +157,7 @@ export function useMapLayers(
 
         // --- Add Flood Heatmap Layer ---
         if (!map.getLayer(FLOOD_HEATMAP_LAYER_ID)) {
-            const heatmapVisible = layerControlsRef.current.heatmapVisible ?? true; // Default to true if undefined
+            const heatmapVisible = layerControlsRef.current.heatmapVisible ?? false; // Default to false if undefined
              map.addLayer({
                 id: FLOOD_HEATMAP_LAYER_ID,
                 type: "heatmap",

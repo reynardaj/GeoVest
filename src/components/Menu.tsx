@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Filters from "./menu/Filters";
+import { InfrastructureVisibilityState } from "@/types/map";
 
 interface filtersComponentProps {
   priceRange: [number, number];
@@ -10,6 +11,10 @@ interface filtersComponentProps {
   onCategoryChange: (category: string) => void;
   selectedInvestmentTypes: string[];
   onInvestmentTypeChange: (type: string) => void;
+  heatmapVisible: boolean;
+  onToggleHeatmap: () => void;
+  infrastructureVisibility: InfrastructureVisibilityState;
+  onToggleInfrastructure: (layerId: string) => void;
 }
 
 function Menu({
@@ -19,6 +24,10 @@ function Menu({
   onCategoryChange,
   selectedInvestmentTypes,
   onInvestmentTypeChange,
+  heatmapVisible,
+  onToggleHeatmap,
+  infrastructureVisibility,
+  onToggleInfrastructure,
 }: filtersComponentProps) {
   const [activeTab, setActiveTab] = useState("Analytics");
 
@@ -78,6 +87,10 @@ function Menu({
             onCategoryChange={onCategoryChange}
             selectedInvestmentTypes={selectedInvestmentTypes}
             onInvestmentTypeChange={onInvestmentTypeChange}
+            heatmapVisible={heatmapVisible}
+            onToggleHeatmap={onToggleHeatmap}
+            infrastructureVisibility={infrastructureVisibility}
+            onToggleInfrastructure={onToggleInfrastructure}
           />
         )}
         {activeTab === "Analytics" && <div>Analytics Content</div>}

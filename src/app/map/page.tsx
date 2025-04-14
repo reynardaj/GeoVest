@@ -42,7 +42,7 @@ export default function MapPage() {
   >([]);
 
   // Layer Visibility State
-  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(true); // Heatmap visibility state
+  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false); // Heatmap visibility state
   const [infrastructureVisibility, setInfrastructureVisibility] =
     useState<InfrastructureVisibilityState>(initialInfraVisibility);
 
@@ -406,6 +406,10 @@ export default function MapPage() {
         onCategoryChange={handleCategoryChange}
         selectedInvestmentTypes={selectedInvestmentTypes}
         onInvestmentTypeChange={handleInvestmentTypeChange}
+        heatmapVisible={heatmapVisible}
+        onToggleHeatmap={handleToggleHeatmap}
+        infrastructureVisibility={infrastructureVisibility}
+        onToggleInfrastructure={handleInfrastructureToggle}
       />
       {/* Sidebar Component */}
       {/* <SidebarComponent

@@ -1,6 +1,11 @@
 "use client";
 
-import { INVESTMENT_TYPES, PROPERTY_CATEGORIES } from "@/config/mapConstants";
+import {
+  INFRASTRUCTURE_LAYERS,
+  INVESTMENT_TYPES,
+  PROPERTY_CATEGORIES,
+} from "@/config/mapConstants";
+import { InfrastructureVisibilityState } from "@/types/map";
 import { useState, useEffect } from "react";
 import { Range, getTrackBackground } from "react-range";
 
@@ -11,6 +16,10 @@ interface FiltersProps {
   onCategoryChange: (category: string) => void;
   selectedInvestmentTypes: string[];
   onInvestmentTypeChange: (type: string) => void;
+  heatmapVisible: boolean;
+  onToggleHeatmap: () => void;
+  infrastructureVisibility: InfrastructureVisibilityState;
+  onToggleInfrastructure: (layerId: string) => void;
 }
 
 const Filters = ({
@@ -20,18 +29,20 @@ const Filters = ({
   onCategoryChange,
   selectedInvestmentTypes,
   onInvestmentTypeChange,
+  heatmapVisible,
+  onToggleHeatmap,
+  infrastructureVisibility,
+  onToggleInfrastructure,
 }: FiltersProps) => {
   const [selectedReligions, setSelectedReligions] = useState<string | null>(
     null
   );
-  const [selectedDisaster, setSelectedDisaster] = useState(false);
   const [showDemografi, setShowDemografi] = useState(false);
   const [showDisaster, setShowDisaster] = useState(false);
+  const [showInfrastructure, setShowInfrastructure] = useState(false);
   const [age, setAge] = useState([10, 100]);
   const [income, setIncome] = useState([5, 100]);
 
-  const propertyTypes = ["Tempat Huni", "Gudang", "Ruko"];
-  const investmentTypes = ["Sewa", "Beli"];
   const religions = [
     "Islam",
     "Kristen",
@@ -40,7 +51,6 @@ const Filters = ({
     "Buddha",
     "Khonghucu",
   ];
-  const disasterRisks = ["Banjir"];
 
   const minPrice = 100_000_000;
   const maxPrice = 5_000_000_000;
@@ -301,7 +311,41 @@ const Filters = ({
           })}
         </div>
       )}
-
+      {/* Infrastructure Dropdown */}
+      <h3
+        className="mt-4 text-lg font-bold cursor-pointer w-fit"
+        onClick={() => setShowInfrastructure(!showInfrastructure)}
+      >
+        <span className="inline-block w-4 text-center mr-2">
+          {showInfrastructure ? "▼" : "▶"}
+        </span>
+        Infrastruktur
+      </h3>
+      {showInfrastructure && (
+        <div className="space-y-1">
+          {INFRASTRUCTURE_LAYERS.map((layer) => (
+            <label
+              key={layer.id}
+              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                className="hidden"
+                checked={infrastructureVisibility[layer.id] ?? false}
+                onChange={() => onToggleInfrastructure(layer.id)}
+              />
+              <div
+                className={`w-4 h-4 border-2 rounded ${
+                  infrastructureVisibility[layer.id]
+                    ? "bg-[#17488D] border-[#17488D]"
+                    : "border-gray-400"
+                }`}
+              ></div>
+              <span>{layer.name}</span>
+            </label>
+          ))}
+        </div>
+      )}
       {/* Risiko Bencana Dropdown */}
       <h3
         className="mt-4 text-lg font-bold cursor-pointer w-fit"
@@ -317,13 +361,13 @@ const Filters = ({
           <label className="flex items-center space-x-2 cursor-pointer w-fit">
             <input
               type="checkbox"
-              checked={selectedDisaster}
-              onChange={() => setSelectedDisaster(!selectedDisaster)}
+              checked={heatmapVisible}
+              onChange={onToggleHeatmap}
               className="hidden"
             />
             <div
               className={`w-4 h-4 border-2 rounded ${
-                selectedDisaster
+                heatmapVisible
                   ? "bg-[#17488D] border-[#17488D]"
                   : "border-gray-400"
               }`}
