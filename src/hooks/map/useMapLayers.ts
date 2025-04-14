@@ -232,8 +232,7 @@ export function useMapLayers(
 // --- Helper Function: Apply Properties Filter ---
 // (Moved outside the main hook, but could be inside or imported)
 const applyPropertiesFilter = (map: Map, controls: MapLayerControls) => {
-    // Default values if controls are undefined
-    const priceRange = controls.priceRange ?? [0, 5000000000];
+    const priceRange = controls.priceRange ?? [0, 100];
     const categories = controls.selectedCategories ?? [];
     const investmentTypes = controls.selectedInvestmentTypes ?? [];
 
@@ -247,10 +246,8 @@ const applyPropertiesFilter = (map: Map, controls: MapLayerControls) => {
     }
 
     if (investmentTypes.length > 0) {
-         filterConditions.push(["in", ["get", "property_status"], ["literal", investmentTypes]]);
+        filterConditions.push(["in", ["get", "property_status"], ["literal", investmentTypes]]);
     }
-     // If investmentTypes is empty, we don't add a status filter, showing all
-
 
     map.setFilter(PROPERTIES_LAYER_ID, ["all", ...filterConditions]);
     // Visibility is implicitly handled by the filter now. No need to toggle layout visibility here.

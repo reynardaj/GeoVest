@@ -19,6 +19,7 @@ import type {
 
 // Import Constants
 import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
+import Menu from "@/components/Menu";
 
 // Initialize infrastructure visibility state dynamically
 const initialInfraVisibility: InfrastructureVisibilityState =
@@ -398,9 +399,16 @@ export default function MapPage() {
           </div>
         </div>
       )}
-
+      <Menu
+        priceRange={priceRange}
+        onPriceChange={handlePriceChange}
+        selectedCategories={selectedCategories}
+        onCategoryChange={handleCategoryChange}
+        selectedInvestmentTypes={selectedInvestmentTypes}
+        onInvestmentTypeChange={handleInvestmentTypeChange}
+      />
       {/* Sidebar Component */}
-      <SidebarComponent
+      {/* <SidebarComponent
         // Pass state
         priceRange={priceRange}
         selectedCategories={selectedCategories}
@@ -416,7 +424,7 @@ export default function MapPage() {
         onToggleHeatmap={handleToggleHeatmap}
         onToggleInfrastructure={handleInfrastructureToggle}
         onClosePropertyInfo={handleClosePropertyInfo} // Pass handler if sidebar has a close button too
-      />
+      /> */}
     </div>
   );
 }

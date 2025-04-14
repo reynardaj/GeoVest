@@ -1,0 +1,339 @@
+"use client";
+
+import { INVESTMENT_TYPES, PROPERTY_CATEGORIES } from "@/config/mapConstants";
+import { useState, useEffect } from "react";
+import { Range, getTrackBackground } from "react-range";
+
+interface FiltersProps {
+  priceRange: [number, number];
+  onPriceChange: (values: number[]) => void;
+  selectedCategories: string[];
+  onCategoryChange: (category: string) => void;
+  selectedInvestmentTypes: string[];
+  onInvestmentTypeChange: (type: string) => void;
+}
+
+const Filters = ({
+  priceRange,
+  onPriceChange,
+  selectedCategories,
+  onCategoryChange,
+  selectedInvestmentTypes,
+  onInvestmentTypeChange,
+}: FiltersProps) => {
+  const [selectedReligions, setSelectedReligions] = useState<string | null>(
+    null
+  );
+  const [selectedDisaster, setSelectedDisaster] = useState(false);
+  const [showDemografi, setShowDemografi] = useState(false);
+  const [showDisaster, setShowDisaster] = useState(false);
+  const [age, setAge] = useState([10, 100]);
+  const [income, setIncome] = useState([5, 100]);
+
+  const propertyTypes = ["Tempat Huni", "Gudang", "Ruko"];
+  const investmentTypes = ["Sewa", "Beli"];
+  const religions = [
+    "Islam",
+    "Kristen",
+    "Katolik",
+    "Hindu",
+    "Buddha",
+    "Khonghucu",
+  ];
+  const disasterRisks = ["Banjir"];
+
+  const minPrice = 100_000_000;
+  const maxPrice = 5_000_000_000;
+  const scalePrice = (value: number) => {
+    const minLog = Math.log10(minPrice);
+    const maxLog = Math.log10(maxPrice);
+    const logRange = minLog + (value / 100) * (maxLog - minLog);
+    return Math.pow(10, logRange);
+  };
+
+  const formattedPrice = (value: number) => {
+    if (value >= 1_000_000_000) {
+      return `Rp ${(value / 1_000_000_000).toFixed(0)} M`;
+    } else {
+      return `Rp ${(value / 1_000_000).toFixed(0)} Juta`;
+    }
+  };
+
+  const toggleSelection = (
+    item: string,
+    selectedList: string[],
+    setSelectedList: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setSelectedList(
+      selectedList.includes(item)
+        ? selectedList.filter((i) => i !== item)
+        : [...selectedList, item]
+    );
+  };
+
+  return (
+    <div className="px-3 text-[#17488D]">
+      <h2 className="text-xl font-bold">Filters</h2>
+
+      {/* Harga Properti (Slider) */}
+      <h3 className="mt-4 mb-1 text-lg font-bold">Harga Properti</h3>
+      <Range
+        step={0.1}
+        min={0}
+        max={5000000000}
+        values={priceRange}
+        onChange={onPriceChange}
+        renderTrack={({ props, children }) => (
+          <div
+            {...props}
+            className="h-2 w-full rounded bg-gray-200"
+            style={{
+              ...props.style,
+              background: getTrackBackground({
+                values: priceRange,
+                colors: ["#ccc", "#17488D", "#ccc"],
+                min: 0,
+                max: 5000000000,
+              }),
+            }}
+          >
+            {children}
+          </div>
+        )}
+        renderThumb={({ props }) => {
+          const { key, ...rest } = props;
+          return (
+            <div
+              key={key}
+              {...rest}
+              className="h-5 w-5 bg-[#17488D] rounded-full shadow border-2 border-white"
+            />
+          );
+        }}
+      />
+      <div className="flex justify-between text-sm text-gray-600">
+        <span>&gt;= {formattedPrice(scalePrice(priceRange[0]))}</span>
+        <span>&lt;= {formattedPrice(scalePrice(priceRange[1]))}</span>
+      </div>
+
+      {/* Jenis Properti */}
+      <div className="mb-4">
+        <h3 className="font-semibold mb-2 text-gray-700 text-sm">
+          Jenis Properti
+        </h3>
+        <div className="space-y-1">
+          {PROPERTY_CATEGORIES.map((category) => (
+            <label
+              key={category}
+              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
+            >
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes(category)}
+                onChange={() => onCategoryChange(category)}
+                className="hidden"
+              />
+              <div
+                className={`w-4 h-4 border-2 rounded ${
+                  selectedCategories.includes(category)
+                    ? "bg-[#17488D] border-[#17488D]"
+                    : "border-gray-400"
+                }`}
+              ></div>
+              <span>{category}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Jenis Investasi */}
+      <div className="mb-4">
+        <h3 className="font-semibold mb-2 text-gray-700 text-sm">
+          Jenis Investasi
+        </h3>
+        <div className="space-y-1">
+          {INVESTMENT_TYPES.map((type) => (
+            <label
+              key={type}
+              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
+            >
+              <input
+                type="checkbox"
+                checked={
+                  selectedInvestmentTypes &&
+                  selectedInvestmentTypes.includes(type)
+                }
+                onChange={() => onInvestmentTypeChange(type)}
+                className="hidden"
+              />
+              <div
+                className={`w-4 h-4 border-2 rounded ${
+                  selectedInvestmentTypes &&
+                  selectedInvestmentTypes.includes(type)
+                    ? "bg-[#17488D] border-[#17488D]"
+                    : "border-gray-400"
+                }`}
+              ></div>
+              <span>{type}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Demografi Dropdown */}
+      <h3
+        className="mt-4 text-lg font-bold cursor-pointer w-fit"
+        onClick={() => setShowDemografi(!showDemografi)}
+      >
+        <span className="inline-block w-4 text-center mr-2">
+          {showDemografi ? "▼" : "▶"}
+        </span>
+        Demografi
+      </h3>
+      {showDemografi && (
+        <div>
+          <h3 className="mt-2 mb-1 text-md font-bold">Umur</h3>
+          <Range
+            step={1}
+            min={10}
+            max={100}
+            values={age}
+            onChange={setAge}
+            renderTrack={({ props, children }) => (
+              <div
+                {...props}
+                className="h-2 w-full rounded bg-gray"
+                style={{
+                  ...props.style,
+                  background: getTrackBackground({
+                    values: age,
+                    colors: ["#ccc", "#17488D", "#ccc"],
+                    min: 10,
+                    max: 100,
+                  }),
+                }}
+              >
+                {children}
+              </div>
+            )}
+            renderThumb={({ props }) => {
+              const { key, ...rest } = props;
+              return (
+                <div
+                  key={key}
+                  {...rest}
+                  className="h-5 w-5 bg-[#17488D] rounded-full shadow border-2 border-white"
+                />
+              );
+            }}
+          />
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>&gt;= {age[0]}</span>
+            <span>&lt;= {age[1]}</span>
+          </div>
+
+          <h3 className="mt-4 mb-1 text-md font-bold">
+            Penghasilan (per bulan)
+          </h3>
+          <Range
+            step={1}
+            min={5}
+            max={100}
+            values={income}
+            onChange={setIncome}
+            renderTrack={({ props, children }) => (
+              <div
+                {...props}
+                className="h-2 w-full rounded bg-gray"
+                style={{
+                  ...props.style,
+                  background: getTrackBackground({
+                    values: income,
+                    colors: ["#ccc", "#17488D", "#ccc"],
+                    min: 5,
+                    max: 100,
+                  }),
+                }}
+              >
+                {children}
+              </div>
+            )}
+            renderThumb={({ props }) => {
+              const { key, ...rest } = props;
+              return (
+                <div
+                  key={key}
+                  {...rest}
+                  className="h-5 w-5 bg-[#17488D] rounded-full shadow border-2 border-white"
+                />
+              );
+            }}
+          />
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>&gt;= {income[0]} Juta</span>
+            <span>&lt;= {income[1]} Juta</span>
+          </div>
+
+          <h3 className="mt-4 text-lg font-bold">Agama</h3>
+          {religions.map((type) => {
+            const isChecked = selectedReligions === type;
+            return (
+              <label
+                key={type}
+                className="flex items-center space-x-2 cursor-pointer w-fit"
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => setSelectedReligions(isChecked ? null : type)}
+                  className="hidden"
+                />
+                <div
+                  className={`w-4 h-4 border-2 rounded ${
+                    isChecked
+                      ? "bg-[#17488D] border-[#17488D]"
+                      : "border-gray-400"
+                  }`}
+                ></div>
+                <span>{type}</span>
+              </label>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Risiko Bencana Dropdown */}
+      <h3
+        className="mt-4 text-lg font-bold cursor-pointer w-fit"
+        onClick={() => setShowDisaster(!showDisaster)}
+      >
+        <span className="inline-block w-4 text-center mr-2">
+          {showDisaster ? "▼" : "▶"}
+        </span>
+        Risiko Bencana
+      </h3>
+      {showDisaster && (
+        <div>
+          <label className="flex items-center space-x-2 cursor-pointer w-fit">
+            <input
+              type="checkbox"
+              checked={selectedDisaster}
+              onChange={() => setSelectedDisaster(!selectedDisaster)}
+              className="hidden"
+            />
+            <div
+              className={`w-4 h-4 border-2 rounded ${
+                selectedDisaster
+                  ? "bg-[#17488D] border-[#17488D]"
+                  : "border-gray-400"
+              }`}
+            ></div>
+            <span>Banjir</span>
+          </label>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Filters;
