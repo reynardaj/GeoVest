@@ -54,7 +54,7 @@ export default function MapPage() {
   const [selectedPropertyData, setSelectedPropertyData] =
     useState<SelectedPropertyData | null>(null);
 
-  // New state for religion layers
+  const [selectedAgeBin, setSelectedAgeBin] = useState<string | null>(null);
   const [selectedReligionBin, setSelectedReligionBin] = useState<string | null>(
     null
   );
@@ -221,6 +221,9 @@ export default function MapPage() {
   const handleReligionBinChange = useCallback((bin: string) => {
     setSelectedReligionBin(bin);
   }, []);
+  const handleAgeBinChange = useCallback((bin: string) => {
+    setSelectedAgeBin(bin);
+  }, []);
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
@@ -230,6 +233,7 @@ export default function MapPage() {
       selectedCategories,
       selectedInvestmentTypes,
       selectedReligionBin,
+      selectedAgeBin,
       binRanges,
     }),
     [
@@ -239,6 +243,7 @@ export default function MapPage() {
       selectedCategories,
       selectedInvestmentTypes,
       selectedReligionBin,
+      selectedAgeBin,
       binRanges,
     ]
   );
@@ -413,6 +418,8 @@ export default function MapPage() {
         onToggleInfrastructure={handleInfrastructureToggle}
         selectedReligionBin={selectedReligionBin}
         onReligionBinChange={handleReligionBinChange}
+        selectedAgeBin={selectedAgeBin}
+        onAgeBinChange={handleAgeBinChange}
         binRanges={binRanges}
       />
       {/* Sidebar Component */}

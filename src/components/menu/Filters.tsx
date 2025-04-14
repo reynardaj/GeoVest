@@ -23,6 +23,8 @@ interface FiltersProps {
   selectedReligionBin: string | null;
   onReligionBinChange: (bin: string) => void;
   binRanges: { [key: string]: number[] };
+  selectedAgeBin: string | null;
+  onAgeBinChange: (bin: string) => void;
 }
 
 const Filters = ({
@@ -39,6 +41,8 @@ const Filters = ({
   selectedReligionBin,
   onReligionBinChange,
   binRanges,
+  selectedAgeBin,
+  onAgeBinChange,
 }: FiltersProps) => {
   const [selectedReligions, setSelectedReligions] = useState<string | null>(
     null
@@ -46,7 +50,6 @@ const Filters = ({
   const [showDemografi, setShowDemografi] = useState(false);
   const [showDisaster, setShowDisaster] = useState(false);
   const [showInfrastructure, setShowInfrastructure] = useState(false);
-  const [age, setAge] = useState([10, 100]);
   const [income, setIncome] = useState([5, 100]);
 
   const religions = [
@@ -56,6 +59,21 @@ const Filters = ({
     { label: "Hindu", value: "HINDU_bin" },
     { label: "Buddha", value: "BUDHA_bin" },
     { label: "Khonghucu", value: "KONGHUCU_bin" },
+  ];
+  const ageGroups = [
+    { label: "Balita (0-5 tahun)", value: "Balita_0_5_tahun_bin" },
+    { label: "Anak-anak (6-15 tahun)", value: "Anak_anak_6_15_tahun_bin" },
+    { label: "Remaja (16-20 tahun)", value: "Remaja_16_20_tahun_bin" },
+    {
+      label: "Dewasa Muda (21-30 tahun)",
+      value: "Dewasa_Muda_21_30_tahun_bin",
+    },
+    { label: "Dewasa (31-40 tahun)", value: "Dewasa_31_40_tahun_bin" },
+    {
+      label: "Dewasa Akhir (41-60 tahun)",
+      value: "Dewasa_Akhir_41_60_tahun_bin",
+    },
+    { label: "Lansia (>60 tahun)", value: "Lansia_>60_tahun_bin" },
   ];
   const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
   const minPrice = 100_000_000;
@@ -207,6 +225,7 @@ const Filters = ({
       </div>
 
       {/* Demografi Dropdown */}
+
       <h3
         className="mt-4 text-lg font-bold cursor-pointer w-fit"
         onClick={() => setShowDemografi(!showDemografi)}
@@ -216,48 +235,53 @@ const Filters = ({
         </span>
         Demografi
       </h3>
+
       {showDemografi && (
         <div>
           <h3 className="mt-2 mb-1 text-md font-bold">Umur</h3>
-          <Range
-            step={1}
-            min={10}
-            max={100}
-            values={age}
-            onChange={setAge}
-            renderTrack={({ props, children }) => (
-              <div
-                {...props}
-                className="h-2 w-full rounded bg-gray"
-                style={{
-                  ...props.style,
-                  background: getTrackBackground({
-                    values: age,
-                    colors: ["#ccc", "#17488D", "#ccc"],
-                    min: 10,
-                    max: 100,
-                  }),
+          {ageGroups.map((ageGroup) => (
+            <label
+              key={ageGroup.value}
+              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
+            >
+              <input
+                type="checkbox"
+                name="age"
+                value={ageGroup.value}
+                checked={selectedAgeBin === ageGroup.value}
+                onChange={(e) => {
+                  if (selectedAgeBin === ageGroup.value) {
+                    onAgeBinChange(""); // Deselect if already selected
+                  } else {
+                    onAgeBinChange(ageGroup.value); // Select the new value
+                  }
                 }}
-              >
-                {children}
-              </div>
-            )}
-            renderThumb={({ props }) => {
-              const { key, ...rest } = props;
-              return (
-                <div
-                  key={key}
-                  {...rest}
-                  className="h-5 w-5 bg-[#17488D] rounded-full shadow border-2 border-white"
-                />
-              );
-            }}
-          />
-          <div className="flex justify-between text-sm text-gray-600">
-            <span>&gt;= {age[0]}</span>
-            <span>&lt;= {age[1]}</span>
-          </div>
-
+                className="hidden"
+              />
+              <div
+                className={`w-4 h-4 border-2 rounded ${
+                  selectedAgeBin === ageGroup.value
+                    ? "bg-[#17488D] border-[#17488D]"
+                    : "border-gray-400"
+                }`}
+              ></div>
+              <span>{ageGroup.label}</span>
+            </label>
+          ))}
+          {selectedAgeBin && (
+            <div className="mt-4">
+              <h4 className="font-bold mb-2 text-sm">Legend</h4>
+              {getRangeLabels(selectedAgeBin).map((range, index) => (
+                <div key={index} className="flex items-center mb-1 text-sm">
+                  <span
+                    className="w-4 h-4 mr-2 inline-block"
+                    style={{ backgroundColor: colorScale[index] }}
+                  ></span>
+                  <span>{range}</span>
+                </div>
+              ))}
+            </div>
+          )}
           <h3 className="mt-4 mb-1 text-md font-bold">
             Penghasilan (per bulan)
           </h3>
@@ -307,11 +331,17 @@ const Filters = ({
               className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
             >
               <input
-                type="radio"
+                type="checkbox"
                 name="religion"
                 value={religion.value}
                 checked={selectedReligionBin === religion.value}
-                onChange={() => onReligionBinChange(religion.value)}
+                onChange={() => {
+                  if (selectedReligionBin === religion.value) {
+                    onReligionBinChange(""); // Deselect if already selected
+                  } else {
+                    onReligionBinChange(religion.value); // Select the new value
+                  }
+                }}
                 className="hidden"
               />
               <div

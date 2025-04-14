@@ -17,6 +17,8 @@ interface FiltersProps {
   onToggleInfrastructure: (layerId: string) => void;
   selectedReligionBin: string | null;
   onReligionBinChange: (bin: string) => void;
+  selectedAgeBin: string | null;
+  onAgeBinChange: (bin: string) => void;
   binRanges: { [key: string]: number[] };
 }
 
@@ -33,6 +35,8 @@ function Menu({
   onToggleInfrastructure,
   selectedReligionBin,
   onReligionBinChange,
+  selectedAgeBin,
+  onAgeBinChange,
   binRanges,
 }: FiltersProps) {
   const [activeTab, setActiveTab] = useState("Analytics");
@@ -100,6 +104,8 @@ function Menu({
             binRanges={binRanges}
             onReligionBinChange={onReligionBinChange}
             selectedReligionBin={selectedReligionBin}
+            onAgeBinChange={onAgeBinChange}
+            selectedAgeBin={selectedAgeBin}
           />
         )}
         {activeTab === "Analytics" && <div>Analytics Content</div>}

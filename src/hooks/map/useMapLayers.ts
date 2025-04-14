@@ -15,6 +15,7 @@ import {
   FLOOD_HEATMAP_LAYER_ID,
   RAIL_LINE_LAYER_ID,
   BUS_LINE_LAYER_ID,
+  AGE_FILL_LAYER_ID,
 } from "@/config/mapConstants";
 const RELIGION_FILL_LAYER_ID = "religion-fill";
 // Helper to load images asynchronously
@@ -382,6 +383,104 @@ export function useMapLayers(
       }
     }
   }, [map, isLoaded, layerControls.selectedReligionBin]);
+
+  useEffect(() => {
+    if (!map || !isLoaded) return;
+
+    console.log("Age effect triggered:", {
+      selectedAgeBin: layerControls.selectedAgeBin,
+      hasSource: !!map.getSource("demografi-jakarta"),
+      hasLayer: !!map.getLayer(AGE_FILL_LAYER_ID),
+    });
+
+    if (layerControls.selectedAgeBin) {
+      if (!map.getSource("demografi-jakarta")) {
+        try {
+          map.addSource("demografi-jakarta", {
+            type: "geojson",
+            data: "/demografi-jakarta-with-bins.geojson",
+            generateId: true,
+          });
+          console.log("Added demografi-jakarta source for age");
+        } catch (error) {
+          console.error(
+            "Failed to add demografi-jakarta source for age:",
+            error
+          );
+          return;
+        }
+      }
+
+      const colorScale = [
+        "#f7fbff",
+        "#c6dbef",
+        "#9ecae1",
+        "#6baed6",
+        "#08306b",
+      ];
+      if (!map.getLayer(AGE_FILL_LAYER_ID)) {
+        try {
+          map.addLayer(
+            {
+              id: AGE_FILL_LAYER_ID,
+              type: "fill",
+              source: "demografi-jakarta",
+              layout: { visibility: "visible" },
+              paint: {
+                "fill-color": [
+                  "step",
+                  ["get", layerControls.selectedAgeBin],
+                  colorScale[0],
+                  1,
+                  colorScale[1],
+                  2,
+                  colorScale[2],
+                  3,
+                  colorScale[3],
+                  4,
+                  colorScale[4],
+                ],
+                "fill-opacity": 0.9,
+              },
+            },
+            JAKARTA_BORDER_LAYER_ID
+          );
+          console.log("Added age-fill layer");
+        } catch (error) {
+          console.error("Failed to add age-fill layer:", error);
+        }
+      } else {
+        try {
+          map.setPaintProperty(AGE_FILL_LAYER_ID, "fill-color", [
+            "step",
+            ["get", layerControls.selectedAgeBin],
+            colorScale[0],
+            1,
+            colorScale[1],
+            2,
+            colorScale[2],
+            3,
+            colorScale[3],
+            4,
+            colorScale[4],
+          ]);
+          map.setLayoutProperty(AGE_FILL_LAYER_ID, "visibility", "visible");
+          console.log("Updated age-fill layer");
+        } catch (error) {
+          console.error("Failed to update age-fill layer:", error);
+        }
+      }
+    } else {
+      if (map.getLayer(AGE_FILL_LAYER_ID)) {
+        try {
+          map.removeLayer(AGE_FILL_LAYER_ID);
+          console.log("Removed age-fill layer");
+        } catch (error) {
+          console.error("Failed to remove age-fill layer:", error);
+        }
+      }
+    }
+  }, [map, isLoaded, layerControls.selectedAgeBin]);
 }
 
 // --- Helper Function: Apply Properties Filter ---
