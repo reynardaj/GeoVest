@@ -78,12 +78,6 @@ const Filters = ({
   const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
   const minPrice = 100_000_000;
   const maxPrice = 5_000_000_000;
-  const scalePrice = (value: number) => {
-    const minLog = Math.log10(minPrice);
-    const maxLog = Math.log10(maxPrice);
-    const logRange = minLog + (value / 100) * (maxLog - minLog);
-    return Math.pow(10, logRange);
-  };
 
   const formattedPrice = (value: number) => {
     if (value >= 1_000_000_000) {
@@ -156,8 +150,8 @@ const Filters = ({
         }}
       />
       <div className="flex justify-between text-sm text-gray-600">
-        <span>&gt;= {formattedPrice(scalePrice(priceRange[0]))}</span>
-        <span>&lt;= {formattedPrice(scalePrice(priceRange[1]))}</span>
+        <span>&gt;= {formattedPrice(priceRange[0])}</span>
+        <span>&lt;= {formattedPrice(priceRange[1])}</span>
       </div>
 
       {/* Jenis Properti */}
@@ -371,6 +365,41 @@ const Filters = ({
         </div>
       )}
       {/* Infrastructure Dropdown */}
+      <h3
+        className="mt-4 text-lg font-bold cursor-pointer w-fit"
+        onClick={() => setShowInfrastructure(!showInfrastructure)}
+      >
+        <span className="inline-block w-4 text-center mr-2">
+          {showInfrastructure ? "▼" : "▶"}
+        </span>
+        Infrastruktur
+      </h3>
+      {showInfrastructure && (
+        <div className="space-y-1">
+          {INFRASTRUCTURE_LAYERS.map((layer) => (
+            <label
+              key={layer.id}
+              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                className="hidden"
+                checked={infrastructureVisibility[layer.id] ?? false}
+                onChange={() => onToggleInfrastructure(layer.id)}
+              />
+              <div
+                className={`w-4 h-4 border-2 rounded ${
+                  infrastructureVisibility[layer.id]
+                    ? "bg-[#17488D] border-[#17488D]"
+                    : "border-gray-400"
+                }`}
+              ></div>
+              <span>{layer.name}</span>
+            </label>
+          ))}
+        </div>
+      )}
+      {/* Transportasi Umum Dropdown */}
       <h3
         className="mt-4 text-lg font-bold cursor-pointer w-fit"
         onClick={() => setShowInfrastructure(!showInfrastructure)}

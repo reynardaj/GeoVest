@@ -73,7 +73,7 @@ export default function MapPage() {
       // feature.id can be string, number, or undefined.
       // We need string | number | null for the state.
       const clickedId = feature.id;
-      // Check if clickedId is valid (not undefined) before proceeding with state updates that rely on it.
+      // Check if clickedId is valid (not undefined) before proceeding with state updates that rely p it.
       if (clickedId === undefined || !map) return;
 
       // Reset previous clicked state if different
@@ -368,13 +368,13 @@ export default function MapPage() {
               {selectedPropertyData.price?.toLocaleString("id-ID") ?? "N/A"}
             </p>
             <p>
-              <strong className="font-semibold">LB:</strong>{" "}
+              <strong className="font-semibold">Luas Bangunan:</strong>{" "}
               {selectedPropertyData.buildingArea?.toLocaleString("id-ID") ??
                 "N/A"}{" "}
               {selectedPropertyData.buildingArea !== "N/A" && "m²"}
             </p>
             <p>
-              <strong className="font-semibold">LT:</strong>{" "}
+              <strong className="font-semibold">Luas Tanah:</strong>{" "}
               {selectedPropertyData.landArea?.toLocaleString("id-ID") ?? "N/A"}{" "}
               {selectedPropertyData.landArea !== "N/A" && "m²"}
             </p>
@@ -422,24 +422,6 @@ export default function MapPage() {
         onAgeBinChange={handleAgeBinChange}
         binRanges={binRanges}
       />
-      {/* Sidebar Component */}
-      {/* <SidebarComponent
-        // Pass state
-        priceRange={priceRange}
-        selectedCategories={selectedCategories}
-        selectedInvestmentTypes={selectedInvestmentTypes}
-        heatmapVisible={heatmapVisible}
-        infrastructureVisibility={infrastructureVisibility}
-        regionData={regionData}
-        propertyData={selectedPropertyData} // Pass property data if sidebar needs it
-        // Pass handlers
-        onPriceChange={handlePriceChange}
-        onCategoryChange={handleCategoryChange}
-        onInvestmentTypeChange={handleInvestmentTypeChange}
-        onToggleHeatmap={handleToggleHeatmap}
-        onToggleInfrastructure={handleInfrastructureToggle}
-        onClosePropertyInfo={handleClosePropertyInfo} // Pass handler if sidebar has a close button too
-      /> */}
     </div>
   );
 }
