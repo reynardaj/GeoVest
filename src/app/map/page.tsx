@@ -41,6 +41,7 @@ export default function MapPage() {
   const [selectedInvestmentTypes, setSelectedInvestmentTypes] = useState<
     string[]
   >([]);
+  const [activeTab, setActiveTab] = useState<string>("Analytics");
 
   // Layer Visibility State
   const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false); // Heatmap visibility state
@@ -236,6 +237,7 @@ export default function MapPage() {
   const handleAgeBinChange = useCallback((bin: string) => {
     setSelectedAgeBin(bin);
   }, []);
+
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
@@ -402,18 +404,14 @@ export default function MapPage() {
             >
               Tutup
             </button>
-            {selectedPropertyData.url ? (
-              <a
-                href={selectedPropertyData.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
-              >
-                Lihat Detail
-              </a>
-            ) : (
-              <span className="text-xs text-gray-500">Detail Tdk Tersedia</span>
-            )}
+
+            <button
+              onClick={() => {
+                setActiveTab("Analytics");
+              }}
+            >
+              See More
+            </button>
           </div>
         </div>
       )}
@@ -433,6 +431,8 @@ export default function MapPage() {
         selectedAgeBin={selectedAgeBin}
         onAgeBinChange={handleAgeBinChange}
         binRanges={binRanges}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
       />
       {selectedAgeBin && (
         <div className="mt-4 absolute bottom-0 right-[30%] p-3 rounded-lg min-w-36 bg-white text-black">
