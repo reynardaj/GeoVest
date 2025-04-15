@@ -42,7 +42,7 @@ function Menu({
   const [activeTab, setActiveTab] = useState("Analytics");
 
   return (
-    <div className="shadow-xl rounded-tl-lg fixed top-[104px] right-0 2xl:w-[25%] xl:w-[28%] md:w-[30%] h-[100vh] bg-[#fff] justify-center z-50 overflow-hidden">
+    <div className="shadow-xl rounded-tl-lg fixed top-0 right-0 2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#fff] justify-center z-50 overflow-hidden">
       <div className="flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
         <button
           onClick={() => setActiveTab("Filters")}

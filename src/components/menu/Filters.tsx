@@ -76,7 +76,6 @@ const Filters = ({
     },
     { label: "Lansia (>60 tahun)", value: "Lansia_>60_tahun_bin" },
   ];
-  const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
   const minPrice = 100_000_000;
   const maxPrice = 5_000_000_000;
 
@@ -157,9 +156,7 @@ const Filters = ({
 
       {/* Jenis Properti */}
       <div className="mb-4">
-        <h3 className="font-semibold mb-2 text-gray-700 text-sm">
-          Jenis Properti
-        </h3>
+        <h3 className="mt-2 mb-1 text-md font-bold">Jenis Properti</h3>
         <div className="space-y-1">
           {PROPERTY_CATEGORIES.map((category) => (
             <label
@@ -187,9 +184,7 @@ const Filters = ({
 
       {/* Jenis Investasi */}
       <div className="mb-4">
-        <h3 className="font-semibold mb-2 text-gray-700 text-sm">
-          Jenis Investasi
-        </h3>
+        <h3 className="mt-2 mb-1 text-md font-bold">Jenis Investasi</h3>
         <div className="space-y-1">
           {INVESTMENT_TYPES.map((type) => (
             <label
@@ -263,20 +258,7 @@ const Filters = ({
               <span>{ageGroup.label}</span>
             </label>
           ))}
-          {selectedAgeBin && (
-            <div className="mt-4">
-              <h4 className="font-bold mb-2 text-sm">Legend</h4>
-              {getRangeLabels(selectedAgeBin).map((range, index) => (
-                <div key={index} className="flex items-center mb-1 text-sm">
-                  <span
-                    className="w-4 h-4 mr-2 inline-block"
-                    style={{ backgroundColor: colorScale[index] }}
-                  ></span>
-                  <span>{range}</span>
-                </div>
-              ))}
-            </div>
-          )}
+
           <h3 className="mt-4 mb-1 text-md font-bold">
             Penghasilan (per bulan)
           </h3>
@@ -319,7 +301,7 @@ const Filters = ({
             <span>&lt;= {income[1]} Juta</span>
           </div>
 
-          <h3 className="mt-4 text-lg font-bold">Agama</h3>
+          <h3 className="mt-2 mb-1 text-md font-bold">Agama</h3>
           {religions.map((religion) => (
             <label
               key={religion.value}
@@ -349,20 +331,6 @@ const Filters = ({
               <span>{religion.label}</span>
             </label>
           ))}
-          {selectedReligionBin && (
-            <div className="mt-4">
-              <h4 className="font-bold mb-2 text-sm">Legend</h4>
-              {getRangeLabels(selectedReligionBin).map((range, index) => (
-                <div key={index} className="flex items-center mb-1 text-sm">
-                  <span
-                    className="w-4 h-4 mr-2 inline-block"
-                    style={{ backgroundColor: colorScale[index] }}
-                  ></span>
-                  <span>{range}</span>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       )}
       {/* Infrastruktur Dropdown */}

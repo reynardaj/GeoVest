@@ -5,7 +5,6 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import type { MapGeoJSONFeature, Map, LngLatBoundsLike } from "maplibre-gl"; // Import necessary types
 
 // Import Components
-import SidebarComponent from "@/components/sidebar/SidebarComponent"; // Adjust path
 import MapComponent from "@/components/map/MapComponent"; // Adjust path
 
 // Import Types
@@ -20,6 +19,8 @@ import type {
 // Import Constants
 import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
+
+const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
 // Initialize infrastructure visibility state dynamically
 const initialInfraVisibility: InfrastructureVisibilityState =
@@ -59,7 +60,6 @@ export default function MapPage() {
     null
   );
   const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
-
   // Fetch bin ranges
   useEffect(() => {
     fetch("/jenks_breakpoints.json")
@@ -67,6 +67,18 @@ export default function MapPage() {
       .then((data) => setBinRanges(data))
       .catch((err) => console.error("Failed to load breakpoints:", err));
   }, []);
+
+  const getRangeLabels = (binField: string) => {
+    if (!binRanges[binField])
+      return ["Bin 1", "Bin 2", "Bin 3", "Bin 4", "Bin 5"];
+    const breaks = binRanges[binField];
+    return breaks.slice(0, -1).map((start, i) => {
+      const end = breaks[i + 1];
+      return i === breaks.length - 2
+        ? `${Math.round(start)}+`
+        : `${Math.round(start)}–${Math.round(end)}`;
+    });
+  };
 
   const handleRegionClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
@@ -340,7 +352,7 @@ export default function MapPage() {
   // --- JSX Structure ---
   return (
     // Use h-screen and w-screen on the outer div to ensure full viewport height
-    <div className="flex h-screen w-screen overflow-hidden">
+    <div className="flex relative h-screen w-screen overflow-hidden">
       {/* Map Component takes up remaining space */}
       <MapComponent
         initialOptions={initialMapOptions}
@@ -422,6 +434,34 @@ export default function MapPage() {
         onAgeBinChange={handleAgeBinChange}
         binRanges={binRanges}
       />
+      {selectedAgeBin && (
+        <div className="mt-4 absolute bottom-0 right-[30%] p-3 rounded-lg min-w-36 bg-white text-black">
+          <h4 className="font-bold mb-2 text-sm">Legend</h4>
+          {getRangeLabels(selectedAgeBin).map((range, index) => (
+            <div key={index} className="flex items-center mb-1 text-sm">
+              <span
+                className="w-4 h-4 mr-2 inline-block"
+                style={{ backgroundColor: colorScale[index] }}
+              ></span>
+              <span>{range}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {selectedReligionBin && (
+        <div className="mt-4 absolute bottom-0 right-[30%] p-3 rounded-lg min-w-36 bg-white text-black">
+          <h4 className="font-bold mb-2 text-sm">Legend</h4>
+          {getRangeLabels(selectedReligionBin).map((range, index) => (
+            <div key={index} className="flex items-center mb-1 text-sm">
+              <span
+                className="w-4 h-4 mr-2 inline-block"
+                style={{ backgroundColor: colorScale[index] }}
+              ></span>
+              <span>{range}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
