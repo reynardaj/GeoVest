@@ -51,6 +51,7 @@ const Filters = ({
   const [showDisaster, setShowDisaster] = useState(false);
   const [showInfrastructure, setShowInfrastructure] = useState(false);
   const [income, setIncome] = useState([5, 100]);
+  const [showPublicTransport, setShowPublicTransport] = useState(false);
 
   const religions = [
     { label: "Islam", value: "ISLAM_bin" },
@@ -364,7 +365,7 @@ const Filters = ({
           )}
         </div>
       )}
-      {/* Infrastructure Dropdown */}
+      {/* Infrastruktur Dropdown */}
       <h3
         className="mt-4 text-lg font-bold cursor-pointer w-fit"
         onClick={() => setShowInfrastructure(!showInfrastructure)}
@@ -376,7 +377,9 @@ const Filters = ({
       </h3>
       {showInfrastructure && (
         <div className="space-y-1">
-          {INFRASTRUCTURE_LAYERS.map((layer) => (
+          {INFRASTRUCTURE_LAYERS.filter(
+            (layer) => !["Rel Kereta", "TransJakarta"].includes(layer.name)
+          ).map((layer) => (
             <label
               key={layer.id}
               className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer"
@@ -399,19 +402,22 @@ const Filters = ({
           ))}
         </div>
       )}
+
       {/* Transportasi Umum Dropdown */}
       <h3
         className="mt-4 text-lg font-bold cursor-pointer w-fit"
-        onClick={() => setShowInfrastructure(!showInfrastructure)}
+        onClick={() => setShowPublicTransport(!showPublicTransport)}
       >
         <span className="inline-block w-4 text-center mr-2">
-          {showInfrastructure ? "▼" : "▶"}
+          {showPublicTransport ? "▼" : "▶"}
         </span>
-        Infrastruktur
+        Transportasi Umum
       </h3>
-      {showInfrastructure && (
+      {showPublicTransport && (
         <div className="space-y-1">
-          {INFRASTRUCTURE_LAYERS.map((layer) => (
+          {INFRASTRUCTURE_LAYERS.filter((layer) =>
+            ["Rel Kereta", "TransJakarta"].includes(layer.name)
+          ).map((layer) => (
             <label
               key={layer.id}
               className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer"
