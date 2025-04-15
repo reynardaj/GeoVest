@@ -81,15 +81,15 @@ export function useMapLayers(
             "fill-color": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              "#FF0000", // Hover color
+              "#9cdfb4", // Hover color
               ["boolean", ["feature-state", "clicked"], false],
               "#ADD8E6", // Clicked color
-              "#627BC1", // Default color
+              "#254a8e", // Default color
             ],
             "fill-opacity": [
               "case",
               ["boolean", ["feature-state", "clicked"], false],
-              0.2, // Clicked opacity
+              0.6, // Clicked opacity
               ["boolean", ["feature-state", "hover"], false],
               0.8, // Hover opacity
               0.6, // Default opacity
