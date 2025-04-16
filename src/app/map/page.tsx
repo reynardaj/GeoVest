@@ -86,7 +86,6 @@ export default function MapPage() {
 
   const handleRegionClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
-      console.log("handleRegionClick called");
       // feature.id can be string, number, or undefined.
       // We need string | number | null for the state.
       const clickedId = feature.id;
@@ -148,6 +147,7 @@ export default function MapPage() {
   const handleSeeMore = () => {
     setActiveTab("Analytics");
     setRegionPopupVisibility(false);
+    setSelectedPropertyData(null);
   };
 
   const handlePropertyClick = useCallback(
@@ -242,6 +242,7 @@ export default function MapPage() {
 
   const handleClosePropertyInfo = useCallback(() => {
     setSelectedPropertyData(null);
+    setRegionPopupVisibility(false);
   }, []);
   // New handler for religion bin
   const handleReligionBinChange = useCallback((bin: string) => {
