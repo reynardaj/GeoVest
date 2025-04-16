@@ -22,6 +22,8 @@ interface FiltersProps {
   binRanges: { [key: string]: number[] };
   activeTab: string;
   setActiveTab: any;
+  income: number[];
+  setIncome: (values: number[]) => void;
 }
 
 function Menu({
@@ -42,6 +44,8 @@ function Menu({
   binRanges,
   activeTab,
   setActiveTab,
+  income,
+  setIncome,
 }: FiltersProps) {
   const handleChangeTab = () => {};
   return (
@@ -109,6 +113,8 @@ function Menu({
             selectedReligionBin={selectedReligionBin}
             onAgeBinChange={onAgeBinChange}
             selectedAgeBin={selectedAgeBin}
+            income={income}
+            setIncome={setIncome}
           />
         )}
         {activeTab === "Analytics" && <div>Analytics Content</div>}

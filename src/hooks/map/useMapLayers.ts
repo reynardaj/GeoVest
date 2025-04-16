@@ -260,6 +260,35 @@ export function useMapLayers(
     };
   }, [map, isLoaded]); // Runs only when map instance is created and loaded
 
+  // --- Effect for Income filter on jakarta-fill layer ---
+  useEffect(() => {
+    console.log(
+      "income:",
+      layerControls.income[0] * 1000000,
+      layerControls.income[1] * 1000000
+    );
+
+    if (!map || !map.getLayer(JAKARTA_FILL_LAYER_ID)) return;
+
+    // map.setFilter(JAKARTA_FILL_LAYER_ID, [
+    //   "all",
+    //   [">=", ["get", "Penghasilan rata-rata"], 3000000.0],
+    //   // ["<=", ["get", "property_price"], 100000000.0],
+    // ]);
+    map.setFilter(JAKARTA_FILL_LAYER_ID, [
+      "all",
+      [
+        ">=",
+        ["get", "Penghasilan rata-rata"],
+        layerControls.income[0] * 1000000,
+      ],
+      [
+        "<=",
+        ["get", "Penghasilan rata-rata"],
+        layerControls.income[1] * 1000000,
+      ],
+    ]);
+  }, [isLoaded, layerControls.income, map]);
   // --- Effect for Toggling Heatmap Visibility ---
   useEffect(() => {
     if (!map || !isLoaded || !map.getLayer(FLOOD_HEATMAP_LAYER_ID)) return;
@@ -313,7 +342,7 @@ export function useMapLayers(
     layerControls.priceRange,
     layerControls.selectedCategories,
     layerControls.selectedInvestmentTypes,
-  ]); // React to filter changes
+  ]);
   // Effect for religion layer
   useEffect(() => {
     if (!map || !isLoaded) return;
@@ -484,7 +513,6 @@ export function useMapLayers(
 }
 
 // --- Helper Function: Apply Properties Filter ---
-// (Moved outside the main hook, but could be inside or imported)
 const applyPropertiesFilter = (map: Map, controls: MapLayerControls) => {
   const priceRange = controls.priceRange ?? [0, 100];
   const categories = controls.selectedCategories ?? [];

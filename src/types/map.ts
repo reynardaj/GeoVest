@@ -76,4 +76,5 @@ export interface MapLayerControls {
   selectedReligionBin: string | null;
   selectedAgeBin: string | null;
   binRanges: { [key: string]: number[] };
+  income: number[];
 }

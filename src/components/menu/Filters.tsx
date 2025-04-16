@@ -25,6 +25,8 @@ interface FiltersProps {
   binRanges: { [key: string]: number[] };
   selectedAgeBin: string | null;
   onAgeBinChange: (bin: string) => void;
+  income: number[];
+  setIncome: (values: number[]) => void;
 }
 
 const Filters = ({
@@ -43,6 +45,8 @@ const Filters = ({
   binRanges,
   selectedAgeBin,
   onAgeBinChange,
+  income,
+  setIncome,
 }: FiltersProps) => {
   const [selectedReligions, setSelectedReligions] = useState<string | null>(
     null
@@ -50,7 +54,6 @@ const Filters = ({
   const [showDemografi, setShowDemografi] = useState(false);
   const [showDisaster, setShowDisaster] = useState(false);
   const [showInfrastructure, setShowInfrastructure] = useState(false);
-  const [income, setIncome] = useState([5, 100]);
   const [showPublicTransport, setShowPublicTransport] = useState(false);
 
   const religions = [
@@ -263,9 +266,9 @@ const Filters = ({
             Penghasilan (per bulan)
           </h3>
           <Range
-            step={1}
-            min={5}
-            max={100}
+            step={0.1}
+            min={4}
+            max={7}
             values={income}
             onChange={setIncome}
             renderTrack={({ props, children }) => (
@@ -277,8 +280,8 @@ const Filters = ({
                   background: getTrackBackground({
                     values: income,
                     colors: ["#ccc", "#17488D", "#ccc"],
-                    min: 5,
-                    max: 100,
+                    min: 4,
+                    max: 7,
                   }),
                 }}
               >

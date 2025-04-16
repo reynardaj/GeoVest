@@ -61,6 +61,8 @@ export default function MapPage() {
     null
   );
   const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
+  const [income, setIncome] = useState<number[]>([4, 7]);
+
   // Fetch bin ranges
   useEffect(() => {
     fetch("/jenks_breakpoints.json")
@@ -136,6 +138,11 @@ export default function MapPage() {
     },
     [clickedRegionId]
   ); // Depends on clickedRegionId to reset previous state
+
+  const handleIncomeChange = useCallback((values: number[]) => {
+    console.log("handleIncomeChange", values);
+    setIncome(values as [number, number]);
+  }, []);
 
   const handlePropertyClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
@@ -249,6 +256,7 @@ export default function MapPage() {
       selectedReligionBin,
       selectedAgeBin,
       binRanges,
+      income,
     }),
     [
       heatmapVisible,
@@ -259,6 +267,7 @@ export default function MapPage() {
       selectedReligionBin,
       selectedAgeBin,
       binRanges,
+      income,
     ]
   );
 
@@ -433,6 +442,8 @@ export default function MapPage() {
         binRanges={binRanges}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        income={income}
+        setIncome={handleIncomeChange}
       />
       {selectedAgeBin && (
         <div className="mt-4 absolute bottom-0 right-[30%] p-3 rounded-lg min-w-36 bg-white text-black">
