@@ -175,7 +175,8 @@ export function useMapLayers(
           id: PROPERTIES_LAYER_ID,
           type: "circle",
           source: "properties",
-          layout: { visibility: "visible" }, // Filter will handle visibility based on data
+          layout: { visibility: "visible" },
+          minzoom: 11,
           paint: {
             "circle-radius": [
               "case",
@@ -269,12 +270,6 @@ export function useMapLayers(
     );
 
     if (!map || !map.getLayer(JAKARTA_FILL_LAYER_ID)) return;
-
-    // map.setFilter(JAKARTA_FILL_LAYER_ID, [
-    //   "all",
-    //   [">=", ["get", "Penghasilan rata-rata"], 3000000.0],
-    //   // ["<=", ["get", "property_price"], 100000000.0],
-    // ]);
     map.setFilter(JAKARTA_FILL_LAYER_ID, [
       "all",
       [
