@@ -47,7 +47,8 @@ export default function MapPage() {
   const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false); // Heatmap visibility state
   const [infrastructureVisibility, setInfrastructureVisibility] =
     useState<InfrastructureVisibilityState>(initialInfraVisibility);
-
+  const [regionPopupVisibility, setRegionPopupVisibility] =
+    useState<boolean>(false);
   // Data Display State
   const [clickedRegionId, setClickedRegionId] = useState<
     string | number | null
@@ -112,7 +113,7 @@ export default function MapPage() {
       } catch (e) {
         console.error("Error setting feature state:", e);
       }
-
+      setRegionPopupVisibility(true);
       // Ensure we set state with a valid type (string | number | null)
       setClickedRegionId(clickedId ?? null); // Use nullish coalescing to default undefined to null
 
@@ -143,6 +144,10 @@ export default function MapPage() {
     console.log("handleIncomeChange", values);
     setIncome(values as [number, number]);
   }, []);
+  const handleSeeMore = () => {
+    setActiveTab("Analytics");
+    setRegionPopupVisibility(false);
+  };
 
   const handlePropertyClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
@@ -257,6 +262,7 @@ export default function MapPage() {
       selectedAgeBin,
       binRanges,
       income,
+      regionPopupVisibility,
     }),
     [
       heatmapVisible,
@@ -268,6 +274,7 @@ export default function MapPage() {
       selectedAgeBin,
       binRanges,
       income,
+      regionPopupVisibility,
     ]
   );
 
@@ -370,6 +377,52 @@ export default function MapPage() {
         layerControls={mapLayerControls}
         eventHandlers={mapEventHandlers}
       />
+      {/* Region Info Floating Box */}
+      {regionPopupVisibility && !selectedPropertyData && (
+        <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
+          <h3 className="text-base font-bold mb-2">{regionData?.regionName}</h3>
+          <div className="space-y-1">
+            <p>
+              <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
+              {regionData?.jumlahKecamatan}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah Desa:</strong>{" "}
+              {regionData?.jumlahDesa}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
+              {regionData?.jumlahPenduduk}
+            </p>
+            <p>
+              <strong className="font-semibold">Kepadatan per km2:</strong>{" "}
+              {regionData?.kepadatanPerKm2}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah laki-laki:</strong>{" "}
+              {regionData?.jumlahLakiLaki}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah perempuan:</strong>{" "}
+              {regionData?.jumlahPerempuan}
+            </p>
+            <p>
+              <strong className="font-semibold">luas wilayah (km2):</strong>{" "}
+              {regionData?.luasWilayahKm2}
+            </p>
+          </div>
+          <div className="mt-3 flex justify-between items-center">
+            <button
+              onClick={() => setRegionPopupVisibility(false)} // Use the handler
+              className="text-xs text-red-600 hover:text-red-800 hover:underline focus:outline-none"
+            >
+              Tutup
+            </button>
+
+            <button onClick={handleSeeMore}>See More</button>
+          </div>
+        </div>
+      )}
 
       {/* Property Info Floating Box */}
       {selectedPropertyData && (
@@ -414,13 +467,7 @@ export default function MapPage() {
               Tutup
             </button>
 
-            <button
-              onClick={() => {
-                setActiveTab("Analytics");
-              }}
-            >
-              See More
-            </button>
+            <button onClick={handleSeeMore}>See More</button>
           </div>
         </div>
       )}

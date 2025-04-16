@@ -261,6 +261,14 @@ export function useMapLayers(
     };
   }, [map, isLoaded]); // Runs only when map instance is created and loaded
 
+  // --- Effect for region popup close (on seemore click) ---
+  useEffect(() => {
+    if (!map || !isLoaded || layerControls.regionPopupVisibility) return;
+    for (let i = 0; i < [0, 1, 2, 3, 4].length; i++) {
+      map.setFeatureState({ source: "jakarta", id: i }, { clicked: false });
+    }
+  }, [map, isLoaded, layerControls.regionPopupVisibility]);
+
   // --- Effect for Income filter on jakarta-fill layer ---
   useEffect(() => {
     console.log(

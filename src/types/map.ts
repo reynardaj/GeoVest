@@ -77,4 +77,5 @@ export interface MapLayerControls {
   selectedAgeBin: string | null;
   binRanges: { [key: string]: number[] };
   income: number[];
+  regionPopupVisibility: boolean;
 }
