@@ -29,10 +29,13 @@ export function useMapEvents(
       e: MapMouseEvent & { features?: MapGeoJSONFeature[] }
     ) => {
       const feature = e.features?.[0];
-      if (!feature || !feature.id) return;
+      if (!feature || feature.id == null) return;
       e.originalEvent.preventDefault(); // Prevent background click
       // Reset previous clicked visual state if needed (managed in parent via feature state or specific prop)
-      handlersRef.current.onRegionClick?.(feature, map); // Call parent handler
+      const handler = handlersRef.current.onRegionClick;
+      if (handler !== undefined && handler !== null) {
+        handler(feature, map);
+      }
     };
     map.on("click", JAKARTA_FILL_LAYER_ID, handleRegionClick);
 

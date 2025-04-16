@@ -86,6 +86,7 @@ export default function MapPage() {
 
   const handleRegionClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
+      console.log("handleRegionClick called");
       // feature.id can be string, number, or undefined.
       // We need string | number | null for the state.
       const clickedId = feature.id;
@@ -137,7 +138,7 @@ export default function MapPage() {
       // Zoom to region
       zoomToRegion(map, feature);
     },
-    [clickedRegionId]
+    [clickedRegionId, regionPopupVisibility]
   ); // Depends on clickedRegionId to reset previous state
 
   const handleIncomeChange = useCallback((values: number[]) => {
