@@ -25,7 +25,7 @@ export const PROPERTY_CATEGORIES = [
   "Gudang",
   "Kos",
 ];
-export const INVESTMENT_TYPES = ["Jual", "Beli"];
+export const INVESTMENT_TYPES = ["Jual", "Beli", "Sewa"];
 
 export const INFRASTRUCTURE_LAYERS: InfrastructureLayer[] = [
   {

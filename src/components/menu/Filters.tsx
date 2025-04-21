@@ -121,7 +121,7 @@ const Filters = ({
       <Range
         step={0.1}
         min={0}
-        max={5000000000}
+        max={10000000000}
         values={priceRange}
         onChange={onPriceChange}
         renderTrack={({ props, children }) => (
@@ -134,7 +134,7 @@ const Filters = ({
                 values: priceRange,
                 colors: ["#ccc", "#17488D", "#ccc"],
                 min: 0,
-                max: 5000000000,
+                max: 10000000000,
               }),
             }}
           >

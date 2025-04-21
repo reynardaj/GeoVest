@@ -20,6 +20,7 @@ import type {
 import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
 import Image from "next/image";
+import NavbarMap from "@/components/NavbarMap";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
@@ -36,7 +37,7 @@ export default function MapPage() {
   // --- State Management ---
   // Filter State
   const [priceRange, setPriceRange] = useState<[number, number]>([
-    0, 5000000000,
+    0, 10000000000,
   ]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedInvestmentTypes, setSelectedInvestmentTypes] = useState<
@@ -187,8 +188,9 @@ export default function MapPage() {
         }
         setClickedRegionId(null);
       }
-      // Clear sidebar info
+      setSelectedPropertyData(null);
       setRegionData(null);
+      setRegionPopupVisibility(false);
       // Optionally close property popup if desired on background click
       // setSelectedPropertyData(null);
     },
@@ -374,6 +376,7 @@ export default function MapPage() {
   return (
     // Use h-screen and w-screen on the outer div to ensure full viewport height
     <div className="flex relative h-screen w-screen overflow-hidden">
+      <NavbarMap />
       {/* Map Component takes up remaining space */}
       <MapComponent
         initialOptions={initialMapOptions}
@@ -382,11 +385,11 @@ export default function MapPage() {
       />
       {/* Region Info Floating Box */}
       {regionPopupVisibility && !selectedPropertyData && (
-        <div className="absolute top-4 left-4 z-10 bg-popup p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
-          <h3 className="text-base text-white font-bold mb-2">
+        <div className="absolute top-4 left-4 z-10 bg-popup p-4 rounded-lg shadow-md bg-white text-black max-w-xs text-sm">
+          <h3 className="text-base text-black font-bold mb-2">
             {regionData?.regionName}
           </h3>
-          <div className="text-white space-y-1">
+          <div className="text-black space-y-1">
             <p>
               <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
               {regionData?.jumlahKecamatan}
@@ -419,13 +422,15 @@ export default function MapPage() {
           <div className="mt-3 flex justify-between items-center">
             <button
               onClick={() => setRegionPopupVisibility(false)} // Use the handler
-              className="text-xs text-white   focus:outline-none"
+              className="text-xs text-red-500 hover:underline  focus:outline-none"
             >
               Tutup
             </button>
-
-            <button className="text-white text-xs" onClick={handleSeeMore}>
-              <u>See More</u>
+            <button
+              className="text-black text-xs hover:underline focus:outline-none"
+              onClick={handleSeeMore}
+            >
+              See More
             </button>
           </div>
         </div>
@@ -443,7 +448,7 @@ export default function MapPage() {
               alt={selectedPropertyData.propertyName}
               width={300}
               height={300}
-              className="w-full mb-2 max-h-50 object-cover"
+              className="w-full mb-2 max-h-48 object-cover"
             />
           )}
           <div className="space-y-1">
@@ -483,7 +488,12 @@ export default function MapPage() {
               Tutup
             </button>
 
-            <button onClick={handleSeeMore}>See More</button>
+            <button
+              onClick={handleSeeMore}
+              className="text-xs text-black hover:underline focus:outline-none"
+            >
+              See More
+            </button>
           </div>
         </div>
       )}
@@ -509,7 +519,7 @@ export default function MapPage() {
         setIncome={handleIncomeChange}
       />
       {selectedAgeBin && (
-        <div className="mt-4 absolute bottom-0 right-[30%] p-3 rounded-lg min-w-36 bg-white text-black">
+        <div className="mt-4 absolute bottom-0 right-[26%] p-3 rounded-lg min-w-36 bg-white text-black">
           <h4 className="font-bold mb-2 text-sm">Legend</h4>
           {getRangeLabels(selectedAgeBin).map((range, index) => (
             <div key={index} className="flex items-center mb-1 text-sm">
