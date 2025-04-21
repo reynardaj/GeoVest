@@ -83,8 +83,8 @@ export function useMapLayers(
               ["boolean", ["feature-state", "hover"], false],
               "#9cdfb4", // Hover color
               ["boolean", ["feature-state", "clicked"], false],
-              "#ADD8E6", // Clicked color
-              "#254a8e", // Default color
+              "#959f8d", // Clicked color
+              "#959f8d", // Default color
             ],
             "fill-opacity": [
               "case",
@@ -102,7 +102,7 @@ export function useMapLayers(
           id: JAKARTA_BORDER_LAYER_ID,
           type: "line",
           source: "jakarta",
-          paint: { "line-color": "#627BC1", "line-width": 2 },
+          paint: { "line-color": "#917776", "line-width": 2 },
         });
       }
 
@@ -187,8 +187,8 @@ export function useMapLayers(
             "circle-color": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              "#FF8C00",
-              "#007bff",
+              "#959f8d",
+              "#959f8d",
             ],
             "circle-stroke-width": [
               "case",

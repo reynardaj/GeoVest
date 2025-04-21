@@ -381,9 +381,11 @@ export default function MapPage() {
       />
       {/* Region Info Floating Box */}
       {regionPopupVisibility && !selectedPropertyData && (
-        <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
-          <h3 className="text-base font-bold mb-2">{regionData?.regionName}</h3>
-          <div className="space-y-1">
+        <div className="absolute top-4 left-4 z-10 bg-popup p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
+          <h3 className="text-base text-white font-bold mb-2">
+            {regionData?.regionName}
+          </h3>
+          <div className="text-white space-y-1">
             <p>
               <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
               {regionData?.jumlahKecamatan}
@@ -416,12 +418,14 @@ export default function MapPage() {
           <div className="mt-3 flex justify-between items-center">
             <button
               onClick={() => setRegionPopupVisibility(false)} // Use the handler
-              className="text-xs text-red-600 hover:text-red-800 hover:underline focus:outline-none"
+              className="text-xs text-white   focus:outline-none"
             >
               Tutup
             </button>
 
-            <button onClick={handleSeeMore}>See More</button>
+            <button className="text-white text-xs" onClick={handleSeeMore}>
+              <u>See More</u>
+            </button>
           </div>
         </div>
       )}
