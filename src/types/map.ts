@@ -50,7 +50,7 @@ export interface SelectedPropertyData {
   landArea: number | string;
   certificateType: string;
   price: number | string;
-  url?: string;
+  propertyUrl?: string;
 }
 
 // Type for infrastructure visibility state

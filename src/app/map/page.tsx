@@ -19,6 +19,7 @@ import type {
 // Import Constants
 import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
+import Image from "next/image";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
@@ -162,7 +163,7 @@ export default function MapPage() {
           landArea: props.land_area ?? "N/A", // Keep raw, format in display
           certificateType: props.certificate_type || "N/A",
           price: props.property_price ?? "N/A", // Keep raw, format in display
-          url: props.property_url,
+          propertyUrl: props.property_url,
         };
         setSelectedPropertyData(propertyData); // Update state for the floating box
       } else {
@@ -436,6 +437,15 @@ export default function MapPage() {
           <h3 className="text-base font-bold mb-2">
             {selectedPropertyData.propertyName}
           </h3>
+          {selectedPropertyData.propertyUrl && (
+            <Image
+              src={selectedPropertyData.propertyUrl}
+              alt={selectedPropertyData.propertyName}
+              width={300}
+              height={300}
+              className="w-full mb-2 max-h-50 object-cover"
+            />
+          )}
           <div className="space-y-1">
             <p>
               <strong className="font-semibold">Kategori:</strong>{" "}
