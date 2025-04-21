@@ -158,9 +158,21 @@ export function useMapLayers(
                   "icon-image": layer.iconId,
                   "icon-size": 0.4,
                   "icon-allow-overlap": true,
+                  "text-field": ["get", "NAMOBJ"],
+                  "text-font": [
+                    "Open Sans Regular",
+                    "Arial Unicode MS Regular",
+                  ],
+                  "text-size": 12,
+                  "text-offset": [1, 0],
+                  "text-anchor": "left",
+                  "text-allow-overlap": true,
                   visibility: visibilityValue,
                 },
-                paint: {},
+                paint: {
+                  "text-color": "#000000",
+                  "text-opacity": ["step", ["zoom"], 0, 13, 1],
+                },
               });
             }
           }
