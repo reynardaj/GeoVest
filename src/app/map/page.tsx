@@ -519,7 +519,7 @@ export default function MapPage() {
         setIncome={handleIncomeChange}
       />
       {selectedAgeBin && (
-        <div className="mt-4 absolute bottom-0 right-[26%] p-3 rounded-lg min-w-36 bg-white text-black">
+        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
           <h4 className="font-bold mb-2 text-sm">Legend</h4>
           {getRangeLabels(selectedAgeBin).map((range, index) => (
             <div key={index} className="flex items-center mb-1 text-sm">
@@ -533,7 +533,7 @@ export default function MapPage() {
         </div>
       )}
       {selectedReligionBin && (
-        <div className="mt-4 absolute bottom-0 right-[30%] p-3 rounded-lg min-w-36 bg-white text-black">
+        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-2">
           <h4 className="font-bold mb-2 text-sm">Legend</h4>
           {getRangeLabels(selectedReligionBin).map((range, index) => (
             <div key={index} className="flex items-center mb-1 text-sm">

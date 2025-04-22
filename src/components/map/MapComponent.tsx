@@ -32,12 +32,12 @@ export default function MapComponent({
   useMapEvents(mapInstance, isLoaded, eventHandlers);
 
   return (
-    <div className="flex-1 relative h-full w-full">
+    <div className="flex-1 relative h-full w-auto">
       {" "}
       {/* Ensure map fills container */}
       <div
         ref={mapContainerRef}
-        className="absolute top-0 left-0 w-full h-full"
+        className="absolute top-0 left-0 w-auto h-full"
       />
       {/* Optional: Add overlays or controls as children, using mapInstance if needed */}
       {!isLoaded && (
