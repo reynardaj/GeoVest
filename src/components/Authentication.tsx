@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button"
+=======
+import { Button } from "@/components/ui/button";
+>>>>>>> origin/map-interactive-map
 import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -12,17 +16,40 @@ export default async function Authentication() {
         </>
       ) : (
         <>
+<<<<<<< HEAD
           <SignUpButton signInForceRedirectUrl="/form" mode="modal">
               <Button variant="ghost" className="text-current hover:text-gray-200 font-inter font-bold">Sign Up</Button>
           </SignUpButton>
           <SignInButton forceRedirectUrl="/dashboard" mode="modal">
               <Button variant="ghost" className="text-current hover:text-gray-200 font-inter font-bold">Log In</Button>
+=======
+          <SignUpButton mode="modal">
+            <Button
+              variant="ghost"
+              className="text-white hover:text-gray-200 font-inter font-bold"
+            >
+              Sign Up
+            </Button>
+          </SignUpButton>
+          <SignInButton mode="modal">
+            <Button
+              variant="ghost"
+              className="text-white hover:text-gray-200 font-inter font-bold"
+            >
+              Log In
+            </Button>
+>>>>>>> origin/map-interactive-map
           </SignInButton>
         </>
       )}
     </div>
+<<<<<<< HEAD
   )
   
+=======
+  );
+
+>>>>>>> origin/map-interactive-map
   // return (
   //   <div className="flex items-center space-x-4">
   //     <Link href="/login">
@@ -41,4 +68,7 @@ export default async function Authentication() {
   //   </div>
   // )
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/map-interactive-map

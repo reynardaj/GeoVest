@@ -1,0 +1,1139 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.8372417911199,
+          -6.18397219573023,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Kembang IV No.40, RT.2/RW.2, Kwitang, Kec. Senen, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10420",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2350000000,
+        "building_area": 85,
+        "land_area": 45,
+        "certificate_type": "PPJB",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828401027_img_%25image-jakpus_%2521e46dc4-a150-4e0c-acca-f8402e741049.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.69456781534329,
+          -6.12382458016155,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Blok O 7/3, Cluster Aeroville, Citra 8, Jakarta Barat.",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2500000000,
+        "building_area": 81,
+        "land_area": 102,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828413359_img_%25rumah-jakbar_%253082e2d8-2d02-4293-abef-68c4fb3daa62.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.71401481405992,
+          -6.17368988415617,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Palem Raja Timur, Blok B12 No. 12, Jakarta Barat",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3000000000,
+        "building_area": 130,
+        "land_area": 150,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828421343_img_%25rumah-jakbar-2_%25b8e3aa9b-5b75-440e-973f-aaa6b4a49ee1.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.715282181073,
+          -6.175148866749479,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Kresek Raya No.11, RT.11/RW.13, Duri Kosambi, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11750",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 350000000,
+        "building_area": 35,
+        "land_area": 35,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828431793_img_%25apartment-greenpalm_%25742ac856-4d44-4078-8a76-7cf9ce8b197c.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.71524872448077,
+          -6.173395327779937,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Kosambi Selatan Blok Haji 5 No.30, RT.4/RW.9, Duri Kosambi, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11750",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2100000000,
+        "building_area": 130,
+        "land_area": 125,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828440486_img_%25rumah-kosambi_%25d066753a-a035-4ab0-b672-90960ab4e5e9.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.73252930913743,
+          -6.178262962977465,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Zamrud III Blok A19 No. 16, RW.1, Kembangan, Jakarta Barat, Jakarta 11610",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2000000000,
+        "building_area": 100,
+        "land_area": 72,
+        "certificate_type": "PPJB",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828447173_img_%25rumah-kembangan_%25daea5c0e-b903-4f4d-97b1-b25288f4438b.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.73953949442966,
+          -6.18441253688478,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Puri Permai, W1/ 12, Kembangan, Jakarta Barat",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3000000000,
+        "building_area": 250,
+        "land_area": 150,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828456763_img_%25rumah-kembangan-2_%2571c88c0b-01e3-487a-84fb-221aab291068.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.71971313797317,
+          -6.164444658262216,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Dharma Kencana, Blok K No. 9, Taman Semanan Indah, Cengkareng, Jakarta Barat, DKI Jakarta",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 1800000000,
+        "building_area": 85,
+        "land_area": 90,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828482202_img_%25rumah-semanan_%2575c1e9f4-15e5-460d-85d1-4ece73a8990f.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.71500719564479,
+          -6.151540151541709,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "RW.12, Kalideres, Jakarta Barat, Jakarta 11840",
+        "property_category": "Ruko",
+        "property_status": "Jual",
+        "property_price": 3600000000,
+        "building_area": 250,
+        "land_area": 85,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828490801_img_%25ruko-jakbar_%25bdb8e8e1-7db1-4f94-8d78-1c67a3a622cb.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.70036130913724,
+          -6.144874179725229,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Citra 7, Kalideres, Jakarta Barat, Jakarta",
+        "property_category": "Ruko",
+        "property_status": "Jual",
+        "property_price": 1500000000,
+        "building_area": 110,
+        "land_area": 60,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828500325_img_%25ruko-citra7_%251a2cd647-eca3-4d2c-9647-0dfae3a3cf23.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.77885748215256,
+          -6.203944369766904,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Salam 1 No.7, RT.7/RW.6, Sukabumi Utara, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11540",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 10000000000,
+        "building_area": 350,
+        "land_area": 276,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828588905_img_%25rumah-salam_%25ed4529bf-a170-4c3e-9c37-39008d13bcb3.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.77809949564508,
+          -6.206666342985641,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Yusuf No.36, RT.8/RW.3, Sukabumi Utara, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11540",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3300000000,
+        "building_area": 320,
+        "land_area": 126,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828594902_img_%25rumah-kmg_%25cc1d1150-1998-4a01-84f5-0e0e77396453.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.76778563797357,
+          -6.216294513015694,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Raya Pos Pengumben, RT.1/RW.6, Klp. Dua, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11550",
+        "property_category": "Ruko",
+        "property_status": "Jual",
+        "property_price": 5500000000,
+        "building_area": 210,
+        "land_area": 75,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828609478_img_%25ruko-jakbar%20%281%29_%25ec27caa4-fb2b-4747-b748-f0bb8e5dc9fa.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.72981019564509,
+          -6.197120838746742,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Penyelesaian Tomang I Blok 36 No.4, RT.3/RW.1, Meruya Utara, Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11620",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3400000000,
+        "building_area": 200,
+        "land_area": 102,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828624547_img_%25rumah-tomang_%25ccb043e2-9e63-4e61-bde6-e6edc7695b0e.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.72848251098834,
+          -6.199926106071228,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Teratai II 25, RT.3/RW.10, Meruya Utara, Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11620",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2300000000,
+        "building_area": 105,
+        "land_area": 70,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828632339_img_%25rumah-jlteratai_%25843a0485-6cfc-4c25-a97e-67ce1f887ee9.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.75364830690589,
+          -6.1540273514127755,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Casa Jardin Blok G2 No.43, RT.1/RW.4, Kedaung Kali Angke, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11710",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2600000000,
+        "building_area": 115,
+        "land_area": 72,
+        "certificate_type": "PPJB",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828646792_img_%25rumah-daanmogot_%25d82e7ce2-7f2b-4dbc-9468-db44bca19efc.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.75089827275805,
+          -6.151332139187993,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Casa Jardin, RT.1/RW.4, Kedaung Kali Angke, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11710",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 5800000000,
+        "building_area": 390,
+        "land_area": 276,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828661723_img_%25rumah-daanmogot-anthurium_%2504eb8062-26bb-499a-9385-aea403be50a1.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.75524670095612,
+          -6.150179397163211,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Cluster Daniella, Kedaung Kali Angke, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11710",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2300000000,
+        "building_area": 135,
+        "land_area": 90,
+        "certificate_type": "PPJB",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828670893_img_%25rumah-daniella_%25001da613-6936-408f-991e-7e23b7a31622.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.75586287202866,
+          -6.151753854229162,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Cluster Evodia, Kedaung Kali Angke, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11710",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3000000000,
+        "building_area": 175,
+        "land_area": 110,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828676404_img_%25rumah-evodia_%25690bdd13-26a2-4776-a6f9-2c80e9905de4.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.78844772111962,
+          -6.175264828606793,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Mediterania Garden, RT.15/RW.5, Tj. Duren Sel., Kec. Grogol petamburan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 36000000,
+        "building_area": 36,
+        "land_area": 36,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828682934_img_%25apartment-mediterania_%2584a9f65e-9219-4909-ad7d-dbab3f784848.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.78906489112876,
+          -6.178946076173804,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Madison Park, Tj. Duren Sel., Kec. Grogol petamburan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 50000000,
+        "building_area": 30,
+        "land_area": 30,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828698914_img_%25apartment-madisonpark_%2539442354-2a32-41f1-b6f0-d73c3015e049.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.85094422448138,
+          -6.257053330387592,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Raya Kalibata No.09/04, RT.1 Rt/RW.4, Rawajati, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12750",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 46000000,
+        "building_area": 42,
+        "land_area": 42,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828705634_img_%25apartment-greenpalace_%25a7a3e208-ac46-4589-8e24-263d1b41d3d6.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.79713505672211,
+          -6.299066422171102,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Bona Vista Raya No.10, RT.10/RW.6, Lb. Bulus, Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12440",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 77000000,
+        "building_area": 92,
+        "land_area": 92,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828716603_img_%25apartment-bonavista_%25f9811d77-8b52-4112-ba95-6cabca847461.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.79794031539235,
+          -6.292676803354589,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Fatmawati Raya No.2, RT.4/RW.9, Cilandak Bar., Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 110000000,
+        "building_area": 61,
+        "land_area": 61,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744828724117_img_%25apartment-fatmawaticitycenter_%2578c279aa-7c1c-47b4-929b-6c734775b448.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.85755653368284,
+          -6.149460559978306,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. HBR Motik No.2 18 RT.18/RW.5 Sunter Jaya Tanjung Priok Jakarta Utara 14350",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 850000000,
+        "building_area": 45,
+        "land_area": 45,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827197625_img_%25Maple%20Park%20Apartment_%25a9e30e0c-576f-47fc-b3e2-2031ff1c6681.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.78916595866102,
+          -6.126933826340406,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Pluit Selatan Raya RT.23/RW.8 Pluit Penjaringan Jakarta Utara 14450",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 120000000,
+        "building_area": 60,
+        "land_area": 60,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827248238_img_%25CBD%20Pluit%20Apartment_%2541867d2c-a253-438d-ac4a-08ccd260fcd6.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.91723819168683,
+          -6.153543646922139,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Pegangsaan Dua RT.13/RW.3 Kelapa Gading Jakarta Utara 14250",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 1200000000,
+        "building_area": 70,
+        "land_area": 70,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827257527_img_%25Apartment%20Gading%20Nias%20Residences_%25ec177c84-eabb-447a-8316-b97dc54153ba.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.73950925703737,
+          -6.1015157097651915,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Pantai Indah Kapuk St RT.8/RW.1 Penjaringan Jakarta Utara 14470",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 2500000000,
+        "building_area": 84,
+        "land_area": 84,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827265711_img_%25Gold%20Coast%20Apartment%20PIK_%258c672c1b-5a07-42cb-8d1a-d26b8b3b7ffa.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.89285757399956,
+          -6.160212018613366,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Apartement Gading Mediterania Tower C Lobi Utara Jl. Boulevard Bukit Gading Raya No.38 Kelapa Gading Jakarta Utara 14240",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 150000000,
+        "building_area": 85,
+        "land_area": 85,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827282731_img_%25Apartemen%20Gading%20Mediterania_%2571109a13-1854-410e-bb1d-90d96fa84690.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.77706043555241,
+          -6.127458705552903,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "VQCG+RRJ Jl. Teluk Gong Raya Pejagalan Penjaringan Jakarta Utara 14450",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 750000000,
+        "building_area": 50,
+        "land_area": 50,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827648949_img_%25Apartemen%20Teluk%20Intan_%25c4851556-817c-41e8-85a5-31903a46efdd.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.89873321893032,
+          -6.171780884205881,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Kelapa Gading Permai Blok A5 No.12 RT.5/RW.9 Kelapa Gading Timur Jakarta Utara 14240",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3500000000,
+        "building_area": 150,
+        "land_area": 200,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827661345_img_%25Rumah%20Kelapa%20Gading%20Permai_%257b27dd24-6463-4068-935c-bc59191a8902.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.90926519250668,
+          -6.162614180504434,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Pegangsaan Dua No.17 RT.7/RW.2 Kelapa Gading Jakarta Utara 14250",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 4200000000,
+        "building_area": 180,
+        "land_area": 250,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827670697_img_%25Rumah%20Gading%20Park%20View_%257cbae390-1afb-4223-bd16-0b9a71ff7ab9.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.80193491965426,
+          -6.1262499424682,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Pluit Raya No.1 RT.21/RW.6 Pluit Penjaringan Jakarta Utara 14450",
+        "property_category": "Toko",
+        "property_status": "Sewa",
+        "property_price": 180000000,
+        "building_area": 100,
+        "land_area": 100,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827676861_img_%25Ruko%20Pluit%20Junction_%25fc92b1d2-e6b7-45a9-a671-bf164812a14c.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.86852025109687,
+          -6.141413239425593,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Paradise Timur Raya Blok F1 No.7 RT.10/RW.11 Sunter Agung Tanjung Priok Jakarta Utara 14350",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2800000000,
+        "building_area": 120,
+        "land_area": 150,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827693119_img_%25Rumah%20Sunter%20Paradise_%25ef297767-1277-478b-b298-f860c2404160.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.89761330750672,
+          -6.150639759318608,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Boulevard Raya Kelapa Gading Blok LC7 No.22-23 RT.13/RW.18 Kelapa Gading Jakarta Utara 14240",
+        "property_category": "Toko",
+        "property_status": "Sewa",
+        "property_price": 200000000,
+        "building_area": 150,
+        "land_area": 150,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827715676_img_%25Ruko%20Gading%20Food%20City_%257bb1b444-0b3c-49d0-bc59-ec91652090d1.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.74604559426398,
+          -6.1117662728908275,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Marina Indah Raya Blok E No.12 RT.6/RW.2 Pantai Indah Kapuk Penjaringan Jakarta Utara 14470",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 7500000000,
+        "building_area": 300,
+        "land_area": 450,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827737646_img_%25Rumah%20Pantai%20Indah%20Kapuk_%25bd149b2b-a7b7-4d8e-b3fd-e0184835d42d.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.87599750674664,
+          -6.24305142441974,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. DI. Panjaitan No.Kav 5-7 RT.5/RW.11 Cipinang Cempedak Jatinegara Jakarta Timur 13340",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 96000000,
+        "building_area": 65,
+        "land_area": 65,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827746082_img_%25Patria%20Park%20Apartment_%2577ec83f2-da74-4f59-81c3-1863b1e29596.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.89851364686831,
+          -6.223471986959556,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Pahlawan Revolusi No.2 RT.4/RW.6 Pondok Bambu Duren Sawit Jakarta Timur 13430",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 950000000,
+        "building_area": 70,
+        "land_area": 70,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827757301_img_%25Apartemen%20Casablanca%20East%20Residence_%25b11c8acc-dd40-417b-9d90-3e54755b8362.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.92533694502363,
+          -6.2038147989328065,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Perumahan Jatinegara Indah No.9 RT.13/RW.12 Jatinegara Jakarta Timur 13310",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 84000000,
+        "building_area": 53,
+        "land_area": 53,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827765928_img_%25East%20Park%20Apartment_%259468e706-feeb-42d2-9981-5dff27507eb6.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.9497539643602,
+          -6.204488791718181,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Sentra Timur Cakung RT.7/RW.3 Cakung Barat Jakarta Timur 13910",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 750000000,
+        "building_area": 45,
+        "land_area": 45,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827775176_img_%25Apartemen%20Sentra%20Timur%20Residence_%254339330b-1731-45a0-8ed5-d1271306cbeb.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.87876966509839,
+          -6.223591539001053,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Apartemen Bassura City Kios Tower Flamboyan No AL10 Jl. Basuki Rahmat No.1A RT.8/RW.10 Cipinang Besar Selatan Jatinegara Jakarta Timur 13410",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 850000000,
+        "building_area": 50,
+        "land_area": 50,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827783611_img_%25Bassura%20City%20Apartment_%25c1c78cae-37a4-4723-ad13-32d53c314279.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.87470283942764,
+          -6.18820580767728,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Ahmad Yani No.88 RT.15/RW.4 Rawasari Cempaka Putih Jakarta Pusat 10570",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 72000000,
+        "building_area": 45,
+        "land_area": 45,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827797471_img_%25Apartemen%20Green%20Pramuka%20City_%25aeacb35c-e608-46e8-a09c-928f714b918f.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.90011526759021,
+          -6.232651224051471,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Bambu Kuning Raya No.15 RT.8/RW.3 Pondok Bambu Duren Sawit Jakarta Timur 13430",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2500000000,
+        "building_area": 120,
+        "land_area": 150,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827814391_img_%25Rumah%20Pondok%20Bambu%20Asri_%25f3bb8b1d-32bd-4252-9454-44edcd093007.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.9319195837638,
+          -6.230397227007433,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Malaka Utara Raya Blok D5 No.12 RT.6/RW.9 Malaka Jaya Duren Sawit Jakarta Timur 13460",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 1800000000,
+        "building_area": 90,
+        "land_area": 120,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827821171_img_%25Rumah%20Taman%20Malaka%20Utara_%25e98fb4c4-6000-444a-b40b-170da1b321e9.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.92432039609689,
+          -6.217280006905368,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Raden Inten II No.1 RT.1/RW.1 Buaran Duren Sawit Jakarta Timur 13440",
+        "property_category": "Toko",
+        "property_status": "Sewa",
+        "property_price": 150000000,
+        "building_area": 100,
+        "land_area": 100,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827828824_img_%25Ruko%20Buaran%20Plaza_%25dbd625f3-4c04-43f1-b33c-a2d36d8833f7.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.89321111146437,
+          -6.183051202036925,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Kayu Putih Tengah No.18 RT.5/RW.9 Pulo Gadung Jakarta Timur 13260",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 3200000000,
+        "building_area": 150,
+        "land_area": 200,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827839482_img_%25Rumah%20Perumahan%20Citra%20Grand_%259bc5024d-b1fb-4c86-a953-a83e4a1c6fc6.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.86477608500516,
+          -6.215738281344971,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Jatinegara Timur No.45 RT.3/RW.2 Jatinegara Jakarta Timur 13310",
+        "property_category": "Toko",
+        "property_status": "Sewa",
+        "property_price": 120000000,
+        "building_area": 80,
+        "land_area": 80,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827452721_img_%25Ruko%20Pasar%20Jatinegara_%2570714e23-9181-40cc-9a17-67bf9e5961e2.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.9209218969124,
+          -6.221814254168053,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Duren Sawit Raya No.28 RT.7/RW.4 Duren Sawit Jakarta Timur 13440",
+        "property_category": "Rumah",
+        "property_status": "Jual",
+        "property_price": 2800000000,
+        "building_area": 130,
+        "land_area": 180,
+        "certificate_type": "Sertifikat Hak Milik (SHM)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827457890_img_%25Rumah%20Duren%20Sawit%20Permai_%25410c4513-b073-4b95-ad34-d69d1baf7c7d.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.84060010528266,
+          -6.190381837274827,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Cikini Raya No.79 RT.2/RW.2 Menteng Jakarta Pusat 10330",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 2500000000,
+        "building_area": 75,
+        "land_area": 75,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827463169_img_%25Menteng%20Park%20Apartments_%25a857f433-d328-437d-adf6-0ec05e522e83.png"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.84036172622028,
+          -6.173410857498822,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Senen Raya No.135-137 RW.2 Senen Jakarta Pusat 10410",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 120000000,
+        "building_area": 65,
+        "land_area": 65,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827470461_img_%25Allson%20Residence_%2512dc68d1-98e5-4db5-9b7b-e271eb764f4e.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.81817260269814,
+          -6.207156613770144,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Samping city walk Jl. K.H. Mas Mansyur RT.12/RW.11 Karet Tengsin Tanah Abang Jakarta Pusat 10250",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 1800000000,
+        "building_area": 70,
+        "land_area": 70,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827475647_img_%25Apartemen%20Pavilion_%25a30608c4-0ffb-47b3-aafe-7c7adc66d589.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.85285393556352,
+          -6.156168188916753,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Landas Pacu Barat No.A6 RT.13/RW.6 Kemayoran Jakarta Pusat 10610",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 96000000,
+        "building_area": 60,
+        "land_area": 60,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827481322_img_%25Puri%20Kemayoran%20Apartment_%257271cc81-91fa-450f-87bc-cea098e8c906.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.83238839345752,
+          -6.162709808789354,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl. Pintu Air V No.53 5 RT.5/RW.8 Pasar Baru Sawah Besar Jakarta Pusat 10710",
+        "property_category": "Apartemen",
+        "property_status": "Jual",
+        "property_price": 950000000,
+        "building_area": 55,
+        "land_area": 55,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827873536_img_%25Pasar%20Baru%20Mansion_%2503420f7b-c363-421c-bc44-d268178dfa50.jpeg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          106.83892492041241,
+          -6.180195086450064,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "property_name": "Jl.kko usman dan harun kavling 22-24 RT.1/RW.5 Kebon Melati Tanah Abang Jakarta Pusat 10230",
+        "property_category": "Apartemen",
+        "property_status": "Sewa",
+        "property_price": 180000000,
+        "building_area": 80,
+        "land_area": 80,
+        "certificate_type": "Hak Guna Bangunan (HGB)",
+        "property_url": "https://mapidstorage.s3.ap-southeast-1.amazonaws.com/general_image/lightartz/1744827879725_img_%25Apartment%20Capitol%20Suites_%25ec51a402-4af7-4868-8578-d3a3eacd3526.jpeg"
+      }
+    }
+  ]
+}
