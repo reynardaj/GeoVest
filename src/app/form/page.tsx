@@ -128,7 +128,11 @@ export default function form() {
                             </button>
 
                             <button
-                            onClick={() => window.location.href = "/dashboard"}
+                            onClick={() => {
+                              if (typeof window !== "undefined") {
+                                window.location.href = "/dashboard"
+                              }
+                            }}
                             className="w-full border-2 border-[#17488D] text-[#17488D] hover:bg-[#17488D] hover:text-white font-semibold py-2 rounded-xl"
                             >
                             Saya sudah tau yang saya inginkan

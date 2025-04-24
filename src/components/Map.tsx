@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import L from "leaflet"
-import "leaflet/dist/leaflet.css"
+import { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 // Create a custom icon using SVG
 const customIcon = new L.Icon({
@@ -17,18 +17,25 @@ const customIcon = new L.Icon({
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
-})
+});
 
 export default function Map() {
-  const position: [number, number] = [-6.1754, 106.8272] // Jakarta coordinates
+  const position: [number, number] = [-6.1754, 106.8272]; // Jakarta coordinates
 
   useEffect(() => {
     // This is needed to re-render the map when the component mounts
-    window.dispatchEvent(new Event("resize"))
-  }, [])
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("resize"));
+    }
+  }, []);
 
   return (
-    <MapContainer center={position} zoom={13} style={{ height: "400px", width: "100%" }} scrollWheelZoom={false}>
+    <MapContainer
+      center={position}
+      zoom={13}
+      style={{ height: "400px", width: "100%" }}
+      scrollWheelZoom={false}
+    >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -37,6 +44,5 @@ export default function Map() {
         <Popup>Jakarta, Indonesia</Popup>
       </Marker>
     </MapContainer>
-  )
+  );
 }
-
