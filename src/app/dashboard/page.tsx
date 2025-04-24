@@ -10,11 +10,6 @@ import ChartDashboard from "../../components/Chart";
 import PropertyCard from "../../components/propertycard";
 
 // Define TypeScript interfaces for our data
-interface User {
-  firstName: string;
-  [key: string]: any;
-}
-
 interface Property {
   image: string;
   title: string;

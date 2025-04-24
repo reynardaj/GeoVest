@@ -1,12 +1,13 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
-import NavbarNews from "@/components/NavbarNews"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import NavbarNews from "@/components/NavbarNews";
 
 // Dummy data untuk artikel berita
 const newsArticles = {
   "pik-2-development": {
-    title: "PIK 2 dalam Pembangunan Besar. Bagaimana Dampaknya pada Sektor Properti?",
+    title:
+      "PIK 2 dalam Pembangunan Besar. Bagaimana Dampaknya pada Sektor Properti?",
     category: "Market Trends",
     date: "23 April 2023",
     author: "Kompas by Hilda B",
@@ -25,21 +26,24 @@ const newsArticles = {
     recommendedArticles: [
       {
         id: "market-trends-analysis",
-        title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
+        title:
+          "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
         category: "Market Trends",
         date: "1 minggu yang lalu",
         image: "/recommended-1.png",
       },
       {
         id: "5-faktor-yang-mempengaruhi",
-        title: "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
+        title:
+          "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
         category: "Insights",
         date: "1 minggu yang lalu",
         image: "/recommended-2.png",
       },
       {
         id: "policies-regulations",
-        title: "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
+        title:
+          "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
         category: "Policies & Regulations",
         date: "3 jam yang lalu",
         image: "/recommended-3.png",
@@ -88,7 +92,8 @@ const newsArticles = {
     ],
   },
   "market-trends-analysis": {
-    title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
+    title:
+      "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
     category: "Market Trends",
     date: "16 April 2023",
     author: "Kompas by Dian Kartika",
@@ -107,14 +112,16 @@ const newsArticles = {
     recommendedArticles: [
       {
         id: "pik-2-development",
-        title: "PIK 2 dalam Pembangunan Besar. Bagaimana Dampaknya pada Sektor Properti?",
+        title:
+          "PIK 2 dalam Pembangunan Besar. Bagaimana Dampaknya pada Sektor Properti?",
         category: "Market Trends",
         date: "12 jam yang lalu",
         image: "/featured-news.png",
       },
       {
         id: "5-faktor-yang-mempengaruhi",
-        title: "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
+        title:
+          "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
         category: "Insights",
         date: "1 minggu yang lalu",
         image: "/recommended-2.png",
@@ -154,7 +161,8 @@ const newsArticles = {
     recommendedArticles: [
       {
         id: "market-trends-analysis",
-        title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
+        title:
+          "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
         category: "Market Trends",
         date: "16 April 2023",
         image: "/recommended-1.png",
@@ -198,14 +206,16 @@ const newsArticles = {
     recommendedArticles: [
       {
         id: "68-persen-tanah",
-        title: "Ketimpangan Kepemilikan: 68% Tanah Indonesia Dikuasai 1% Kelompok",
+        title:
+          "Ketimpangan Kepemilikan: 68% Tanah Indonesia Dikuasai 1% Kelompok",
         category: "Ekonomi",
         date: "23 April 2023",
         image: "/grid-1.png",
       },
       {
         id: "policies-regulations",
-        title: "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
+        title:
+          "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
         category: "Policies & Regulations",
         date: "3 jam yang lalu",
         image: "/recommended-3.png",
@@ -302,7 +312,7 @@ const newsArticles = {
       },
     ],
   },
-  "investment": {
+  investment: {
     title: "Investasi Properti: Peluang dan Tantangan di Tahun 2024",
     category: "Keuangan",
     date: "21 Agustus 2023",
@@ -322,7 +332,8 @@ const newsArticles = {
     recommendedArticles: [
       {
         id: "5-faktor-yang-mempengaruhi",
-        title: "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
+        title:
+          "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
         category: "Insights",
         date: "16 April 2023",
         image: "/recommended-2.png",
@@ -349,7 +360,12 @@ const newsArticles = {
     date: "3 September 2023",
     author: "Kompas by Rudi Santoso",
     image: "/grid-6.png",
-    tags: ["#RealEstate", "#PropertiIndonesia", "#InvestasiProperti", "#Pertumbuhan"],
+    tags: [
+      "#RealEstate",
+      "#PropertiIndonesia",
+      "#InvestasiProperti",
+      "#Pertumbuhan",
+    ],
     content: [
       "Industri real estate Indonesia terus menunjukkan dinamika yang menarik dengan berbagai tantangan dan peluang yang mewarnai perkembangannya. Setelah mengalami tekanan selama masa pandemi, sektor ini mulai menunjukkan tanda-tanda pemulihan yang signifikan dengan pola pertumbuhan yang bervariasi di berbagai segmen dan wilayah.",
       '"Pasar real estate Indonesia sedang dalam fase transformasi," ungkap Dr. Ali Tranghanda, Executive Director Indonesia Property Watch (IPW). "Pemulihan tidak terjadi secara merata, dengan beberapa segmen dan lokasi tumbuh lebih cepat sementara yang lain masih berjuang."',
@@ -385,7 +401,8 @@ const newsArticles = {
     ],
   },
   "policies-regulations": {
-    title: "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
+    title:
+      "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
     category: "Policies & Regulations",
     date: "3 hours ago",
     author: "Kompas by Dian Kartika",
@@ -421,7 +438,8 @@ const newsArticles = {
       },
       {
         id: "market-trends-analysis",
-        title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
+        title:
+          "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
         category: "Market Trends",
         date: "16 April 2023",
         image: "/recommended-1.png",
@@ -463,7 +481,8 @@ const newsArticles = {
       },
       {
         id: "5-faktor-yang-mempengaruhi",
-        title: "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
+        title:
+          "5 Faktor yang Mempengaruhi Kenaikan Harga Properti di Perkotaan",
         category: "Insights",
         date: "16 April 2023",
         image: "/recommended-2.png",
@@ -476,7 +495,12 @@ const newsArticles = {
     date: "6 hours ago",
     author: "Kompas by Hilda B",
     image: "/recommended-5.png",
-    tags: ["#JakartaBarat", "#PropertiResidensial", "#InvestasiProperti", "#PuriIndah"],
+    tags: [
+      "#JakartaBarat",
+      "#PropertiResidensial",
+      "#InvestasiProperti",
+      "#PuriIndah",
+    ],
     content: [
       "Jakarta Barat telah mengalami transformasi signifikan dalam beberapa tahun terakhir, berubah dari kawasan yang didominasi industri dan pergudangan menjadi salah satu area residensial paling dinamis di ibu kota. Perkembangan infrastruktur, aksesibilitas yang meningkat, dan harga yang relatif lebih terjangkau dibandingkan Jakarta Selatan dan Jakarta Pusat menjadikan wilayah ini incaran investor dan pembeli rumah pertama.",
       '"Jakarta Barat menawarkan kombinasi menarik antara lokasi strategis, infrastruktur yang terus membaik, dan harga yang masih reasonable," ungkap Ferry Salanto, Senior Associate Director Colliers Indonesia. "Ini menjadikannya sweet spot bagi investor properti residensial."',
@@ -506,25 +530,30 @@ const newsArticles = {
       },
       {
         id: "market-trends-analysis",
-        title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
+        title:
+          "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
         category: "Market Trends",
         date: "16 April 2023",
         image: "/recommended-1.png",
       },
     ],
   },
-}
+};
 
-export default function NewsDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = params
-  const article = newsArticles[slug as keyof typeof newsArticles]
+export default async function NewsDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const article = newsArticles[slug as keyof typeof newsArticles];
 
   if (!article) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <h1 className="text-2xl font-bold">Artikel tidak ditemukan</h1>
       </div>
-    )
+    );
   }
 
   return (
@@ -534,7 +563,10 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb dan Navigasi Kembali */}
         <div className="mb-8">
-          <Link href="/news" className="inline-flex items-center text-[#17488D] hover:underline">
+          <Link
+            href="/news"
+            className="inline-flex items-center text-[#17488D] hover:underline"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Kembali ke Berita
           </Link>
@@ -543,12 +575,18 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
         {/* Header Artikel */}
         <div className="mb-6">
           <div className="mb-2">
-            <span className="text-[#17488D] font-semibold font-ubuntu">{article.category}</span>
+            <span className="text-[#17488D] font-semibold font-ubuntu">
+              {article.category}
+            </span>
             <span className="text-black ml-1"> •</span>
-            <span className="text-black font-semibold text-sm ml-2">{article.date}</span>
+            <span className="text-black font-semibold text-sm ml-2">
+              {article.date}
+            </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-black font-ubuntu-mono mb-4">{article.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-black font-ubuntu-mono mb-4">
+            {article.title}
+          </h1>
 
           <div className="flex items-center text-sm text-gray-600 mb-4">
             <span>{article.author}</span>
@@ -575,7 +613,10 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
         {/* Konten Artikel */}
         <div className="prose max-w-none mb-12">
           {article.content.map((paragraph, index) => (
-            <p key={index} className="mb-4 text-base leading-relaxed text-gray-800">
+            <p
+              key={index}
+              className="mb-4 text-base leading-relaxed text-gray-800"
+            >
               {paragraph}
             </p>
           ))}
@@ -599,9 +640,13 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                 </div>
                 <div>
                   <div className="mb-1">
-                    <span className="text-[#17488D] text-sm font-bold font-ubuntu">{rec.category}</span>
+                    <span className="text-[#17488D] text-sm font-bold font-ubuntu">
+                      {rec.category}
+                    </span>
                     <span className="text-black ml-1"> •</span>
-                    <span className="text-black text-xs ml-2 font-semibold">{rec.date}</span>
+                    <span className="text-black text-xs ml-2 font-semibold">
+                      {rec.date}
+                    </span>
                   </div>
                   <h3 className="font-inter text-sm font-bold text-black group-hover:text-[#17488D] transition-colors">
                     {rec.title}
@@ -613,6 +658,5 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
         </div>
       </div>
     </main>
-  )
+  );
 }
-
