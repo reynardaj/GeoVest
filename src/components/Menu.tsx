@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Filters from "./menu/Filters";
-import { InfrastructureVisibilityState } from "@/types/map";
+import { InfrastructureVisibilityState, SelectedPropertyData, PopupData } from "@/types/map";
+import PropertyAnalytics from "./PropertyAnalytics";
 
-interface FiltersProps {
+interface MenuProps {
   priceRange: [number, number];
   onPriceChange: (values: number[]) => void;
   selectedCategories: string[];
@@ -24,6 +25,8 @@ interface FiltersProps {
   setActiveTab: any;
   income: number[];
   setIncome: (values: number[]) => void;
+  selectedPropertyData: SelectedPropertyData | null;
+  regionData?: PopupData | null; // Add regionData prop
 }
 
 function Menu({
@@ -46,8 +49,9 @@ function Menu({
   setActiveTab,
   income,
   setIncome,
-}: FiltersProps) {
-  const handleChangeTab = () => {};
+  selectedPropertyData,
+  regionData, // Added regionData
+}: MenuProps) {
   return (
     <div className="shadow-xl rounded-tl-lg  2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#fff] justify-center z-50 overflow-hidden">
       <div className="flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
@@ -117,49 +121,76 @@ function Menu({
             setIncome={setIncome}
           />
         )}
-        {activeTab === "Analytics" && <div>Analytics Content</div>}
-        {activeTab === "Time Machine" && <TimeMachine />}
+        {activeTab === "Analytics" && (
+          <PropertyAnalytics 
+            selectedPropertyData={selectedPropertyData} 
+            regionData={regionData ? {
+              ...regionData,
+              regionName: String(regionData.regionName) // Convert to string
+            } : null} 
+          />
+        )}
+        {activeTab === "Time Machine" && <TimeMachine selectedPropertyData={selectedPropertyData} />}
       </div>
     </div>
   );
 }
 
-const TimeMachine = () => {
-  const yearsOptions = [1, 5, 10, 15, 20];
+interface TimeMachineProps {
+  selectedPropertyData: SelectedPropertyData | null;
+}
 
-  const [initialInvestment, setInitialInvestment] = useState<number | null>(
-    null
-  );
+const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
+  const yearsOptions = [1, 5, 10, 15, 20];
+  const ANNUAL_RATE = 1.67;
+
+  const [initialInvestment, setInitialInvestment] = useState<number | null>(null);
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(1);
 
+  // Update initial investment whenever selectedPropertyData changes
   useEffect(() => {
-    setTimeout(() => {
-      setInitialInvestment(3500000000);
-    });
-    fetchEstimatedInvestment(1);
-  }, []);
-
-  const fetchEstimatedInvestment = async (year: number) => {
-    try {
-      setTimeout(() => {
-        const mockData: Record<number, number> = {
-          1: 3700000000,
-          5: 6550000000,
-          10: 9000000000,
-          15: 12000000000,
-          20: 15000000000,
-        };
-        setEstimatedValue(mockData[year] || null);
-      });
-    } catch (error) {
-      console.error("Error fetching estimated investment:", error);
+    console.log("Selected property data:", selectedPropertyData);
+    const defaultValue = 0;
+    
+    if (selectedPropertyData && selectedPropertyData.price) {
+      // Handle different price formats
+      let priceValue: number;
+      
+      if (typeof selectedPropertyData.price === 'string') {
+        // Remove any non-numeric characters (like currency symbols, commas, etc.)
+        const cleanedPrice = selectedPropertyData.price.replace(/[^\d.-]/g, '');
+        priceValue = parseFloat(cleanedPrice);
+      } else {
+        priceValue = selectedPropertyData.price;
+      }
+      
+      console.log("Parsed price value:", priceValue);
+      
+      if (!isNaN(priceValue) && priceValue > 0) {
+        setInitialInvestment(priceValue);
+        calculateFutureValue(priceValue, selectedYear);
+      } else {
+        setInitialInvestment(defaultValue);
+        calculateFutureValue(defaultValue, selectedYear);
+      }
+    } else {
+      setInitialInvestment(defaultValue);
+      calculateFutureValue(defaultValue, selectedYear);
     }
+  }, [selectedPropertyData, selectedYear]);
+
+  const calculateFutureValue = (currentValue: number, years: number) => {
+    console.log(`Calculating future value with: ${currentValue} for ${years} years`);
+    const futureValue = currentValue * Math.pow(1 + ANNUAL_RATE/100, years);
+    setEstimatedValue(Math.round(futureValue));
   };
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
-    fetchEstimatedInvestment(year);
+    if (initialInvestment !== null) {
+      calculateFutureValue(initialInvestment, year);
+    }
   };
 
   return (
@@ -195,7 +226,7 @@ const TimeMachine = () => {
         ))}
       </div>
 
-      <p className="mt-6 text-black">Nilai Estimasi Investasi Hari Ini</p>
+      <p className="mt-6 text-black">Nilai Estimasi Investasi Setelah {selectedYear} Tahun</p>
       <h3 className="text-2xl font-bold">
         {estimatedValue !== null
           ? `Rp ${estimatedValue.toLocaleString("id-ID")}`
@@ -204,7 +235,5 @@ const TimeMachine = () => {
     </div>
   );
 };
-
-const Analytics = () => {};
 
 export default Menu;

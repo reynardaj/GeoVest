@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from "react";
-import Piechart from '../../components/Piechart'
+import { useState, useEffect } from "react";
+import PiechartForm from '../../components/PiechartForm'
 import Link from 'next/link';
 
 export default function form() {
+    const [dataSaved, setDataSaved] = useState(false);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         fullName: "",
@@ -19,6 +20,13 @@ export default function form() {
         location: "",
         facility: [] as string[]
     });
+
+    useEffect(() => {
+        if (step === 13) {
+            saveFormDataToLocalStorage(formData);
+            setDataSaved(true);
+        }
+    }, [step, formData]);
 
     const jobs = [
         "Pengusaha", "Karyawan", "Pendidik", "Insinyur", 
@@ -63,22 +71,32 @@ export default function form() {
 
     const nextStep = () => {
         if (step === 2 && !formData.fullName.trim()) {
-            setError("*Nama lengkap tidak boleh kosong.");
-            return;
+          setError("*Nama lengkap tidak boleh kosong.");
+          return;
         }
         if (step === 3 && !formData.nickname.trim()) {
-            setError("*Nama panggilan tidak boleh kosong.");
-            return;
+          setError("*Nama panggilan tidak boleh kosong.");
+          return;
         }
+        
+        // If this is the step before the final step (step 12 -> 13), save form data
+        if (step === 12) {
+          saveFormDataToLocalStorage(formData);
+        }
+        
         setError("");
         setStep(step + 1);
+    };
+
+    const saveFormDataToLocalStorage = (data: any): void => {
+        localStorage.setItem('formData', JSON.stringify(data));
     };
 
     const [error, setError] = useState("");
 
     return (
         <div
-            className="relative h-screen w-full flex items-center justify-center overflow-hidden"
+            className="relative h-screen w-full flex items-center justify-center"
             style={{
                 backgroundImage: `linear-gradient(to bottom left, #17488D 5%,rgb(103, 137, 185) 20%, #ddebf3 60%,rgb(210, 231, 220) 80%, #91E0B5 95%)`
             }}
@@ -168,7 +186,7 @@ export default function form() {
                         className="w-full p-3 rounded-xl bg-[#b4c8dd] border border-[#17488D] text-[#17488D] font-semibold placeholder:text-[#17488D] "
                     />
                     {error && (
-                        <div className="w-full text-red-600 text-sm font-semibold mt-2 text-left w-full">
+                        <div className="text-red-600 text-sm font-semibold mt-2 text-left w-full">
                             {error}
                         </div>
                     )}
@@ -456,11 +474,11 @@ export default function form() {
                 )}
 
                 {step === 13 && (
-                <div className="w-full h-full flex justify-center">
+                <div className="w-full h-full flex justify-center overflow-hidden">
                     <div className="pt-10 w-full absolute h-[200px] bg-[#b8ccdc] top-[74px] text-[#17488D] font-semibold text-xl">
                         Berdasarkan jawaban Anda, berikut rekomendasi GeoVest untuk Anda!
                     </div>
-                    <div className="relative bg-[#DDEBF3] w-[50%] h-full top-[174px] border border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
+                    <div className="relative bg-[#DDEBF3] w-[50%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
                         <div className="flex text-left justify-between items-start gap-6">
                             {/* Left Column */}
                             <div className="flex flex-col gap-4 w-[60%]">
@@ -497,7 +515,7 @@ export default function form() {
                                     <li>Usia: {formData.age}</li>
                                     <li>Penghasilan: {formData.income}</li>
                                     <li>Modal investasi: {formData.fund}</li>
-                                    <li>Preferensi: {formData.variety}</li>
+                                    <li>Preferensi: {formData.variety.join(', ')}</li>
                                     <li>Jangka waktu: {formData.time}</li>
                                     </ul>
                                 </div>
@@ -534,7 +552,7 @@ export default function form() {
                             </div>
 
                             {/* Right Column */}
-                            <div className="flex flex-col items-center justify-between w-[40%] gap-4">
+                            <div className="flex flex-col items-center w-[40%] justify-between gap-4">
                                 {/* Button */}
                                 <Link href="/dashboard">
                                     <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white font-semibold px-4 py-2 rounded-xl">
@@ -542,7 +560,7 @@ export default function form() {
                                     </button>
                                 </Link>
 
-                                <Piechart/>
+                                <PiechartForm/>
                             </div>
                         </div>
                     </div>

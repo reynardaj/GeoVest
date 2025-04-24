@@ -10,9 +10,6 @@ export default function Navbar() {
           <Image src="/logo.svg" alt="GeoVest Logo" width={42} height={42} />
         </Link>
         <div className="ml-8 hidden md:flex space-x-10">
-          <Link href="/features" className="text-white hover:text-gray-200 transition-colors font-inter font-semibold">
-            Features
-          </Link>
           <Link href="/map" className="text-white hover:text-gray-200 transition-colors font-inter font-semibold">
             Map
           </Link>

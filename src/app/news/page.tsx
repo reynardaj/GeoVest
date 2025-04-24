@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-function page() {
-  return (
-    <div>
-      news page
-    </div>
-  )
-}
-
-export default page
-=======
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
@@ -209,5 +198,3 @@ export default function NewsPage() {
     </main>
   )
 }
-
->>>>>>> origin/map-interactive-map

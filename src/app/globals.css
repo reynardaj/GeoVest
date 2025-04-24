@@ -33,8 +33,6 @@ body {
   background-attachment: fixed;
 }
 
-<<<<<<< HEAD
-=======
 .bg-news {
   background-image: url("/background-news.png");
   background-size: cover;
@@ -47,7 +45,6 @@ body {
   background-image: url("/recommended-1.png");
 }
 
->>>>>>> origin/map-interactive-map
 /* For Mapbox */
 .mapboxgl-ctrl-logo,
 .mapboxgl-ctrl-attrib {

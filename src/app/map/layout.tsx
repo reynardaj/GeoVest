@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-function layout() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default layout
-=======
 function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-row w-full h-screen">
@@ -18,4 +7,3 @@ function layout({ children }: { children: React.ReactNode }) {
 }
 
 export default layout;
->>>>>>> origin/map-interactive-map

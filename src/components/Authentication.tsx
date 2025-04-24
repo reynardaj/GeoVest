@@ -1,7 +1,4 @@
 import { Button } from "@/components/ui/button"
-=======
-import { Button } from "@/components/ui/button";
->>>>>>> origin/map-interactive-map
 import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -25,26 +22,4 @@ export default async function Authentication() {
       )}
     </div>
   )
-  
-  // return (
-  //   <div className="flex items-center space-x-4">
-  //     <Link href="/login">
-  //       <Button variant="ghost" className="text-white hover:text-gray-200 font-inter">
-  //         Login
-  //       </Button>
-  //     </Link>
-  //     <Link href="/signup">
-  //       <Button
-  //         variant="outline"
-  //         className="text-white border-white hover:bg-white hover:text-primary-foreground font-inter"
-  //       >
-  //         Sign Up
-  //       </Button>
-  //     </Link>
-  //   </div>
-  // )
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/map-interactive-map

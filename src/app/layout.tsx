@@ -1,48 +1,29 @@
-<<<<<<< HEAD
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
-import { ClerkProvider } from "@clerk/nextjs"
-=======
 import type React from "react";
 import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css';
 import { ClerkProvider } from "@clerk/nextjs";
->>>>>>> origin/map-interactive-map
 
 export const metadata: Metadata = {
   title: "GeoVest - AI-Powered Geospatial Investment Insights",
   description:
     "Make smarter investment decisions with AI-driven geospatial insights on property markets, historical trends, and price movements.",
-<<<<<<< HEAD
-}
-=======
 };
->>>>>>> origin/map-interactive-map
 
 export default function RootLayout({
   children,
 }: Readonly<{
-<<<<<<< HEAD
-  children: React.ReactNode
-=======
   children: React.ReactNode;
->>>>>>> origin/map-interactive-map
 }>) {
   return (
     <ClerkProvider>
       <html lang="en">
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-<<<<<<< HEAD
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-=======
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
             crossOrigin="anonymous"
           />
->>>>>>> origin/map-interactive-map
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap"
             rel="stylesheet"
@@ -57,11 +38,5 @@ export default function RootLayout({
         <body>{children}</body>
       </html>
     </ClerkProvider>
-<<<<<<< HEAD
-  )
-}
-
-=======
   );
 }
->>>>>>> origin/map-interactive-map

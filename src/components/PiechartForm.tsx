@@ -50,13 +50,13 @@ export default function Piechart() {
 
     return (
         <div>
-            <div className="w-full h-64 flex justify-center">
+            <div className="w-[200%] h-64 flex justify-center">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
                         data={pieData}
                         dataKey="value"
-                        cx="50%"
+                        cx="25%"
                         cy="50%"
                         innerRadius={60}
                         outerRadius={100}
@@ -71,20 +71,20 @@ export default function Piechart() {
 
                         {/* Centered total label */}
                         <text
-                        x="50%"
+                        x="25%"
                         y="50%"
                         textAnchor="middle"
                         dominantBaseline="middle"
                         fontSize={18}
                         fill="#333"
                         >
-                        <tspan x="50%" dy="-0.8em" fontWeight="bold" fontSize={20} fill="#17488D">
+                        <tspan x="25%" dy="-0.8em" fontWeight="bold" fontSize={20} fill="#17488D">
                             {pieData.reduce((acc, item) => acc + item.value, 0)}
                         </tspan>
-                        <tspan x="50%" dy="1.4em" fontSize={12} fill="#666">
+                        <tspan x="25%" dy="1.4em" fontSize={12} fill="#666">
                             Rekomendasi
                         </tspan>
-                        <tspan x="50%" dy="1.2em" fontSize={12} fill="#666">
+                        <tspan x="25%" dy="1.2em" fontSize={12} fill="#666">
                             Properti
                         </tspan>
                         </text>

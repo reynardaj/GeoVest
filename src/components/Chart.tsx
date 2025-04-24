@@ -4,28 +4,31 @@ import { ScatterChart, Scatter, XAxis, YAxis, Tooltip as RechartsTooltip, Respon
 import Piechart from '../components/Piechart'
 
 const scatterData = [
-    { x: 1, y: 6 },
-    { x: 2, y: 7.5 },
-    { x: 1.5, y: 5 },
-    { x: 2.5, y: 3 },
-    { x: 3, y: 4.5 },
-    { x: 4, y: 6 },
-    { x: 4.5, y: 2 },
-    { x: 5, y: 6.8 },
-    { x: 2, y: 8 },
+    { x: 0.3, y: 11 },
+  { x: 0.5, y: 12.5 },
+  { x: 0.5, y: 11.8 },
+  { x: 0.7, y: 10.8 },
+  { x: 0.72, y: 10.2 },
+  { x: 0.9, y: 9 },
+  { x: 1.1, y: 7.5 },
+  { x: 1.3, y: 5.6 },
+  { x: 1.3, y: 6 },
+  { x: 1.5, y: 6.6 },
+  { x: 1.8, y: 4.2 },
+  { x: 2.2, y: 3.5 }
 ];
 
 // Additional scatter data for "Harga Properti" vs "Luas Properti"
 const scatterData2 = [
-    { x: 50, y: 5 },
-    { x: 70, y: 6.5 },
-    { x: 80, y: 7 },
-    { x: 100, y: 8 },
-    { x: 120, y: 9 },
-    { x: 150, y: 10 },
-    { x: 160, y: 11 },
-    { x: 180, y: 12 },
-    { x: 200, y: 13 },
+    { x: 50, y: 0.45 },
+    { x: 65, y: 0.6 },
+    { x: 80, y: 0.77 },
+    { x: 95, y: 0.95 },
+    { x: 110, y: 1.08 },
+    { x: 125, y: 1.27 },
+    { x: 140, y: 1.4 },
+    { x: 165, y: 1.65 },
+    { x: 200, y: 1.9 },
 ];
 
 export default function ChartDashboard() {

@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-function page() {
-  return (
-    <div>
-        map page
-    </div>
-  )
-}
-
-export default page
-=======
-// src/app/your-map-route/page.tsx
+// src/app/map/page.tsx
 /* eslint-disable react-hooks/exhaustive-deps */ // Keep if needed for useCallback dependencies
 "use client";
 import React, { useState, useCallback, useMemo, useEffect } from "react";
@@ -43,7 +32,22 @@ const initialInfraVisibility: InfrastructureVisibilityState =
   }, {} as InfrastructureVisibilityState);
 
 export default function MapPage() {
+  const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<[number, number, number] | null>(null);
   // Renamed from Page for clarity
+  useEffect(() => {
+    // Check if there's a selected property from dashboard
+    const storedCoordinates = localStorage.getItem('selectedPropertyCoordinates');
+    
+    if (storedCoordinates) {
+      const coords = JSON.parse(storedCoordinates) as [number, number, number];
+      // Clear the storage after reading it
+      localStorage.removeItem('selectedPropertyCoordinates');
+      
+      // Use the coordinates to find the property in your GeoJSON data
+      // We'll handle this in the map component when it's ready
+      setSelectedPropertyToFocus(coords);
+    }
+  }, []);
 
   // --- State Management ---
   // Filter State
@@ -171,19 +175,20 @@ export default function MapPage() {
           propertyName: props.property_name || "Nama Tidak Tersedia",
           category: props.property_category || "N/A",
           status: props.property_status || "N/A",
-          buildingArea: props.building_area ?? "N/A", // Keep raw, format in display
-          landArea: props.land_area ?? "N/A", // Keep raw, format in display
+          buildingArea: props.building_area ?? "N/A",
+          landArea: props.land_area ?? "N/A",
           certificateType: props.certificate_type || "N/A",
-          price: props.property_price ?? "N/A", // Keep raw, format in display
+          price: props.property_price ?? "N/A",
           propertyUrl: props.property_url,
         };
-        setSelectedPropertyData(propertyData); // Update state for the floating box
+        setSelectedPropertyData(propertyData);
+        
       } else {
         setSelectedPropertyData(null);
       }
     },
-    []
-  ); // No dependencies needed here
+    [setActiveTab] // Add setActiveTab to dependency array
+  );
 
   const handleBackgroundClick = useCallback(
     (map: Map) => {
@@ -396,7 +401,7 @@ export default function MapPage() {
       />
       {/* Region Info Floating Box */}
       {regionPopupVisibility && !selectedPropertyData && (
-        <div className="absolute top-4 left-4 z-10 bg-popup p-4 rounded-lg shadow-md bg-white text-black max-w-xs text-sm">
+        <div className="absolute top-[76px] left-4 z-10 bg-popup p-4 rounded-lg shadow-md bg-white text-black max-w-xs text-sm">
           <h3 className="text-base text-black font-bold mb-2">
             {regionData?.regionName}
           </h3>
@@ -437,19 +442,19 @@ export default function MapPage() {
             >
               Tutup
             </button>
-            <button
+            {/* <button
               className="text-black text-xs hover:underline focus:outline-none"
               onClick={handleSeeMore}
             >
               See More
-            </button>
+            </button> */}
           </div>
         </div>
       )}
 
       {/* Property Info Floating Box */}
       {selectedPropertyData && (
-        <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
+        <div className="absolute top-[76px] left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
           <h3 className="text-base font-bold mb-2">
             {selectedPropertyData.propertyName}
           </h3>
@@ -499,12 +504,12 @@ export default function MapPage() {
               Tutup
             </button>
 
-            <button
+            {/* <button
               onClick={handleSeeMore}
               className="text-xs text-black hover:underline focus:outline-none"
             >
               See More
-            </button>
+            </button> */}
           </div>
         </div>
       )}
@@ -528,6 +533,8 @@ export default function MapPage() {
         setActiveTab={setActiveTab}
         income={income}
         setIncome={handleIncomeChange}
+        selectedPropertyData={selectedPropertyData}
+        regionData={regionData}
       />
       {selectedAgeBin && (
         <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
@@ -560,4 +567,3 @@ export default function MapPage() {
     </div>
   );
 }
->>>>>>> origin/map-interactive-map
