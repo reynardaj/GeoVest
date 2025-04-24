@@ -93,9 +93,9 @@ function Menu({
         </button>
       </div>
       <div
-        className="overflow-y-auto flex-1 p-5 pb-[70px] text-black"
+        className="overflow-y-auto flex-1 p-5 pb-[100px] text-black"
         style={{
-          maxHeight: "calc(100vh - 136px)",
+          maxHeight: "100vh",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
