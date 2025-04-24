@@ -88,29 +88,47 @@ import {
         </div>
       );
     }
-  
-    const projectionData = generatePriceProjection(Number(selectedPropertyData.price), regionName);
-    // Generate independent ROI data not directly derived from price projection
-    const roiData = generateIndependentROIData(Number(selectedPropertyData.price), regionName);
 
+    // Defensive: Check if price is a valid number
+    const price = typeof selectedPropertyData.price === 'number' && !isNaN(selectedPropertyData.price)
+      ? selectedPropertyData.price
+      : null;
+    const buildingArea = typeof selectedPropertyData.buildingArea === 'number' && !isNaN(selectedPropertyData.buildingArea)
+      ? selectedPropertyData.buildingArea
+      : null;
+    const landArea = typeof selectedPropertyData.landArea === 'number' && !isNaN(selectedPropertyData.landArea)
+      ? selectedPropertyData.landArea
+      : null;
+
+    if (price === null) {
+      return (
+        <div className="px-4 py-8 text-center">
+          <h2 className="text-xl font-bold text-[#17488D] mb-4">Data Tidak Tersedia</h2>
+          <p className="text-gray-600">Harga properti tidak valid. Silakan pilih properti lain.</p>
+        </div>
+      );
+    }
+
+    const projectionData = generatePriceProjection(price, regionName);
+    const roiData = generateIndependentROIData(price, regionName);
     const displayedRoiData = roiData.filter(item => item.year > new Date().getFullYear());
-  
+
     return (
       <div className="text-black space-y-6 px-4 py-2">
         <div>
           <h2 className="text-xl font-bold text-[#17488D]">Detail Properti</h2>
           <h3 className="text-lg font-semibold mt-3">{selectedPropertyData.propertyName}</h3>
-  
+
           <div className="mt-4 space-y-2 text-sm">
             <p><span className="font-semibold">Kategori:</span> {selectedPropertyData.category}</p>
             <p><span className="font-semibold">Status:</span> {selectedPropertyData.status}</p>
-            <p><span className="font-semibold">Harga:</span> Rp {selectedPropertyData.price?.toLocaleString('id-ID') ?? 'N/A'}</p>
-            <p><span className="font-semibold">Luas Bangunan:</span> {selectedPropertyData.buildingArea?.toLocaleString('id-ID') ?? 'N/A'} {selectedPropertyData.buildingArea !== 'N/A' && 'm²'}</p>
-            <p><span className="font-semibold">Luas Tanah:</span> {selectedPropertyData.landArea?.toLocaleString('id-ID') ?? 'N/A'} {selectedPropertyData.landArea !== 'N/A' && 'm²'}</p>
+            <p><span className="font-semibold">Harga:</span> Rp {price?.toLocaleString('id-ID') ?? 'N/A'}</p>
+            <p><span className="font-semibold">Luas Bangunan:</span> {buildingArea !== null ? buildingArea.toLocaleString('id-ID') + ' m²' : 'N/A'}</p>
+            <p><span className="font-semibold">Luas Tanah:</span> {landArea !== null ? landArea.toLocaleString('id-ID') + ' m²' : 'N/A'}</p>
             <p><span className="font-semibold">Sertifikat:</span> {selectedPropertyData.certificateType}</p>
           </div>
         </div>
-  
+
         <div>
           <h2 className="text-xl font-bold text-[#17488D] pb-3">
             Proyeksi Harga

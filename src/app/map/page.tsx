@@ -37,15 +37,18 @@ export default function MapPage() {
   useEffect(() => {
     // Check if there's a selected property from dashboard
     const storedCoordinates = localStorage.getItem('selectedPropertyCoordinates');
+    const storedPropertyData = localStorage.getItem('selectedPropertyData');
     
     if (storedCoordinates) {
       const coords = JSON.parse(storedCoordinates) as [number, number, number];
       // Clear the storage after reading it
       localStorage.removeItem('selectedPropertyCoordinates');
-      
-      // Use the coordinates to find the property in your GeoJSON data
-      // We'll handle this in the map component when it's ready
       setSelectedPropertyToFocus(coords);
+    }
+    if (storedPropertyData) {
+      const parsedPropertyData = JSON.parse(storedPropertyData) as SelectedPropertyData;
+      setSelectedPropertyData(parsedPropertyData);
+      localStorage.removeItem('selectedPropertyData');
     }
   }, []);
 
