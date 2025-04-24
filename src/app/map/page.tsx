@@ -375,7 +375,7 @@ export default function MapPage() {
   // --- JSX Structure ---
   return (
     // Use h-screen and w-screen on the outer div to ensure full viewport height
-    <div className="flex relative h-screen w-screen overflow-hidden">
+    <div className="flex relative h-screen w-screen overflow-hidden font-inter">
       <NavbarMap />
       {/* Map Component takes up remaining space */}
       <MapComponent
@@ -385,11 +385,9 @@ export default function MapPage() {
       />
       {/* Region Info Floating Box */}
       {regionPopupVisibility && !selectedPropertyData && (
-        <div className="absolute top-4 left-4 z-10 bg-popup p-4 rounded-lg shadow-md bg-white text-black max-w-xs text-sm">
-          <h3 className="text-base text-black font-bold mb-2">
-            {regionData?.regionName}
-          </h3>
-          <div className="text-black space-y-1">
+        <div className="absolute  bg-[#17488D] top-4 left-4 z-10 bg-popup p-6  shadow-md  text-white max-w-xs text-sm rounded-xl">
+          <h3 className="text-base font-bold mb-2">{regionData?.regionName}</h3>
+          <div className=" space-y-1">
             <p>
               <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
               {regionData?.jumlahKecamatan}
@@ -399,7 +397,7 @@ export default function MapPage() {
               {regionData?.jumlahDesa}
             </p>
             <p>
-              <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
+              <strong className="font-semibold">Jumlah Penduduk:</strong>{" "}
               {regionData?.jumlahPenduduk}
             </p>
             <p>
@@ -415,19 +413,19 @@ export default function MapPage() {
               {regionData?.jumlahPerempuan}
             </p>
             <p>
-              <strong className="font-semibold">luas wilayah (km2):</strong>{" "}
+              <strong className="font-semibold">Luas wilayah (km2):</strong>{" "}
               {regionData?.luasWilayahKm2}
             </p>
           </div>
           <div className="mt-3 flex justify-between items-center">
             <button
               onClick={() => setRegionPopupVisibility(false)} // Use the handler
-              className="text-xs text-red-500 hover:underline  focus:outline-none"
+              className="text-xs text-white hover:underline  focus:outline-none font-inter"
             >
               Tutup
             </button>
             <button
-              className="text-black text-xs hover:underline focus:outline-none"
+              className=" text-xs hover:underline focus:outline-none font-inter"
               onClick={handleSeeMore}
             >
               See More
@@ -438,7 +436,7 @@ export default function MapPage() {
 
       {/* Property Info Floating Box */}
       {selectedPropertyData && (
-        <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
+        <div className=" bg-white  absolute top-4 left-4 z-10  p-6 rounded-xl shadow-md text-[#17488D] max-w-xs text-sm">
           <h3 className="text-base font-bold mb-2">
             {selectedPropertyData.propertyName}
           </h3>
@@ -483,14 +481,13 @@ export default function MapPage() {
           <div className="mt-3 flex justify-between items-center">
             <button
               onClick={handleClosePropertyInfo} // Use the handler
-              className="text-xs text-red-600 hover:text-red-800 hover:underline focus:outline-none"
+              className="text-xs font-inter text-[#17488D] hover:underline focus:outline-none"
             >
               Tutup
             </button>
-
             <button
               onClick={handleSeeMore}
-              className="text-xs text-black hover:underline focus:outline-none"
+              className="text-xs font-inter  hover:underline focus:outline-none"
             >
               See More
             </button>
@@ -519,7 +516,7 @@ export default function MapPage() {
         setIncome={handleIncomeChange}
       />
       {selectedAgeBin && (
-        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
+        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-4 rounded-xl bg-white text-black shadow-md">
           <h4 className="font-bold mb-2 text-sm">Legend</h4>
           {getRangeLabels(selectedAgeBin).map((range, index) => (
             <div key={index} className="flex items-center mb-1 text-sm">
@@ -533,7 +530,7 @@ export default function MapPage() {
         </div>
       )}
       {selectedReligionBin && (
-        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-2">
+        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-4 rounded-xl bg-white text-black shadow-md mt-2">
           <h4 className="font-bold mb-2 text-sm">Legend</h4>
           {getRangeLabels(selectedReligionBin).map((range, index) => (
             <div key={index} className="flex items-center mb-1 text-sm">

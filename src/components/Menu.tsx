@@ -49,8 +49,8 @@ function Menu({
 }: FiltersProps) {
   const handleChangeTab = () => {};
   return (
-    <div className="shadow-xl rounded-tl-lg  2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#fff] justify-center z-50 overflow-hidden">
-      <div className="flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
+    <div className="shadow-xl rounded-tl-lg  2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#E4EFFF] justify-center z-50 overflow-hidden">
+      <div className="flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0  bg-[#E4EFFF] z-10">
         <button
           onClick={() => setActiveTab("Filters")}
           className={`relative w-[33.3%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg

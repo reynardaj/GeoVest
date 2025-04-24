@@ -113,7 +113,7 @@ const Filters = ({
   };
 
   return (
-    <div className="px-3 text-[#17488D]">
+    <div className="px-3 text-[#17488D] ">
       <h2 className="text-xl font-bold">Filters</h2>
 
       {/* Harga Properti (Slider) */}
