@@ -32,23 +32,29 @@ const initialInfraVisibility: InfrastructureVisibilityState =
   }, {} as InfrastructureVisibilityState);
 
 export default function MapPage() {
-  const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<[number, number, number] | null>(null);
+  const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
+    [number, number, number] | null
+  >(null);
   // Renamed from Page for clarity
   useEffect(() => {
     // Check if there's a selected property from dashboard
-    const storedCoordinates = localStorage.getItem('selectedPropertyCoordinates');
-    const storedPropertyData = localStorage.getItem('selectedPropertyData');
-    
+    const storedCoordinates = localStorage.getItem(
+      "selectedPropertyCoordinates"
+    );
+    const storedPropertyData = localStorage.getItem("selectedPropertyData");
+
     if (storedCoordinates) {
       const coords = JSON.parse(storedCoordinates) as [number, number, number];
       // Clear the storage after reading it
-      localStorage.removeItem('selectedPropertyCoordinates');
+      localStorage.removeItem("selectedPropertyCoordinates");
       setSelectedPropertyToFocus(coords);
     }
     if (storedPropertyData) {
-      const parsedPropertyData = JSON.parse(storedPropertyData) as SelectedPropertyData;
+      const parsedPropertyData = JSON.parse(
+        storedPropertyData
+      ) as SelectedPropertyData;
       setSelectedPropertyData(parsedPropertyData);
-      localStorage.removeItem('selectedPropertyData');
+      localStorage.removeItem("selectedPropertyData");
     }
   }, []);
 
@@ -185,7 +191,6 @@ export default function MapPage() {
           propertyUrl: props.property_url,
         };
         setSelectedPropertyData(propertyData);
-        
       } else {
         setSelectedPropertyData(null);
       }
@@ -468,6 +473,7 @@ export default function MapPage() {
               width={300}
               height={300}
               className="w-full mb-2 max-h-48 object-cover"
+              unoptimized
             />
           )}
           <div className="space-y-1">

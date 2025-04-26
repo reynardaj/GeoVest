@@ -7,12 +7,5 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  matcher: [
-    // Match all non-static, non-_next routes for pages
-    '/((?!.*\\..*|_next).*)',
-    // API routes
-    '/api/(.*)',
-    // tRPC routes
-    '/trpc/(.*)',
-  ],
+  matcher: ["/((?!.*\\..*|_next/).*)", "/api/(.*)", "/trpc/(.*)"],
 };

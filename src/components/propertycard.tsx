@@ -32,19 +32,6 @@ export default function PropertyCard({
   const router = useRouter();
 
   const handleCardClick = () => {
-    console.log("hcc", {
-      image,
-      title,
-      location,
-      price,
-      category,
-      landArea,
-      buildingArea,
-      coordinates,
-      status,
-      certificateType,
-      propertyUrl,
-    });
     // Build a SelectedPropertyData object
     const propertyData = {
       propertyName: title,
@@ -95,6 +82,7 @@ export default function PropertyCard({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: "cover" }}
           className="rounded-t-xl"
+          unoptimized
         />
       </div>
       <div className="p-4">
@@ -103,7 +91,10 @@ export default function PropertyCard({
         </h3>
         <p className="text-gray-600 text-sm mb-2">{location}</p>
         <div className="flex justify-between items-center">
-          <p className="text-[#17488D] font-bold">Rp {typeof price === 'number' ? price.toLocaleString('id-ID') : price}</p>
+          <p className="text-[#17488D] font-bold">
+            Rp{" "}
+            {typeof price === "number" ? price.toLocaleString("id-ID") : price}
+          </p>
           <span className="bg-blue-100 text-[#17488D] text-xs px-2 py-1 rounded-full">
             {category}
           </span>
