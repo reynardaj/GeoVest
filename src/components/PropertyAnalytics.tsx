@@ -15,7 +15,9 @@ import {
 } from "recharts";
 import { SelectedPropertyData, PopupData } from "@/types/map";
 import { useState, useEffect } from "react";
+import Bars from "@/components/BarChart"
 import { Bold } from "lucide-react";
+import { string } from "@tensorflow/tfjs";
 
 type AgeGroup = {
   "Balita (0-5 tahun)": number;
@@ -142,32 +144,31 @@ interface PropertyAnalyticsProps {
 const randomNormal = (mean: number, stdDev: number): number => {
   let u = 0,
     v = 0;
-  while (u === 0) u = Math.random(); // avoid 0
+  while (u === 0) u = Math.random();
   while (v === 0) v = Math.random();
   const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
   return mean + z * stdDev;
 };
 
-// Get region-specific growth rates for ROI calculation
 const getROIForArea = (area: string): number => {
   const roiRates: { [key: string]: number } = {
-    "Jakarta Barat": 1.42,
-    "Jakarta Pusat": 2.03,
-    "Jakarta Timur": 1.76,
-    "Jakarta Utara": 1.55,
-    "Jakarta Selatan": 1.86,
+    "Jakarta Barat": 3.42,
+    "Jakarta Pusat": 4.03,
+    "Jakarta Timur": 3.76,
+    "Jakarta Utara": 3.55,
+    "Jakarta Selatan": 3.86,
   };
-  return roiRates[area] || 1.67; // Default ROI rate
+  return roiRates[area] || 3.67;
 };
 
 const generatePriceProjection = (currentPrice: number, regionName: string) => {
   const projection = [];
   let price = currentPrice;
-  const baseGrowthRate = getROIForArea(regionName) / 100; // Use region-based growth rate
+  const baseGrowthRate = getROIForArea(regionName) / 100;
 
   for (let i = 0; i <= 5; i++) {
-    const growthRate = randomNormal(baseGrowthRate, 0.6 / 100); // Add randomness with a standard deviation of 1.2%
-    price += price * growthRate; // Apply growth
+    const growthRate = randomNormal(baseGrowthRate, 0.6 / 100);
+    price += price * growthRate; 
     projection.push({
       year: new Date().getFullYear() + i,
       price: parseFloat(price.toFixed(2)),
@@ -177,44 +178,36 @@ const generatePriceProjection = (currentPrice: number, regionName: string) => {
   return projection;
 };
 
-// Generate completely independent ROI data based on different market trends
 const generateIndependentROIData = (
   initialPrice: number,
   regionName: string
 ) => {
   const roiData = [];
-  const baseMarketTrend = getROIForArea(regionName) / 100; // Different base rate for market trends
+  const baseMarketTrend = getROIForArea(regionName) / 100;
   let accumulatedValue = initialPrice;
 
   for (let i = 0; i <= 5; i++) {
-    // Use completely separate random factors for market-driven ROI
-    const marketFactor = randomNormal(baseMarketTrend, 0.6 / 100); // Higher volatility for market trends
+    const marketFactor = randomNormal(baseMarketTrend, 0.6 / 100);
 
-    // Only apply market factor after first year
     if (i > 0) {
-      // Different growth pattern that can be more volatile than price projection
       accumulatedValue = accumulatedValue * (1 + marketFactor);
     }
 
-    // Calculate ROI based on accumulated value vs initial price
     const roi = ((accumulatedValue - initialPrice) / initialPrice) * 100;
     roiData.push({
       year: new Date().getFullYear() + i,
       roi: parseFloat(roi.toFixed(2)),
-      trend: i > 0 ? parseFloat((marketFactor * 100).toFixed(2)) : 0, // Store the yearly trend
+      trend: i > 0 ? parseFloat((marketFactor * 100).toFixed(2)) : 0,
     });
   }
   return roiData;
 };
 
-// Function to get formatted region name that matches the keys in our distribution objects
 const getFormattedRegionName = (name: string | undefined): RegionKey | "" => {
   if (!name) return "";
 
-  // Convert to uppercase for case-insensitive matching
   const upperName = name.toUpperCase();
 
-  // Check for specific patterns in the region name
   if (upperName.includes("BARAT")) return "JAKARTA BARAT";
   if (upperName.includes("PUSAT")) return "JAKARTA PUSAT";
   if (upperName.includes("SELATAN")) return "JAKARTA SELATAN";
@@ -224,7 +217,6 @@ const getFormattedRegionName = (name: string | undefined): RegionKey | "" => {
   return "" as "";
 };
 
-// Prepare data for pie charts
 const getAgeData = (region: string) => {
   const formattedRegion = getFormattedRegionName(region);
   if (!formattedRegion || !AgeDistribution[formattedRegion]) return [];
@@ -255,17 +247,14 @@ const PropertyAnalytics = ({
 }: PropertyAnalyticsProps) => {
   const [regionName, setRegionName] = useState<string>("");
 
-  // Update region name when regionData changes
   useEffect(() => {
     if (regionData && regionData.regionName) {
       setRegionName(regionData.regionName);
     } else {
-      // Reset region name when no region is selected
       setRegionName("");
     }
   }, [regionData]);
 
-  // Colors for pie charts
   const COLORS_AGE = [
     "#97E6DC",
     "#76D7C4",
@@ -284,11 +273,9 @@ const PropertyAnalytics = ({
     "#0F2C4D",
   ];
 
-  // Get data for pie charts based on region name
   const ageData = getAgeData(regionName);
   const religionData = getReligionData(regionName);
 
-  // Check if we have demographic data for this region AND if a region is actually selected
   const hasDemographicData =
     (ageData.length > 0 || religionData.length > 0) && regionData?.regionName;
 
@@ -305,12 +292,10 @@ const PropertyAnalytics = ({
     );
   }
 
-  // Only generate projection data if we have property data
   const projectionData = selectedPropertyData
     ? generatePriceProjection(Number(selectedPropertyData.price), regionName)
     : [];
 
-  // Only generate ROI data if we have property data
   const roiData = selectedPropertyData
     ? generateIndependentROIData(Number(selectedPropertyData.price), regionName)
     : [];
@@ -523,6 +508,7 @@ const PropertyAnalytics = ({
           )}
         </div>
       )}
+      <Bars regionName={regionName}/>
     </div>
   );
 };
