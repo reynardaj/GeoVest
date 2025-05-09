@@ -1,8 +1,8 @@
 // src/config/mapConstants.ts
 import type { InfrastructureLayer } from "@/types/map"; // Assuming type is defined in types/map.ts
 
-export const MAPTILER_STYLE_URL =
-  "https://api.maptiler.com/maps/streets/style.json?key=Xyghbo5YEVnVdA3iTYjo"; // Replace key if needed
+const MAP_SERVICE_KEY = process.env.NEXT_PUBLIC_MAPID_MAP_SERVICE_KEY;
+export const MAPTILER_STYLE_URL = `https://basemap.mapid.io/styles/street-new-generation/style.json?key=${MAP_SERVICE_KEY}`;
 export const INITIAL_CENTER: [number, number] = [106.8456, -6.2088];
 export const INITIAL_ZOOM = 10;
 
