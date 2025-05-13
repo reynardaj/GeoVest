@@ -8,6 +8,8 @@ import Authentication from "../../components/AuthenticationDashboard";
 import Image from "next/image";
 import ChartDashboard from "../../components/Chart";
 import PropertyCard from "../../components/propertycard";
+import Navbar from "@/components/Navbar";
+import NavbarNews from "@/components/NavbarNews";
 
 // Define TypeScript interfaces for our data
 interface Property {
@@ -175,31 +177,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#B0E0F9] via-[#f9f9f9] to-[#91E0B5]">
-      <nav className="z-20 sticky top-0 flex items-center justify-between px-10 py-4 w-full bg-[#f9f9f9] border border-b-[2px] border-[#b8ccdc] backdrop-blur">
-        <div className="flex items-center">
-          <Link href="/dashboard" className="flex items-center">
-            <Image src="/logo1.svg" alt="GeoVest Logo" width={42} height={42} />
-          </Link>
-          <div className="ml-8 hidden md:flex space-x-10">
-            <Link
-              href="/map"
-              className="text-[#17488D] hover:text-[#5f92d9] transition-colors font-inter font-semibold"
-            >
-              Map
-            </Link>
-            <Link
-              href="/news"
-              className="text-[#17488D] hover:text-[#5f92d9] transition-colors font-inter font-semibold"
-            >
-              News
-            </Link>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4 text-[#17488D]">
-          <Authentication />
-        </div>
-      </nav>
-      <div className="flex items-center w-full h-[100px] bg-[#b8ccdc]">
+      <NavbarNews isSignedIn={false} />
+
+      <div className="flex items-center w-full h-[100px]">
         <div className="pl-[7%] text-[#17488D] text-[20px] font-semibold">
           Selamat datang{user ? `, ${user.firstName}!` : ""}
         </div>
