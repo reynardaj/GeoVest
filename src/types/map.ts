@@ -68,7 +68,7 @@ export interface MapEventHandlers {
 }
 
 export interface MapLayerControls {
-  heatmapVisible: boolean;
+  floodVisible: boolean;
   infrastructureVisibility: InfrastructureVisibilityState;
   priceRange: [number, number];
   selectedCategories: string[];

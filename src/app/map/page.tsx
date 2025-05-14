@@ -70,7 +70,7 @@ export default function MapPage() {
   const [activeTab, setActiveTab] = useState<string>("Analytics");
 
   // Layer Visibility State
-  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false); // Heatmap visibility state
+  const [floodVisible, setFloodVisible] = useState<boolean>(false);
   const [infrastructureVisibility, setInfrastructureVisibility] =
     useState<InfrastructureVisibilityState>(initialInfraVisibility);
   const [regionPopupVisibility, setRegionPopupVisibility] =
@@ -256,8 +256,8 @@ export default function MapPage() {
     );
   }, []);
 
-  const handleToggleHeatmap = useCallback(() => {
-    setHeatmapVisible((v) => !v);
+  const handleToggleFlood = useCallback(() => {
+    setFloodVisible((v) => !v);
   }, []);
 
   const handleInfrastructureToggle = useCallback((layerId: string) => {
@@ -282,7 +282,7 @@ export default function MapPage() {
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
-      heatmapVisible,
+      floodVisible,
       infrastructureVisibility,
       priceRange,
       selectedCategories,
@@ -294,7 +294,7 @@ export default function MapPage() {
       regionPopupVisibility,
     }),
     [
-      heatmapVisible,
+      floodVisible,
       infrastructureVisibility,
       priceRange,
       selectedCategories,
@@ -529,8 +529,8 @@ export default function MapPage() {
         onCategoryChange={handleCategoryChange}
         selectedInvestmentTypes={selectedInvestmentTypes}
         onInvestmentTypeChange={handleInvestmentTypeChange}
-        heatmapVisible={heatmapVisible}
-        onToggleHeatmap={handleToggleHeatmap}
+        floodVisible={floodVisible}
+        onToggleFlood={handleToggleFlood}
         infrastructureVisibility={infrastructureVisibility}
         onToggleInfrastructure={handleInfrastructureToggle}
         selectedReligionBin={selectedReligionBin}

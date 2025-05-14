@@ -70,6 +70,14 @@ export function useMapLayers(
           });
         }
       });
+      // --- Add Jakarta Flood Hazard Source ---
+      if (!map.getSource("jakarta-flood-hazard")) {
+        map.addSource("jakarta-flood-hazard", {
+          type: "geojson",
+          data: "/jakarta_flood_hazard_zones.geojson",
+          generateId: true,
+        });
+      }
 
       // --- Add Base Layers (Jakarta Fill/Border) ---
       if (!map.getLayer(JAKARTA_FILL_LAYER_ID)) {
@@ -89,10 +97,10 @@ export function useMapLayers(
             "fill-opacity": [
               "case",
               ["boolean", ["feature-state", "clicked"], false],
-              0.6, // Clicked opacity
+              0.2, // Clicked opacity
               ["boolean", ["feature-state", "hover"], false],
-              0.8, // Hover opacity
-              0.6, // Default opacity
+              0.1, // Hover opacity
+              0.1, // Default opacity
             ],
           },
         });
@@ -215,63 +223,81 @@ export function useMapLayers(
         applyPropertiesFilter(map, layerControlsRef.current);
       }
 
-      // --- Add Flood Heatmap Layer ---
-      if (!map.getLayer(FLOOD_HEATMAP_LAYER_ID)) {
-        const heatmapVisible = layerControlsRef.current.heatmapVisible ?? false; // Default to false if undefined
-        map.addLayer({
-          id: FLOOD_HEATMAP_LAYER_ID,
-          type: "heatmap",
-          source: "flood",
-          maxzoom: 15,
-          layout: { visibility: heatmapVisible ? "visible" : "none" },
-          paint: {
-            "heatmap-intensity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              10,
-              1,
-              15,
-              3,
-            ],
-            "heatmap-color": [
-              "interpolate",
-              ["linear"],
-              ["heatmap-density"],
-              0,
-              "rgba(0, 0, 255, 0)",
-              0.2,
-              "royalblue",
-              0.4,
-              "cyan",
-              0.6,
-              "limegreen",
-              0.8,
-              "yellow",
-              1,
-              "red",
-            ],
-            "heatmap-radius": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              10,
-              15,
-              15,
-              30,
-            ],
-            "heatmap-opacity": 0.8,
-          },
+      // --- Add or Remove Jakarta Flood Hazard Fill Layer ---
+      const floodLayerId = "jakarta-flood-hazard-fill";
+      const floodLayerExists = map.getLayer(floodLayerId);
+      const propertiesLayerId = "properties";
+      // Ensure the source always exists before adding the layer
+      if (!map.getSource("jakarta-flood-hazard")) {
+        map.addSource("jakarta-flood-hazard", {
+          type: "geojson",
+          data: "/jakarta_flood_hazard_zones.geojson",
+          generateId: true,
         });
       }
+
+      if (layerControls.floodVisible) {
+        if (!floodLayerExists) {
+          try {
+            map.addLayer(
+              {
+                id: floodLayerId,
+                type: "fill",
+                source: "jakarta-flood-hazard",
+                paint: {
+                  "fill-color": [
+                    "interpolate",
+                    ["linear"],
+                    ["get", "hazard_score"],
+                    1,
+                    "#00FF00", // Green (Lowest Hazard)
+                    2,
+                    "#ADFF2F", // Yellow-Green (Low-Medium Hazard)
+                    3,
+                    "#FFFF00", // Yellow (Medium Hazard)
+                    4,
+                    "#FFA500", // Orange (Medium-High Hazard)
+                    5,
+                    "#FF0000", // Red (Highest Hazard)
+                  ],
+                  "fill-opacity": 0.15,
+                },
+                layout: { visibility: "visible" },
+              },
+              propertiesLayerId
+            ); // Insert below property points for correct stacking
+            console.log("Flood hazard layer added");
+          } catch (e) {
+            console.error("Failed to add flood hazard layer:", e);
+          }
+        } else {
+          try {
+            map.setLayoutProperty(floodLayerId, "visibility", "visible");
+            console.log("Flood hazard layer set to visible");
+          } catch (e) {
+            console.error("Failed to set flood hazard layer visible:", e);
+          }
+        }
+      } else {
+        if (floodLayerExists) {
+          try {
+            map.removeLayer(floodLayerId);
+            console.log("Flood hazard layer removed");
+          } catch (e) {
+            console.error("Failed to remove flood hazard layer:", e);
+          }
+        }
+      }
+
+      // --- End of Jakarta Flood Hazard Implementation ---
     };
 
     setupLayers();
 
     return () => {
-      isMounted = false; // Cleanup flag for async operations
+      isMounted = false;
     };
-  }, [map, isLoaded]); // Runs only when map instance is created and loaded
+  }, [map, isLoaded, layerControls]);
 
   // --- Effect for region popup close (on seemore click) ---
   useEffect(() => {
@@ -308,7 +334,7 @@ export function useMapLayers(
   useEffect(() => {
     if (!map || !isLoaded || !map.getLayer(FLOOD_HEATMAP_LAYER_ID)) return;
 
-    const targetVisibility = layerControls.heatmapVisible ? "visible" : "none";
+    const targetVisibility = layerControls.floodVisible ? "visible" : "none";
     // Only update if the desired state is different from the current state
     if (
       map.getLayoutProperty(FLOOD_HEATMAP_LAYER_ID, "visibility") !==
@@ -320,7 +346,7 @@ export function useMapLayers(
         targetVisibility
       );
     }
-  }, [map, isLoaded, layerControls.heatmapVisible]);
+  }, [map, isLoaded, layerControls.floodVisible]);
 
   // --- Effect for Toggling Infrastructure Visibility ---
   useEffect(() => {
@@ -400,7 +426,7 @@ export function useMapLayers(
                 4,
                 colorScale[4],
               ],
-              "fill-opacity": 0.8,
+              "fill-opacity": 0.2,
             },
           },
           JAKARTA_BORDER_LAYER_ID // Place below border for visibility
@@ -484,7 +510,7 @@ export function useMapLayers(
                   4,
                   colorScale[4],
                 ],
-                "fill-opacity": 0.9,
+                "fill-opacity": 0.2,
               },
             },
             JAKARTA_BORDER_LAYER_ID

@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Filters from "./menu/Filters";
-import { InfrastructureVisibilityState, SelectedPropertyData, PopupData } from "@/types/map";
+import {
+  InfrastructureVisibilityState,
+  SelectedPropertyData,
+  PopupData,
+} from "@/types/map";
 import PropertyAnalytics from "./PropertyAnalytics";
 
 interface MenuProps {
@@ -12,8 +16,8 @@ interface MenuProps {
   onCategoryChange: (category: string) => void;
   selectedInvestmentTypes: string[];
   onInvestmentTypeChange: (type: string) => void;
-  heatmapVisible: boolean;
-  onToggleHeatmap: () => void;
+  floodVisible: boolean;
+  onToggleFlood: () => void;
   infrastructureVisibility: InfrastructureVisibilityState;
   onToggleInfrastructure: (layerId: string) => void;
   selectedReligionBin: string | null;
@@ -36,8 +40,8 @@ function Menu({
   onCategoryChange,
   selectedInvestmentTypes,
   onInvestmentTypeChange,
-  heatmapVisible,
-  onToggleHeatmap,
+  floodVisible,
+  onToggleFlood,
   infrastructureVisibility,
   onToggleInfrastructure,
   selectedReligionBin,
@@ -108,8 +112,8 @@ function Menu({
             onCategoryChange={onCategoryChange}
             selectedInvestmentTypes={selectedInvestmentTypes}
             onInvestmentTypeChange={onInvestmentTypeChange}
-            heatmapVisible={heatmapVisible}
-            onToggleHeatmap={onToggleHeatmap}
+            floodVisible={floodVisible}
+            onToggleFlood={onToggleFlood}
             infrastructureVisibility={infrastructureVisibility}
             onToggleInfrastructure={onToggleInfrastructure}
             binRanges={binRanges}
@@ -122,15 +126,21 @@ function Menu({
           />
         )}
         {activeTab === "Analytics" && (
-          <PropertyAnalytics 
-            selectedPropertyData={selectedPropertyData} 
-            regionData={regionData ? {
-              ...regionData,
-              regionName: String(regionData.regionName) // Convert to string
-            } : null} 
+          <PropertyAnalytics
+            selectedPropertyData={selectedPropertyData}
+            regionData={
+              regionData
+                ? {
+                    ...regionData,
+                    regionName: String(regionData.regionName), // Convert to string
+                  }
+                : null
+            }
           />
         )}
-        {activeTab === "Time Machine" && <TimeMachine selectedPropertyData={selectedPropertyData} />}
+        {activeTab === "Time Machine" && (
+          <TimeMachine selectedPropertyData={selectedPropertyData} />
+        )}
       </div>
     </div>
   );
@@ -144,7 +154,9 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
   const yearsOptions = [1, 5, 10, 15, 20];
   const ANNUAL_RATE = 1.67;
 
-  const [initialInvestment, setInitialInvestment] = useState<number | null>(null);
+  const [initialInvestment, setInitialInvestment] = useState<number | null>(
+    null
+  );
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(1);
 
@@ -152,21 +164,21 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
   useEffect(() => {
     console.log("Selected property data:", selectedPropertyData);
     const defaultValue = 0;
-    
+
     if (selectedPropertyData && selectedPropertyData.price) {
       // Handle different price formats
       let priceValue: number;
-      
-      if (typeof selectedPropertyData.price === 'string') {
+
+      if (typeof selectedPropertyData.price === "string") {
         // Remove any non-numeric characters (like currency symbols, commas, etc.)
-        const cleanedPrice = selectedPropertyData.price.replace(/[^\d.-]/g, '');
+        const cleanedPrice = selectedPropertyData.price.replace(/[^\d.-]/g, "");
         priceValue = parseFloat(cleanedPrice);
       } else {
         priceValue = selectedPropertyData.price;
       }
-      
+
       console.log("Parsed price value:", priceValue);
-      
+
       if (!isNaN(priceValue) && priceValue > 0) {
         setInitialInvestment(priceValue);
         calculateFutureValue(priceValue, selectedYear);
@@ -181,8 +193,10 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
   }, [selectedPropertyData, selectedYear]);
 
   const calculateFutureValue = (currentValue: number, years: number) => {
-    console.log(`Calculating future value with: ${currentValue} for ${years} years`);
-    const futureValue = currentValue * Math.pow(1 + ANNUAL_RATE/100, years);
+    console.log(
+      `Calculating future value with: ${currentValue} for ${years} years`
+    );
+    const futureValue = currentValue * Math.pow(1 + ANNUAL_RATE / 100, years);
     setEstimatedValue(Math.round(futureValue));
   };
 
@@ -226,7 +240,9 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
         ))}
       </div>
 
-      <p className="mt-6 text-black">Nilai Estimasi Investasi Setelah {selectedYear} Tahun</p>
+      <p className="mt-6 text-black">
+        Nilai Estimasi Investasi Setelah {selectedYear} Tahun
+      </p>
       <h3 className="text-2xl font-bold">
         {estimatedValue !== null
           ? `Rp ${estimatedValue.toLocaleString("id-ID")}`

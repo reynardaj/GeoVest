@@ -16,8 +16,8 @@ interface FiltersProps {
   onCategoryChange: (category: string) => void;
   selectedInvestmentTypes: string[];
   onInvestmentTypeChange: (type: string) => void;
-  heatmapVisible: boolean;
-  onToggleHeatmap: () => void;
+  floodVisible: boolean;
+  onToggleFlood: () => void;
   infrastructureVisibility: InfrastructureVisibilityState;
   onToggleInfrastructure: (layerId: string) => void;
   selectedReligionBin: string | null;
@@ -36,8 +36,8 @@ const Filters = ({
   onCategoryChange,
   selectedInvestmentTypes,
   onInvestmentTypeChange,
-  heatmapVisible,
-  onToggleHeatmap,
+  floodVisible,
+  onToggleFlood,
   infrastructureVisibility,
   onToggleInfrastructure,
   selectedReligionBin,
@@ -115,6 +115,28 @@ const Filters = ({
   return (
     <div className="px-3 text-[#17488D]">
       <h2 className="text-xl font-bold">Filters</h2>
+
+      {/* Banjir (Flood Hazard) Checkbox */}
+      <div className="mb-2 mt-4">
+        <label
+          htmlFor="banjir-checkbox"
+          className="flex items-center space-x-2 cursor-pointer"
+        >
+          <input
+            id="banjir-checkbox"
+            type="checkbox"
+            checked={floodVisible}
+            onChange={onToggleFlood}
+            className="hidden"
+          />
+          <div
+            className={`w-4 h-4 border-2 rounded ${
+              floodVisible ? "bg-[#17488D] border-[#17488D]" : "border-gray-400"
+            } transition-colors`}
+          ></div>
+          <span>Banjir</span>
+        </label>
+      </div>
 
       {/* Harga Properti (Slider) */}
       <h3 className="mt-4 mb-1 text-lg font-bold">Harga Properti</h3>
@@ -426,13 +448,13 @@ const Filters = ({
           <label className="flex items-center space-x-2 cursor-pointer w-fit">
             <input
               type="checkbox"
-              checked={heatmapVisible}
-              onChange={onToggleHeatmap}
+              checked={floodVisible}
+              onChange={onToggleFlood}
               className="hidden"
             />
             <div
               className={`w-4 h-4 border-2 rounded ${
-                heatmapVisible
+                floodVisible
                   ? "bg-[#17488D] border-[#17488D]"
                   : "border-gray-400"
               }`}
