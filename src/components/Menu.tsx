@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Filters from "./menu/Filters";
 import { InfrastructureVisibilityState, SelectedPropertyData, PopupData } from "@/types/map";
 import PropertyAnalytics from "./PropertyAnalytics";
+import ROICalculator from "./roi-calculator"; 
 
 interface MenuProps {
   priceRange: [number, number];
@@ -57,7 +58,7 @@ function Menu({
       <div className="flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
         <button
           onClick={() => setActiveTab("Filters")}
-          className={`relative w-[33.3%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg
+          className={`relative w-[25%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg
                         ${
                           activeTab === "Filters"
                             ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
@@ -69,7 +70,7 @@ function Menu({
         </button>
         <button
           onClick={() => setActiveTab("Analytics")}
-          className={`relative w-[33.3%] py-4 hover:bg-[#ededed]
+          className={`relative w-[25%] py-4 hover:bg-[#ededed]
                         ${
                           activeTab === "Analytics"
                             ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
@@ -81,7 +82,7 @@ function Menu({
         </button>
         <button
           onClick={() => setActiveTab("Time Machine")}
-          className={`relative w-[33.3%] py-4 hover:bg-[#ededed]
+          className={`relative w-[25%] py-4 hover:bg-[#ededed]
                         ${
                           activeTab === "Time Machine"
                             ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
@@ -90,6 +91,18 @@ function Menu({
                     `}
         >
           Time Machine
+        </button>
+        <button
+          onClick={() => setActiveTab("ROI Calculator")}
+          className={`relative w-[25%] py-4 hover:bg-[#ededed]
+                        ${
+                          activeTab === "ROI Calculator"
+                            ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
+                            : "font-medium"
+                        }
+                    `}
+        >
+          Investment Calculator
         </button>
       </div>
       <div
@@ -131,6 +144,7 @@ function Menu({
           />
         )}
         {activeTab === "Time Machine" && <TimeMachine selectedPropertyData={selectedPropertyData} />}
+        {activeTab === "ROI Calculator" && <ROICalculator />}
       </div>
     </div>
   );
