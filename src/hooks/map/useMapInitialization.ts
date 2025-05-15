@@ -30,7 +30,6 @@ export function useMapInitialization(
       console.log("Map Loaded Event Fired"); // Debug log
       setMapInstance(map);
       setIsLoaded(true);
-      // Add controls if needed, e.g., map.addControl(new maplibregl.NavigationControl());
     });
 
     map.on("error", (e) => {
@@ -44,7 +43,6 @@ export function useMapInitialization(
       setMapInstance(null); // Set state to null BEFORE removing map
       map?.remove();
     };
-    // Keep dependency array minimal for initialization logic
   }, [mapContainerRef]); // Only depends on the container ref
 
   return { mapInstance, isLoaded };

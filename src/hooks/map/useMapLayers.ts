@@ -16,6 +16,8 @@ import {
   RAIL_LINE_LAYER_ID,
   BUS_LINE_LAYER_ID,
   AGE_FILL_LAYER_ID,
+  CLUSTER_MAX_ZOOM,
+  CLUSTER_RADIUS,
 } from "@/config/mapConstants";
 const RELIGION_FILL_LAYER_ID = "religion-fill";
 // Helper to load images asynchronously
@@ -59,15 +61,58 @@ export function useMapLayers(
       const sources = [...GEOJSON_SOURCES, "demografi-jakarta"];
       GEOJSON_SOURCES.forEach((fileName) => {
         if (!map.getSource(fileName)) {
-          map.addSource(fileName, {
+          // Check if this source corresponds to a point-based infrastructure layer
+          const infraLayerConfig = INFRASTRUCTURE_LAYERS.find(
+            (l) => l.id === fileName && l.layerType !== "line" // Ensure it's a point layer
+          );
+          // ---- START DEBUG LOGGING ----
+          console.log(`Processing source: ${fileName}`);
+          if (infraLayerConfig) {
+            console.log(
+              `  Applying clustering for ${fileName}. Layer type: ${infraLayerConfig.layerType}`
+            );
+          } else {
+            // Check if it's a line layer that should NOT have clustering
+            const isLineLayer = INFRASTRUCTURE_LAYERS.find(
+              (l) => l.id === fileName && l.layerType === "line"
+            );
+            if (isLineLayer) {
+              console.log(
+                `  Skipping clustering for ${fileName} (Line Layer).`
+              );
+            } else if (
+              fileName.includes("demografi") ||
+              fileName.includes("jakarta")
+            ) {
+              console.log(
+                `  Skipping clustering for ${fileName} (Likely Polygon/Base Layer).`
+              );
+            } else {
+              // This case is important: a GEOJSON_SOURCE that ISN'T in INFRASTRUCTURE_LAYERS
+              // or doesn't have a layerType. Could it be one of these?
+              console.warn(
+                `  Skipping clustering for ${fileName} (Not found as point infra layer or type mismatch).`
+              );
+            }
+          }
+          // ---- END DEBUG LOGGING ----
+          const sourceOptions: maplibregl.GeoJSONSourceSpecification = {
             type: "geojson",
             data: `/${
               fileName === "demografi-jakarta"
                 ? "demografi-jakarta-with-bins"
                 : fileName
             }.geojson`,
-            generateId: true, // Important for feature state
-          });
+            generateId: true,
+          };
+
+          if (infraLayerConfig) {
+            sourceOptions.cluster = true;
+            sourceOptions.clusterMaxZoom = CLUSTER_MAX_ZOOM;
+            sourceOptions.clusterRadius = CLUSTER_RADIUS;
+          }
+
+          map.addSource(fileName, sourceOptions);
         }
       });
       // --- Add Jakarta Flood Hazard Source ---
@@ -116,12 +161,16 @@ export function useMapLayers(
 
       // --- Load Icons & Add Infrastructure Layers ---
       try {
-        const loadImagePromises = INFRASTRUCTURE_LAYERS.map((layer) =>
-          loadMapImage(map, layer.iconId, layer.iconUrl)
+        const loadImagePromises = INFRASTRUCTURE_LAYERS.map(
+          (layer) =>
+            // Only load icons for symbol layers that will use them
+            layer.layerType !== "line"
+              ? loadMapImage(map, layer.iconId, layer.iconUrl)
+              : Promise.resolve() // No icon needed for line layers in this context
         );
         await Promise.all(loadImagePromises);
 
-        if (!isMounted) return; // Check if component unmounted during async load
+        if (!isMounted) return;
 
         INFRASTRUCTURE_LAYERS.forEach((layer) => {
           const isVisible =
@@ -130,6 +179,7 @@ export function useMapLayers(
           const visibilityValue = isVisible ? "visible" : "none";
 
           if (layer.layerType === "line") {
+            // --- LINE LAYERS (No change here for clustering) ---
             const lineLayerId =
               layer.id === "rel-kereta"
                 ? RAIL_LINE_LAYER_ID
@@ -138,7 +188,7 @@ export function useMapLayers(
               map.addLayer({
                 id: lineLayerId,
                 type: "line",
-                source: layer.id, // source ID still matches infrastructure ID
+                source: layer.id,
                 layout: { visibility: visibilityValue },
                 paint:
                   layer.id === "rel-kereta"
@@ -146,40 +196,107 @@ export function useMapLayers(
                         "line-color": "#72A324",
                         "line-width": 2,
                         "line-opacity": 0.7,
-                      } // Rail style
+                      }
                     : {
                         "line-color": "#0000ff",
                         "line-width": 1,
                         "line-opacity": 0.7,
-                      }, // Bus style
+                      },
               });
             }
           } else {
-            // Default to symbol
-            if (!map.getLayer(layer.id)) {
-              // Layer ID == Source ID for symbols
+            // --- POINT LAYERS (Symbols) - Apply Clustering ---
+            const sourceId = layer.id; // Source ID is the layer.id
+
+            // 1. Layer for CLUSTER CIRCLES
+            const clusterLayerId = `${layer.id}-clusters`;
+            if (!map.getLayer(clusterLayerId)) {
               map.addLayer({
-                id: layer.id,
+                id: clusterLayerId,
+                type: "circle",
+                source: sourceId,
+                filter: ["has", "point_count"], // Only apply to features that are clusters
+                layout: {
+                  visibility: visibilityValue,
+                },
+                paint: {
+                  // Use step expressions to style clusters based on point_count
+                  // Example: make larger clusters for more points
+                  "circle-color": [
+                    "step",
+                    ["get", "point_count"],
+                    "#51bbd6", // Default color for < 100 points
+                    100,
+                    "#f1f075", // Color for 100-750 points
+                    750,
+                    "#f28cb1", // Color for >= 750 points
+                  ],
+                  "circle-radius": [
+                    "step",
+                    ["get", "point_count"],
+                    20, // Default radius for < 100 points
+                    100,
+                    30, // Radius for 100-750 points
+                    750,
+                    40, // Radius for >= 750 points
+                  ],
+                  "circle-opacity": 0.8,
+                  "circle-stroke-width": 1,
+                  "circle-stroke-color": "#fff",
+                },
+              });
+            }
+
+            // 2. Layer for CLUSTER COUNT TEXT
+            const clusterCountLayerId = `${layer.id}-cluster-count`;
+            if (!map.getLayer(clusterCountLayerId)) {
+              map.addLayer({
+                id: clusterCountLayerId,
                 type: "symbol",
-                source: layer.id,
+                source: sourceId,
+                filter: ["has", "point_count"], // Only apply to features that are clusters
+                layout: {
+                  "text-field": "{point_count_abbreviated}", // Shows abbreviated count (e.g., 1.2k)
+                  // Or use "{point_count}" for the full number
+                  "text-font": ["Noto Sans Bold"],
+                  "text-size": 12,
+                  visibility: visibilityValue,
+                },
+                paint: {
+                  "text-color": "#ffffff", // White text for good contrast on colored circles
+                },
+              });
+            }
+
+            // 3. Layer for UNCLUSTERED POINTS (Individual Icons)
+            const unclusteredPointLayerId = layer.id; // Keep original ID for unclustered
+            if (!map.getLayer(unclusteredPointLayerId)) {
+              map.addLayer({
+                id: unclusteredPointLayerId, // Original layer ID
+                type: "symbol",
+                source: sourceId,
+                filter: ["!", ["has", "point_count"]], // Only apply to individual points
                 layout: {
                   "icon-image": layer.iconId,
                   "icon-size": 0.4,
-                  "icon-allow-overlap": true,
-                  "text-field": ["get", "NAMOBJ"],
-                  "text-font": [
-                    "Open Sans Regular",
-                    "Arial Unicode MS Regular",
-                  ],
+                  "icon-allow-overlap": true, // Consider setting to false if too cluttered when zoomed in
+                  "text-field": ["get", "NAMOBJ"], // Or your property for the name
+                  "text-font": ["Noto Sans Regular"],
                   "text-size": 12,
                   "text-offset": [1, 0],
                   "text-anchor": "left",
-                  "text-allow-overlap": true,
+                  "text-allow-overlap": false, // Usually false for individual points
                   visibility: visibilityValue,
                 },
                 paint: {
                   "text-color": "#000000",
-                  "text-opacity": ["step", ["zoom"], 0, 13, 1],
+                  "text-opacity": [
+                    "step",
+                    ["zoom"],
+                    0,
+                    CLUSTER_MAX_ZOOM + 0.5,
+                    1,
+                  ], // Show text when zoomed beyond clusterMaxZoom
                 },
               });
             }
@@ -349,26 +466,41 @@ export function useMapLayers(
   }, [map, isLoaded, layerControls.floodVisible]);
 
   // --- Effect for Toggling Infrastructure Visibility ---
+  // --- Effect for Toggling Infrastructure Visibility ---
   useEffect(() => {
     if (!map || !isLoaded || !layerControls.infrastructureVisibility) return;
     const visibilityState = layerControls.infrastructureVisibility;
 
     INFRASTRUCTURE_LAYERS.forEach((layer) => {
-      let mapLayerId: string;
-      if (layer.layerType === "line") {
-        mapLayerId =
-          layer.id === "rel-kereta" ? RAIL_LINE_LAYER_ID : BUS_LINE_LAYER_ID;
-      } else {
-        mapLayerId = layer.id;
-      }
+      const targetVisibility = visibilityState[layer.id] ? "visible" : "none";
 
-      if (map.getLayer(mapLayerId)) {
-        const targetVisibility = visibilityState[layer.id] ? "visible" : "none";
-        if (
-          map.getLayoutProperty(mapLayerId, "visibility") !== targetVisibility
-        ) {
-          map.setLayoutProperty(mapLayerId, "visibility", targetVisibility);
+      if (layer.layerType === "line") {
+        const mapLayerId =
+          layer.id === "rel-kereta" ? RAIL_LINE_LAYER_ID : BUS_LINE_LAYER_ID;
+        if (map.getLayer(mapLayerId)) {
+          if (
+            map.getLayoutProperty(mapLayerId, "visibility") !== targetVisibility
+          ) {
+            map.setLayoutProperty(mapLayerId, "visibility", targetVisibility);
+          }
         }
+      } else {
+        // Point-based layers now have three associated layers
+        const clusterLayerId = `${layer.id}-clusters`;
+        const clusterCountLayerId = `${layer.id}-cluster-count`;
+        const unclusteredPointLayerId = layer.id; // Original ID for unclustered points
+
+        [clusterLayerId, clusterCountLayerId, unclusteredPointLayerId].forEach(
+          (id) => {
+            if (map.getLayer(id)) {
+              if (
+                map.getLayoutProperty(id, "visibility") !== targetVisibility
+              ) {
+                map.setLayoutProperty(id, "visibility", targetVisibility);
+              }
+            }
+          }
+        );
       }
     });
   }, [map, isLoaded, layerControls.infrastructureVisibility]);
