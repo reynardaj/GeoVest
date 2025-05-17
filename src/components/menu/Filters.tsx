@@ -16,8 +16,8 @@ interface FiltersProps {
   onCategoryChange: (category: string) => void;
   selectedInvestmentTypes: string[];
   onInvestmentTypeChange: (type: string) => void;
-  heatmapVisible: boolean;
-  onToggleHeatmap: () => void;
+  floodVisible: boolean;
+  onToggleFlood: () => void;
   infrastructureVisibility: InfrastructureVisibilityState;
   onToggleInfrastructure: (layerId: string) => void;
   selectedReligionBin: string | null;
@@ -36,8 +36,8 @@ const Filters = ({
   onCategoryChange,
   selectedInvestmentTypes,
   onInvestmentTypeChange,
-  heatmapVisible,
-  onToggleHeatmap,
+  floodVisible,
+  onToggleFlood,
   infrastructureVisibility,
   onToggleInfrastructure,
   selectedReligionBin,
@@ -379,7 +379,7 @@ const Filters = ({
         className="mt-4 text-lg font-bold cursor-pointer w-fit"
         onClick={() => setShowPublicTransport(!showPublicTransport)}
       >
-        <span className="inline-block w-4 text-center mr-2">
+        <span className="inline-block w-4 text-center mr-2 text-[#17488D]">
           {showPublicTransport ? "▼" : "▶"}
         </span>
         Transportasi Umum
@@ -426,13 +426,13 @@ const Filters = ({
           <label className="flex items-center space-x-2 cursor-pointer w-fit">
             <input
               type="checkbox"
-              checked={heatmapVisible}
-              onChange={onToggleHeatmap}
+              checked={floodVisible}
+              onChange={onToggleFlood}
               className="hidden"
             />
             <div
               className={`w-4 h-4 border-2 rounded ${
-                heatmapVisible
+                floodVisible
                   ? "bg-[#17488D] border-[#17488D]"
                   : "border-gray-400"
               }`}

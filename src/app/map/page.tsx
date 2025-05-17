@@ -70,7 +70,7 @@ export default function MapPage() {
   const [activeTab, setActiveTab] = useState<string>("Analytics");
 
   // Layer Visibility State
-  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false); // Heatmap visibility state
+  const [floodVisible, setFloodVisible] = useState<boolean>(false);
   const [infrastructureVisibility, setInfrastructureVisibility] =
     useState<InfrastructureVisibilityState>(initialInfraVisibility);
   const [regionPopupVisibility, setRegionPopupVisibility] =
@@ -256,8 +256,8 @@ export default function MapPage() {
     );
   }, []);
 
-  const handleToggleHeatmap = useCallback(() => {
-    setHeatmapVisible((v) => !v);
+  const handleToggleFlood = useCallback(() => {
+    setFloodVisible((v) => !v);
   }, []);
 
   const handleInfrastructureToggle = useCallback((layerId: string) => {
@@ -282,7 +282,7 @@ export default function MapPage() {
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
-      heatmapVisible,
+      floodVisible,
       infrastructureVisibility,
       priceRange,
       selectedCategories,
@@ -294,7 +294,7 @@ export default function MapPage() {
       regionPopupVisibility,
     }),
     [
-      heatmapVisible,
+      floodVisible,
       infrastructureVisibility,
       priceRange,
       selectedCategories,
@@ -529,8 +529,8 @@ export default function MapPage() {
         onCategoryChange={handleCategoryChange}
         selectedInvestmentTypes={selectedInvestmentTypes}
         onInvestmentTypeChange={handleInvestmentTypeChange}
-        heatmapVisible={heatmapVisible}
-        onToggleHeatmap={handleToggleHeatmap}
+        floodVisible={floodVisible}
+        onToggleFlood={handleToggleFlood}
         infrastructureVisibility={infrastructureVisibility}
         onToggleInfrastructure={handleInfrastructureToggle}
         selectedReligionBin={selectedReligionBin}
@@ -545,32 +545,55 @@ export default function MapPage() {
         selectedPropertyData={selectedPropertyData}
         regionData={regionData}
       />
-      {selectedAgeBin && (
-        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
-          <h4 className="font-bold mb-2 text-sm">Legend</h4>
-          {getRangeLabels(selectedAgeBin).map((range, index) => (
-            <div key={index} className="flex items-center mb-1 text-sm">
-              <span
-                className="w-4 h-4 mr-2 inline-block"
-                style={{ backgroundColor: colorScale[index] }}
-              ></span>
-              <span>{range}</span>
+      {(selectedAgeBin || selectedReligionBin) && (
+        <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3">
+          {selectedAgeBin && (
+            <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
+              <h4 className="font-bold mb-2 text-sm">
+                {selectedAgeBin.replace(/_[0-9]+.*|_>.*|_/g, " ").trim()}
+              </h4>
+              {getRangeLabels(selectedAgeBin).map((range, index) => (
+                <div
+                  key={`age-${index}`}
+                  className="flex items-center mb-1 text-sm"
+                >
+                  <span
+                    className="w-4 h-4 mr-2 inline-block"
+                    style={{ backgroundColor: colorScale[index] }}
+                  ></span>
+                  <span>{range}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
-      {selectedReligionBin && (
-        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-2">
-          <h4 className="font-bold mb-2 text-sm">Legend</h4>
-          {getRangeLabels(selectedReligionBin).map((range, index) => (
-            <div key={index} className="flex items-center mb-1 text-sm">
-              <span
-                className="w-4 h-4 mr-2 inline-block"
-                style={{ backgroundColor: colorScale[index] }}
-              ></span>
-              <span>{range}</span>
+          )}
+          {selectedReligionBin && (
+            <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md ">
+              <h4 className="font-bold mb-2 text-sm">
+                {selectedReligionBin
+                  .replace(/_bin$/, "")
+                  .replace(/(^|_)(\w)/g, (_, __, letter) =>
+                    letter.toUpperCase()
+                  )
+                  .replace(
+                    /\w\S*/g,
+                    (txt) =>
+                      txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                  )}
+              </h4>
+              {getRangeLabels(selectedReligionBin).map((range, index) => (
+                <div
+                  key={`religion-${index}`}
+                  className="flex items-center mb-1 text-sm"
+                >
+                  <span
+                    className="w-4 h-4 mr-2 inline-block"
+                    style={{ backgroundColor: colorScale[index] }}
+                  ></span>
+                  <span>{range}</span>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>

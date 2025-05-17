@@ -76,3 +76,6 @@ export const FLOOD_HEATMAP_LAYER_ID = "flood_heatmap";
 export const RAIL_LINE_LAYER_ID = "rel-kereta-layer";
 export const BUS_LINE_LAYER_ID = "transjakarta-layer";
 export const AGE_FILL_LAYER_ID = "age-fill";
+
+export const CLUSTER_MAX_ZOOM = 14; // Zoom level where clustering stops
+export const CLUSTER_RADIUS = 100; // Radius of each cluster in pixels
