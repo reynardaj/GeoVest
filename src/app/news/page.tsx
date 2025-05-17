@@ -1,8 +1,11 @@
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight } from "lucide-react"
-import NewsCard from "@/components/NewsCard"
-import NavbarNews from "@/components/NavbarNews"
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import NewsCard from "@/components/NewsCard";
+import NavbarNews from "@/components/NavbarNews";
+import { useState } from "react";
 
 // News data
 const featuredNews = {
@@ -11,7 +14,7 @@ const featuredNews = {
   category: "Market Trends",
   date: "12 hours ago",
   image: "/placeholder.svg?height=400&width=600",
-}
+};
 
 const recommendedNews = [
   {
@@ -19,7 +22,7 @@ const recommendedNews = [
     title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
     category: "Market Trends",
     date: "1 week ago",
-    image: "/recommended-1.png",
+    image: "/recommended-1.jpeg",
   },
   {
     id: "5-faktor-yang-mempengaruhi",
@@ -49,9 +52,9 @@ const recommendedNews = [
     date: "6 hours ago",
     image: "/recommended-5.png",
   },
-]
+];
 
-const newsGrid = [
+const initialNewsGrid = [
   {
     id: "68-persen-tanah",
     title: "Ketimpangan Kepemilikan: 68% Tanah Indonesia Dikuasai 1% Kelompok",
@@ -108,11 +111,18 @@ const newsGrid = [
   },
 ];
 
-
 export default function NewsPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>("ALL");
+
+  const filteredNewsGrid = selectedCategory === "ALL"
+    ? initialNewsGrid
+    : initialNewsGrid.filter((news) => news.category === selectedCategory);
+
+  const uniqueCategories = ["ALL", ...new Set(initialNewsGrid.map((news) => news.category))];
+
   return (
     <main className="min-h-screen bg-news">
-      <NavbarNews />
+      <NavbarNews isSignedIn={false} />
       {/* Hero Section with Featured News and Recommended */}
       <section className="py-12 px-4 md:px-8 max-w-[86rem] mx-auto">
         <div className="flex flex-col lg:flex-row">
@@ -125,11 +135,11 @@ export default function NewsPage() {
             <div>
               <div className="mb-2">
                 <span className="text-[#17488D] font-semibold font-ubuntu">{featuredNews.category}</span>
-                <span className="text-black ml-1">    •</span>
+                <span className="text-black ml-1">  •</span>
                 <span className="text-black font-semibold text-sm ml-2">{featuredNews.date}</span>
               </div>
 
-              <h1 className="text-2xl md:text-5xl font-bold text-black font-ubuntu-mono my-8 max-w-2xl">{featuredNews.title}</h1>
+              <h1 className="text-2xl md:text-4xl font-bold text-black font-ubuntu-mono my-8 max-w-2xl">{featuredNews.title}</h1>
 
               <div className="flex space-x-4 text-s text-[#17488D] font-extralight mb-4">
                 <span>#PIK2</span>
@@ -149,7 +159,7 @@ export default function NewsPage() {
           <div className="lg:w-[45%] bg-[#EDF5FA] rounded-xl p-4">
             <h2 className="text-xl font-bold mb-6 text-black">Recommended</h2>
 
-            <div className="space-y-1">
+            <div className="space-y-2">
               {recommendedNews.map((news) => (
                 <Link
                   href={`/news/${news.id}`}
@@ -159,7 +169,7 @@ export default function NewsPage() {
                   <div>
                     <div className="mb-1">
                       <span className="text-[#17488D] text-sm font-bold font-ubuntu">{news.category}</span>
-                      <span className="text-black ml-1">    •</span>
+                      <span className="text-black ml-1">  •</span>
                       <span className="text-black text-xs ml-2 font-semibold">{news.date}</span>
                     </div>
                     <h3 className="font-inter text-sm font-bold text-black">{news.title}</h3>
@@ -169,7 +179,7 @@ export default function NewsPage() {
                     alt={news.title}
                     width={150}
                     height={100}
-                    className="rounded-lg size-24 object-cover"
+                    className="rounded-2xl size-24 object-cover"
                   />
                 </Link>
               ))}
@@ -178,10 +188,25 @@ export default function NewsPage() {
         </div>
       </section>
 
+      {/* Filter Section */}
+      <section className="py-4 px-4 md:px-8">
+        <div className="max-w-5xl mx-auto flex items-center space-x-4 text-black justify-center">
+          {uniqueCategories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`font-semibold hover:underline ${selectedCategory === category ? 'underline' : ''}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* Categories Section */}
       <section className="py-6 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
-          {newsGrid.map((news) => (
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-14">
+          {filteredNewsGrid.map((news) => (
             <NewsCard
               key={news.id}
               id={news.id}
@@ -196,5 +221,5 @@ export default function NewsPage() {
         </div>
       </section>
     </main>
-  )
+  );
 }

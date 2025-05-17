@@ -1,7 +1,10 @@
-import type React from "react";
+// layout.tsx
+import React from "react";
 import type { Metadata } from "next";
 import './globals.css';
 import { ClerkProvider } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "GeoVest - AI-Powered Geospatial Investment Insights",
@@ -9,33 +12,44 @@ export const metadata: Metadata = {
     "Make smarter investment decisions with AI-driven geospatial insights on property markets, historical trends, and price movements.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface ChildProps {
+  firstTimeForm?: boolean;
+  dashboard?: boolean;
+}
+
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const user = await currentUser();
+  const isSignedIn = !!user;
+
+  if (user) {
+    const createdAt = user.createdAt ? new Date(user.createdAt) : null;
+    const lastSignInAt = user.lastSignInAt ? new Date(user.lastSignInAt) : null;
+    const isFirstTimeSignIn = createdAt && lastSignInAt && createdAt.getTime() === lastSignInAt.getTime();
+
+    const childrenProps = React.isValidElement(children) ? (children.props as ChildProps) : {};
+    const isFirstTimeFormPage = childrenProps.firstTimeForm;
+    const isDashboardPage = childrenProps.dashboard;
+
+    if (isFirstTimeSignIn && !isFirstTimeFormPage) {
+      redirect("/form");
+    } else if (!isFirstTimeSignIn && isDashboardPage) {
+      redirect("/dashboard");
+    }
+  }
+
   return (
     <ClerkProvider>
       <html lang="en">
         <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            rel="stylesheet"
-            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-            crossOrigin=""
-          />
+          {/* ... head content ... */}
         </head>
-        <body>{children}</body>
+        <body>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
