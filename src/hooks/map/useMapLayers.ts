@@ -500,6 +500,8 @@ export function useMapLayers(
         "#6baed6",
         "#08306b",
       ];
+      const opacity = layerControls.religionOpacity / 100; // Convert percentage to decimal
+
       if (!map.getLayer(RELIGION_FILL_LAYER_ID)) {
         map.addLayer(
           {
@@ -520,7 +522,7 @@ export function useMapLayers(
                 4,
                 colorScale[4],
               ],
-              "fill-opacity": 0.2,
+              "fill-opacity": opacity,
             },
           },
           JAKARTA_BORDER_LAYER_ID // Place below border for visibility
@@ -539,6 +541,7 @@ export function useMapLayers(
           4,
           colorScale[4],
         ]);
+        map.setPaintProperty(RELIGION_FILL_LAYER_ID, "fill-opacity", opacity);
       }
     } else {
       // Remove layer if no religion selected
@@ -546,7 +549,12 @@ export function useMapLayers(
         map.removeLayer(RELIGION_FILL_LAYER_ID);
       }
     }
-  }, [map, isLoaded, layerControls.selectedReligionBin]);
+  }, [
+    map,
+    isLoaded,
+    layerControls.selectedReligionBin,
+    layerControls.religionOpacity,
+  ]);
 
   useEffect(() => {
     if (!map || !isLoaded) return;
@@ -567,6 +575,7 @@ export function useMapLayers(
           return;
         }
       }
+      const opacity = layerControls.ageOpacity / 100; // Convert percentage to decimal
 
       const colorScale = [
         "#f7fbff",
@@ -597,7 +606,7 @@ export function useMapLayers(
                   4,
                   colorScale[4],
                 ],
-                "fill-opacity": 0.2,
+                "fill-opacity": opacity,
               },
             },
             JAKARTA_BORDER_LAYER_ID
@@ -620,7 +629,7 @@ export function useMapLayers(
             4,
             colorScale[4],
           ]);
-          map.setLayoutProperty(AGE_FILL_LAYER_ID, "visibility", "visible");
+          map.setPaintProperty(AGE_FILL_LAYER_ID, "fill-opacity", opacity);
         } catch (error) {
           console.error("Failed to update age-fill layer:", error);
         }
@@ -634,7 +643,7 @@ export function useMapLayers(
         }
       }
     }
-  }, [map, isLoaded, layerControls.selectedAgeBin]);
+  }, [map, isLoaded, layerControls.selectedAgeBin, layerControls.ageOpacity]);
 
   // useEffect for Handling Programmatic Zoom (RegionBarZoom)
   useEffect(() => {

@@ -5,7 +5,11 @@ import {
   INVESTMENT_TYPES,
   PROPERTY_CATEGORIES,
 } from "@/config/mapConstants";
-import { InfrastructureVisibilityState } from "@/types/map";
+import {
+  InfrastructureVisibilityState,
+  SelectedPropertyData,
+  PopupData,
+} from "@/types/map";
 import { useState, useEffect } from "react";
 import { Range, getTrackBackground } from "react-range";
 
@@ -27,6 +31,13 @@ interface FiltersProps {
   onAgeBinChange: (bin: string) => void;
   income: number[];
   setIncome: (values: number[]) => void;
+  selectedPropertyData: SelectedPropertyData | null;
+  regionData?: PopupData | null;
+  onRegionBarZoom?: (center: [number, number]) => void;
+  religionOpacity: number;
+  onReligionOpacityChange: (opacity: number) => void;
+  ageOpacity: number;
+  onAgeOpacityChange: (opacity: number) => void;
 }
 
 const Filters = ({
@@ -47,6 +58,10 @@ const Filters = ({
   onAgeBinChange,
   income,
   setIncome,
+  religionOpacity,
+  onReligionOpacityChange,
+  ageOpacity,
+  onAgeOpacityChange,
 }: FiltersProps) => {
   const [selectedReligions, setSelectedReligions] = useState<string | null>(
     null
@@ -233,33 +248,74 @@ const Filters = ({
         <div>
           <h3 className="mt-2 mb-1 text-md font-bold">Umur</h3>
           {ageGroups.map((ageGroup) => (
-            <label
-              key={ageGroup.value}
-              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
-            >
-              <input
-                type="checkbox"
-                name="age"
-                value={ageGroup.value}
-                checked={selectedAgeBin === ageGroup.value}
-                onChange={(e) => {
-                  if (selectedAgeBin === ageGroup.value) {
-                    onAgeBinChange(""); // Deselect if already selected
-                  } else {
-                    onAgeBinChange(ageGroup.value); // Select the new value
-                  }
-                }}
-                className="hidden"
-              />
-              <div
-                className={`w-4 h-4 border-2 rounded ${
-                  selectedAgeBin === ageGroup.value
-                    ? "bg-[#17488D] border-[#17488D]"
-                    : "border-gray-400"
-                }`}
-              ></div>
-              <span>{ageGroup.label}</span>
-            </label>
+            <div key={ageGroup.value}>
+              <label
+                className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
+              >
+                <input
+                  type="checkbox"
+                  name="age"
+                  value={ageGroup.value}
+                  checked={selectedAgeBin === ageGroup.value}
+                  onChange={(e) => {
+                    if (selectedAgeBin === ageGroup.value) {
+                      onAgeBinChange(""); // Deselect if already selected
+                    } else {
+                      onAgeBinChange(ageGroup.value); // Select the new value
+                    }
+                  }}
+                  className="hidden"
+                />
+                <div
+                  className={`w-4 h-4 border-2 rounded ${
+                    selectedAgeBin === ageGroup.value
+                      ? "bg-[#17488D] border-[#17488D]"
+                      : "border-gray-400"
+                  }`}
+                ></div>
+                <span>{ageGroup.label}</span>
+              </label>
+              {selectedAgeBin === ageGroup.value && (
+                <div className="mt-1 mb-6 ml-8">
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Opasitas
+                  </label>
+                  <Range
+                    step={0.1}
+                    min={0}
+                    max={100}
+                    values={[ageOpacity]}
+                    onChange={(values) => onAgeOpacityChange(values[0])}
+                    renderTrack={({ props, children }) => (
+                      <div
+                        {...props}
+                        className="h-2 w-full rounded bg-gray-200 relative"
+                        style={{
+                          ...props.style,
+                          background: `linear-gradient(to right, #17488D ${ageOpacity}%, #ccc ${ageOpacity}%)`,
+                        }}
+                      >
+                        {children}
+                      </div>
+                    )}
+                    renderThumb={({ props }) => {
+                      const { key, ...rest } = props;
+                      return (
+                        <div
+                          key={key}
+                          {...rest}
+                          className="h-5 w-5 bg-[#17488D] rounded-full shadow border-2 border-white relative"
+                        >
+                          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full text-xs text-gray-600 px-1 rounded-full">
+                            {ageOpacity.toFixed(0)}%
+                          </span>
+                        </div>
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
           ))}
 
           <h3 className="mt-4 mb-1 text-md font-bold">
@@ -306,33 +362,72 @@ const Filters = ({
 
           <h3 className="mt-2 mb-1 text-md font-bold">Agama</h3>
           {religions.map((religion) => (
-            <label
-              key={religion.value}
-              className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit"
-            >
-              <input
-                type="checkbox"
-                name="religion"
-                value={religion.value}
-                checked={selectedReligionBin === religion.value}
-                onChange={() => {
-                  if (selectedReligionBin === religion.value) {
-                    onReligionBinChange(""); // Deselect if already selected
-                  } else {
-                    onReligionBinChange(religion.value); // Select the new value
-                  }
-                }}
-                className="hidden"
-              />
-              <div
-                className={`w-4 h-4 border-2 rounded ${
-                  selectedReligionBin === religion.value
-                    ? "bg-[#17488D] border-[#17488D]"
-                    : "border-gray-400"
-                }`}
-              ></div>
-              <span>{religion.label}</span>
-            </label>
+            <div key={religion.value}>
+              <label className="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer w-fit">
+                <input
+                  type="checkbox"
+                  name="religion"
+                  value={religion.value}
+                  checked={selectedReligionBin === religion.value}
+                  onChange={() => {
+                    if (selectedReligionBin === religion.value) {
+                      onReligionBinChange(""); // Deselect if already selected
+                    } else {
+                      onReligionBinChange(religion.value); // Select the new value
+                    }
+                  }}
+                  className="hidden"
+                />
+                <div
+                  className={`w-4 h-4 border-2 rounded ${
+                    selectedReligionBin === religion.value
+                      ? "bg-[#17488D] border-[#17488D]"
+                      : "border-gray-400"
+                  }`}
+                ></div>
+                <span>{religion.label}</span>
+              </label>
+              {selectedReligionBin === religion.value && (
+                <div className="mt-1 mb-6 ml-8">
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Opasitas
+                  </label>
+                  <Range
+                    step={0.1}
+                    min={0}
+                    max={100}
+                    values={[religionOpacity]}
+                    onChange={(values) => onReligionOpacityChange(values[0])}
+                    renderTrack={({ props, children }) => (
+                      <div
+                        {...props}
+                        className="h-2 w-full rounded bg-gray-200 relative"
+                        style={{
+                          ...props.style,
+                          background: `linear-gradient(to right, #17488D ${religionOpacity}%, #ccc ${religionOpacity}%)`,
+                        }}
+                      >
+                        {children}
+                      </div>
+                    )}
+                    renderThumb={({ props }) => {
+                      const { key, ...rest } = props;
+                      return (
+                        <div
+                          key={key}
+                          {...rest}
+                          className="h-5 w-5 bg-[#17488D] rounded-full shadow border-2 border-white relative"
+                        >
+                          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full text-xs text-gray-600 px-1 rounded-full">
+                            {religionOpacity.toFixed(0)}%
+                          </span>
+                        </div>
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       )}

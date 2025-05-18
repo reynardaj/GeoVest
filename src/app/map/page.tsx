@@ -41,6 +41,8 @@ export default function MapPage() {
   const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
     [number, number, number] | null
   >(null);
+  const [religionOpacity, setReligionOpacity] = useState<number>(15);
+  const [ageOpacity, setAgeOpacity] = useState<number>(15);
   // Renamed from Page for clarity
   useEffect(() => {
     // Check if there's a selected property from dashboard
@@ -318,6 +320,8 @@ export default function MapPage() {
       income,
       regionPopupVisibility,
       targetMapCenter,
+      religionOpacity,
+      ageOpacity,
     }),
     [
       floodVisible,
@@ -331,6 +335,8 @@ export default function MapPage() {
       income,
       regionPopupVisibility,
       targetMapCenter,
+      religionOpacity,
+      ageOpacity,
     ]
   );
 
@@ -456,7 +462,10 @@ export default function MapPage() {
               {regionData?.jumlahPenduduk?.toLocaleString("id-ID")}
             </p>
             <p>
-              <strong className="font-semibold">Kepadatan per km<sup>2</sup> :</strong> {regionData?.kepadatanPerKm2?.toLocaleString("id-ID")}
+              <strong className="font-semibold">
+                Kepadatan per km<sup>2</sup> :
+              </strong>{" "}
+              {regionData?.kepadatanPerKm2?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah laki-laki:</strong>{" "}
@@ -467,7 +476,9 @@ export default function MapPage() {
               {regionData?.jumlahPerempuan?.toLocaleString("id-ID")}
             </p>
             <p>
-              <strong className="font-semibold">Luas wilayah (km<sup>2</sup>):</strong>{" "}
+              <strong className="font-semibold">
+                Luas wilayah (km<sup>2</sup>):
+              </strong>{" "}
               {regionData?.luasWilayahKm2?.toLocaleString("id-ID")}
             </p>
           </div>
@@ -562,9 +573,9 @@ export default function MapPage() {
         infrastructureVisibility={infrastructureVisibility}
         onToggleInfrastructure={handleInfrastructureToggle}
         selectedReligionBin={selectedReligionBin}
-        onReligionBinChange={handleReligionBinChange}
         selectedAgeBin={selectedAgeBin}
         onAgeBinChange={handleAgeBinChange}
+        onReligionBinChange={handleReligionBinChange}
         binRanges={binRanges}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -573,6 +584,10 @@ export default function MapPage() {
         selectedPropertyData={selectedPropertyData}
         regionData={regionData}
         onRegionBarZoom={handleRegionBarZoom}
+        religionOpacity={religionOpacity}
+        onReligionOpacityChange={setReligionOpacity}
+        ageOpacity={ageOpacity}
+        onAgeOpacityChange={setAgeOpacity}
       />
       <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3 justify-end">
         <BaseMapSwitcher

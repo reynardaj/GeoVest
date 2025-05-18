@@ -80,4 +80,6 @@ export interface MapLayerControls {
   income: number[];
   regionPopupVisibility: boolean;
   targetMapCenter?: [number, number] | null;
+  religionOpacity: number;
+  ageOpacity: number;
 }

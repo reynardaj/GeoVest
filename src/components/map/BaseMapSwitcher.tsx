@@ -38,7 +38,7 @@ export default function BaseMapSwitcher({
     <div className="relative">
       {/* Main container */}
       <div
-        className="w-24 h-24 cursor-pointer rounded-lg transition-all duration-200 overflow-hidden p-4 shadow-xl bg-white"
+        className="w-24 max-h-24 cursor-pointer rounded-lg transition-all duration-200 overflow-hidden p-4 shadow-xl bg-white"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <Image
