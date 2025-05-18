@@ -17,11 +17,16 @@ import type {
 } from "@/types/map"; // Adjust path
 
 // Import Constants
-import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
+import {
+  INFRASTRUCTURE_LAYERS,
+  BASE_MAP_STYLES,
+  DEFAULT_BASE_MAP_ID,
+} from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
 import Image from "next/image";
 import NavbarMap from "@/components/NavbarMap";
 import { AlignCenter } from "lucide-react";
+import BaseMapSwitcher from "@/components/map/BaseMapSwitcher";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
@@ -93,6 +98,8 @@ export default function MapPage() {
   const [targetMapCenter, setTargetMapCenter] = useState<
     [number, number] | null
   >(null);
+  const [selectedBaseMapId, setSelectedBaseMapId] =
+    useState<string>(DEFAULT_BASE_MAP_ID);
 
   // Fetch bin ranges
   useEffect(() => {
@@ -287,6 +294,15 @@ export default function MapPage() {
   const handleAgeBinChange = useCallback((bin: string) => {
     setSelectedAgeBin(bin);
   }, []);
+  const handleBaseMapChange = useCallback((baseMapId: string) => {
+    setSelectedBaseMapId(baseMapId);
+  }, []);
+  const selectedBaseMapStyleUrl = useMemo(() => {
+    return (
+      BASE_MAP_STYLES.find((style) => style.id === selectedBaseMapId)?.url ||
+      BASE_MAP_STYLES[0].url
+    );
+  }, [selectedBaseMapId]);
 
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
@@ -417,6 +433,8 @@ export default function MapPage() {
         initialOptions={initialMapOptions}
         layerControls={mapLayerControls}
         eventHandlers={mapEventHandlers}
+        baseMapStyleUrl={selectedBaseMapStyleUrl}
+        key={selectedBaseMapId}
       />
       {/* Region Info Floating Box */}
       {regionPopupVisibility && !selectedPropertyData && (
@@ -557,57 +575,64 @@ export default function MapPage() {
         regionData={regionData}
         onRegionBarZoom={handleRegionBarZoom}
       />
-      {(selectedAgeBin || selectedReligionBin) && (
-        <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3">
-          {selectedAgeBin && (
-            <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
-              <h4 className="font-bold mb-2 text-sm">
-                {selectedAgeBin.replace(/_[0-9]+.*|_>.*|_/g, " ").trim()}
-              </h4>
-              {getRangeLabels(selectedAgeBin).map((range, index) => (
-                <div
-                  key={`age-${index}`}
-                  className="flex items-center mb-1 text-sm"
-                >
-                  <span
-                    className="w-4 h-4 mr-2 inline-block"
-                    style={{ backgroundColor: colorScale[index] }}
-                  ></span>
-                  <span>{range}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {selectedReligionBin && (
-            <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md ">
-              <h4 className="font-bold mb-2 text-sm">
-                {selectedReligionBin
-                  .replace(/_bin$/, "")
-                  .replace(/(^|_)(\w)/g, (_, __, letter) =>
-                    letter.toUpperCase()
-                  )
-                  .replace(
-                    /\w\S*/g,
-                    (txt) =>
-                      txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                  )}
-              </h4>
-              {getRangeLabels(selectedReligionBin).map((range, index) => (
-                <div
-                  key={`religion-${index}`}
-                  className="flex items-center mb-1 text-sm"
-                >
-                  <span
-                    className="w-4 h-4 mr-2 inline-block"
-                    style={{ backgroundColor: colorScale[index] }}
-                  ></span>
-                  <span>{range}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3 justify-end">
+        <BaseMapSwitcher
+          selectedBaseMapId={selectedBaseMapId}
+          onBaseMapChange={handleBaseMapChange}
+        />
+        {(selectedAgeBin || selectedReligionBin) && (
+          <div className="flex align-bottom">
+            {selectedAgeBin && (
+              <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-auto">
+                <h4 className="font-bold mb-2 text-sm">
+                  {selectedAgeBin.replace(/_[0-9]+.*|_>.*|_/g, " ").trim()}
+                </h4>
+                {getRangeLabels(selectedAgeBin).map((range, index) => (
+                  <div
+                    key={`age-${index}`}
+                    className="flex items-center mb-1 text-sm"
+                  >
+                    <span
+                      className="w-4 h-4 mr-2 inline-block"
+                      style={{ backgroundColor: colorScale[index] }}
+                    ></span>
+                    <span>{range}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {selectedReligionBin && (
+              <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md ">
+                <h4 className="font-bold mb-2 text-sm">
+                  {selectedReligionBin
+                    .replace(/_bin$/, "")
+                    .replace(/(^|_)(\w)/g, (_, __, letter) =>
+                      letter.toUpperCase()
+                    )
+                    .replace(
+                      /\w\S*/g,
+                      (txt) =>
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                    )}
+                </h4>
+                {getRangeLabels(selectedReligionBin).map((range, index) => (
+                  <div
+                    key={`religion-${index}`}
+                    className="flex items-center mb-1 text-sm"
+                  >
+                    <span
+                      className="w-4 h-4 mr-2 inline-block"
+                      style={{ backgroundColor: colorScale[index] }}
+                    ></span>
+                    <span>{range}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

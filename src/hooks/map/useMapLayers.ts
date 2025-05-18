@@ -43,7 +43,6 @@ export function useMapLayers(
   isLoaded: boolean,
   layerControls: MapLayerControls
 ) {
-
   const layerControlsRef = useRef(layerControls);
 
   // Keep ref updated with the latest controls without causing effect re-runs needlessly
@@ -323,7 +322,7 @@ export function useMapLayers(
         });
       }
 
-      if (layerControls.floodVisible) {
+      if (layerControlsRef.current.floodVisible) {
         if (!floodLayerExists) {
           try {
             map.addLayer(
@@ -384,7 +383,7 @@ export function useMapLayers(
     return () => {
       isMounted = false;
     };
-  }, [map, isLoaded, layerControls]);
+  }, [map, isLoaded]);
 
   // --- Effect for region popup close (on seemore click) ---
   useEffect(() => {
@@ -396,12 +395,6 @@ export function useMapLayers(
 
   // --- Effect for Income filter on jakarta-fill layer ---
   useEffect(() => {
-    console.log(
-      "income:",
-      layerControls.income[0] * 1000000,
-      layerControls.income[1] * 1000000
-    );
-
     if (!map || !map.getLayer(JAKARTA_FILL_LAYER_ID)) return;
     map.setFilter(JAKARTA_FILL_LAYER_ID, [
       "all",
@@ -559,12 +552,6 @@ export function useMapLayers(
   useEffect(() => {
     if (!map || !isLoaded) return;
 
-    console.log("Age effect triggered:", {
-      selectedAgeBin: layerControls.selectedAgeBin,
-      hasSource: !!map.getSource("demografi-jakarta"),
-      hasLayer: !!map.getLayer(AGE_FILL_LAYER_ID),
-    });
-
     if (layerControls.selectedAgeBin) {
       if (!map.getSource("demografi-jakarta")) {
         try {
@@ -573,7 +560,6 @@ export function useMapLayers(
             data: "/demografi-jakarta-with-bins.geojson",
             generateId: true,
           });
-          console.log("Added demografi-jakarta source for age");
         } catch (error) {
           console.error(
             "Failed to add demografi-jakarta source for age:",
@@ -617,7 +603,6 @@ export function useMapLayers(
             },
             JAKARTA_BORDER_LAYER_ID
           );
-          console.log("Added age-fill layer");
         } catch (error) {
           console.error("Failed to add age-fill layer:", error);
         }
@@ -637,7 +622,6 @@ export function useMapLayers(
             colorScale[4],
           ]);
           map.setLayoutProperty(AGE_FILL_LAYER_ID, "visibility", "visible");
-          console.log("Updated age-fill layer");
         } catch (error) {
           console.error("Failed to update age-fill layer:", error);
         }
@@ -646,7 +630,6 @@ export function useMapLayers(
       if (map.getLayer(AGE_FILL_LAYER_ID)) {
         try {
           map.removeLayer(AGE_FILL_LAYER_ID);
-          console.log("Removed age-fill layer");
         } catch (error) {
           console.error("Failed to remove age-fill layer:", error);
         }
