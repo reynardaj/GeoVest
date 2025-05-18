@@ -445,31 +445,30 @@ export default function MapPage() {
           <div className="text-black space-y-1">
             <p>
               <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
-              {regionData?.jumlahKecamatan}
+              {regionData?.jumlahKecamatan?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah Desa:</strong>{" "}
-              {regionData?.jumlahDesa}
+              {regionData?.jumlahDesa?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
-              {regionData?.jumlahPenduduk}
+              {regionData?.jumlahPenduduk?.toLocaleString("id-ID")}
             </p>
             <p>
-              <strong className="font-semibold">Kepadatan per km2:</strong>{" "}
-              {regionData?.kepadatanPerKm2}
+              <strong className="font-semibold">Kepadatan per km<sup>2</sup> :</strong> {regionData?.kepadatanPerKm2?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah laki-laki:</strong>{" "}
-              {regionData?.jumlahLakiLaki}
+              {regionData?.jumlahLakiLaki?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah perempuan:</strong>{" "}
-              {regionData?.jumlahPerempuan}
+              {regionData?.jumlahPerempuan?.toLocaleString("id-ID")}
             </p>
             <p>
-              <strong className="font-semibold">luas wilayah (km2):</strong>{" "}
-              {regionData?.luasWilayahKm2}
+              <strong className="font-semibold">Luas wilayah (km<sup>2</sup>):</strong>{" "}
+              {regionData?.luasWilayahKm2?.toLocaleString("id-ID")}
             </p>
           </div>
           <div className="mt-3 flex justify-between items-center">

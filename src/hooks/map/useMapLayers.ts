@@ -162,12 +162,12 @@ export function useMapLayers(
                 paint:
                   layer.id === "rel-kereta"
                     ? {
-                        "line-color": "#72A324",
+                        "line-color": "#63A4FF",
                         "line-width": 2,
                         "line-opacity": 0.7,
                       }
                     : {
-                        "line-color": "#0000ff",
+                        "line-color": "#4A90E2",
                         "line-width": 1,
                         "line-opacity": 0.7,
                       },
@@ -287,20 +287,20 @@ export function useMapLayers(
             "circle-radius": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              10,
-              6,
+              14, // hover
+              8, // default
             ],
             "circle-color": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              "#959f8d",
-              "#959f8d",
+              "#17488D", // hover
+              "#17488D", // default
             ],
             "circle-stroke-width": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              2,
-              1,
+              2, // hover
+              1, // default
             ],
             "circle-stroke-color": "#ffffff",
           },
@@ -428,7 +428,6 @@ export function useMapLayers(
     }
   }, [map, isLoaded, layerControls.floodVisible]);
 
-  // --- Effect for Toggling Infrastructure Visibility ---
   // --- Effect for Toggling Infrastructure Visibility ---
   useEffect(() => {
     if (!map || !isLoaded || !layerControls.infrastructureVisibility) return;
@@ -637,7 +636,7 @@ export function useMapLayers(
     }
   }, [map, isLoaded, layerControls.selectedAgeBin]);
 
-  // --- NEW useEffect for Handling Programmatic Zoom (RegionBarZoom) ---
+  // useEffect for Handling Programmatic Zoom (RegionBarZoom)
   useEffect(() => {
     if (map && isLoaded && layerControls.targetMapCenter) {
       map.flyTo({
@@ -650,7 +649,7 @@ export function useMapLayers(
   }, [map, isLoaded, layerControls.targetMapCenter]);
 }
 
-// --- Helper Function: Apply Properties Filter ---
+// Helper Function: Apply Properties Filter
 const applyPropertiesFilter = (map: Map, controls: MapLayerControls) => {
   const priceRange = controls.priceRange ?? [0, 100];
   const categories = controls.selectedCategories ?? [];
