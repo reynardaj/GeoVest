@@ -65,6 +65,7 @@ export interface MapEventHandlers {
   onBackgroundClick?: (map: Map) => void;
   onRegionHover?: (featureId: string | number | null, map: Map) => void; // Pass ID or null
   onPropertyHover?: (featureId: string | number | null, map: Map) => void; // Pass ID or null
+  onRegionBarZoom?: (center: [number, number]) => void;
 }
 
 export interface MapLayerControls {
@@ -78,4 +79,5 @@ export interface MapLayerControls {
   binRanges: { [key: string]: number[] };
   income: number[];
   regionPopupVisibility: boolean;
+  targetMapCenter?: [number, number] | null;
 }

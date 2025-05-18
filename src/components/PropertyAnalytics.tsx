@@ -13,9 +13,9 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-import { SelectedPropertyData, PopupData } from "@/types/map";
+import { SelectedPropertyData, PopupData, MapEventHandlers } from "@/types/map";
 import { useState, useEffect } from "react";
-import Bars from "@/components/BarChart"
+import Bars from "@/components/BarChart";
 import { Bold } from "lucide-react";
 import { string } from "@tensorflow/tfjs";
 
@@ -139,6 +139,7 @@ const ReligionDistribution: Record<RegionKey, ReligionGroup> = {
 interface PropertyAnalyticsProps {
   selectedPropertyData: SelectedPropertyData | null;
   regionData?: { regionName: string } | null;
+  onRegionBarZoom?: (center: [number, number]) => void;
 }
 
 const randomNormal = (mean: number, stdDev: number): number => {
@@ -168,7 +169,7 @@ const generatePriceProjection = (currentPrice: number, regionName: string) => {
 
   for (let i = 0; i <= 5; i++) {
     const growthRate = randomNormal(baseGrowthRate, 0.6 / 100);
-    price += price * growthRate; 
+    price += price * growthRate;
     projection.push({
       year: new Date().getFullYear() + i,
       price: parseFloat(price.toFixed(2)),
@@ -244,6 +245,7 @@ const getReligionData = (region: string) => {
 const PropertyAnalytics = ({
   selectedPropertyData,
   regionData,
+  onRegionBarZoom,
 }: PropertyAnalyticsProps) => {
   const [regionName, setRegionName] = useState<string>("");
 
@@ -508,7 +510,7 @@ const PropertyAnalytics = ({
           )}
         </div>
       )}
-      <Bars regionName={regionName}/>
+      <Bars regionName={regionName} onRegionBarZoom={onRegionBarZoom} />
     </div>
   );
 };

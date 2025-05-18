@@ -21,6 +21,7 @@ import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
 import Image from "next/image";
 import NavbarMap from "@/components/NavbarMap";
+import { AlignCenter } from "lucide-react";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
@@ -89,6 +90,9 @@ export default function MapPage() {
   );
   const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
   const [income, setIncome] = useState<number[]>([4, 7]);
+  const [targetMapCenter, setTargetMapCenter] = useState<
+    [number, number] | null
+  >(null);
 
   // Fetch bin ranges
   useEffect(() => {
@@ -221,6 +225,11 @@ export default function MapPage() {
     [clickedRegionId]
   ); // Depends on clickedRegionId
 
+  const handleRegionBarZoom = useCallback((center: [number, number]) => {
+    console.log("MapPage: handleRegionBarZoom triggered with center:", center);
+    setTargetMapCenter(center);
+  }, []);
+
   // Memoize the handlers passed to the map component
   const mapEventHandlers: MapEventHandlers = useMemo(
     () => ({
@@ -292,6 +301,7 @@ export default function MapPage() {
       binRanges,
       income,
       regionPopupVisibility,
+      targetMapCenter,
     }),
     [
       floodVisible,
@@ -304,6 +314,7 @@ export default function MapPage() {
       binRanges,
       income,
       regionPopupVisibility,
+      targetMapCenter,
     ]
   );
 
@@ -544,6 +555,7 @@ export default function MapPage() {
         setIncome={handleIncomeChange}
         selectedPropertyData={selectedPropertyData}
         regionData={regionData}
+        onRegionBarZoom={handleRegionBarZoom}
       />
       {(selectedAgeBin || selectedReligionBin) && (
         <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3">

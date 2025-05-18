@@ -40,9 +40,10 @@ const loadMapImage = async (
 
 export function useMapLayers(
   map: Map | null,
-  isLoaded: boolean, // Pass map load status from useMapInitialization
-  layerControls: MapLayerControls // Pass state for filters/visibility
+  isLoaded: boolean,
+  layerControls: MapLayerControls
 ) {
+
   const layerControlsRef = useRef(layerControls);
 
   // Keep ref updated with the latest controls without causing effect re-runs needlessly
@@ -65,37 +66,6 @@ export function useMapLayers(
           const infraLayerConfig = INFRASTRUCTURE_LAYERS.find(
             (l) => l.id === fileName && l.layerType !== "line" // Ensure it's a point layer
           );
-          // ---- START DEBUG LOGGING ----
-          console.log(`Processing source: ${fileName}`);
-          if (infraLayerConfig) {
-            console.log(
-              `  Applying clustering for ${fileName}. Layer type: ${infraLayerConfig.layerType}`
-            );
-          } else {
-            // Check if it's a line layer that should NOT have clustering
-            const isLineLayer = INFRASTRUCTURE_LAYERS.find(
-              (l) => l.id === fileName && l.layerType === "line"
-            );
-            if (isLineLayer) {
-              console.log(
-                `  Skipping clustering for ${fileName} (Line Layer).`
-              );
-            } else if (
-              fileName.includes("demografi") ||
-              fileName.includes("jakarta")
-            ) {
-              console.log(
-                `  Skipping clustering for ${fileName} (Likely Polygon/Base Layer).`
-              );
-            } else {
-              // This case is important: a GEOJSON_SOURCE that ISN'T in INFRASTRUCTURE_LAYERS
-              // or doesn't have a layerType. Could it be one of these?
-              console.warn(
-                `  Skipping clustering for ${fileName} (Not found as point infra layer or type mismatch).`
-              );
-            }
-          }
-          // ---- END DEBUG LOGGING ----
           const sourceOptions: maplibregl.GeoJSONSourceSpecification = {
             type: "geojson",
             data: `/${
@@ -683,6 +653,18 @@ export function useMapLayers(
       }
     }
   }, [map, isLoaded, layerControls.selectedAgeBin]);
+
+  // --- NEW useEffect for Handling Programmatic Zoom (RegionBarZoom) ---
+  useEffect(() => {
+    if (map && isLoaded && layerControls.targetMapCenter) {
+      map.flyTo({
+        center: layerControls.targetMapCenter,
+        zoom: 14,
+        duration: 1000,
+        essential: true,
+      });
+    }
+  }, [map, isLoaded, layerControls.targetMapCenter]);
 }
 
 // --- Helper Function: Apply Properties Filter ---

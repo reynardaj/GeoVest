@@ -31,7 +31,8 @@ interface MenuProps {
   income: number[];
   setIncome: (values: number[]) => void;
   selectedPropertyData: SelectedPropertyData | null;
-  regionData?: PopupData | null; // Add regionData prop
+  regionData?: PopupData | null; 
+  onRegionBarZoom?: (center: [number, number]) => void;
 }
 
 function Menu({
@@ -55,7 +56,8 @@ function Menu({
   income,
   setIncome,
   selectedPropertyData,
-  regionData, // Added regionData
+  regionData, 
+  onRegionBarZoom,
 }: MenuProps) {
   return (
     <div className="shadow-xl rounded-tl-lg  2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#fff] justify-center z-50 overflow-hidden">
@@ -149,6 +151,7 @@ function Menu({
                   }
                 : null
             }
+            onRegionBarZoom={onRegionBarZoom}
           />
         )}
 
