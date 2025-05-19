@@ -19,6 +19,94 @@ import {
   CLUSTER_MAX_ZOOM,
   CLUSTER_RADIUS,
 } from "@/config/mapConstants";
+
+type ColorScheme = {
+  colors: string[];
+  opacity: number;
+};
+
+// Type for all possible layer IDs
+export type LayerId =
+  | "rumah-sakit"
+  | "bandara"
+  | "pusat-perbelanjaan"
+  | "pendidikan"
+  | "default";
+
+// Cluster color schemes for different layer types
+const CLUSTER_COLOR_SCHEMES: Record<LayerId, ColorScheme> = {
+  "rumah-sakit": {
+    colors: ["#C72875", "#D94D93", "#E66DB1"], // Shades of C72875
+    opacity: 0.5,
+  },
+  bandara: {
+    colors: ["#32A3D0", "#45B5E2", "#58C7F4"], // Shades of 32A3D0
+    opacity: 0.5,
+  },
+  "pusat-perbelanjaan": {
+    colors: ["#850A93", "#A12DAD", "#BC4DC7"], // Shades of 850A93
+    opacity: 0.5,
+  },
+  pendidikan: {
+    colors: ["#72A324", "#89B936", "#A1D048"], // Shades of 72A324
+    opacity: 0.5,
+  },
+  default: {
+    colors: ["#51bbd6", "#f1f075", "#f28cb1"], // Default colors for <100, 100-750, >750 points
+    opacity: 0.5,
+  },
+};
+
+// Update the getColorScheme function to use layer ID directly
+const getColorScheme = (layerId: LayerId): ColorScheme => {
+  return CLUSTER_COLOR_SCHEMES[layerId] || CLUSTER_COLOR_SCHEMES.default;
+};
+
+// Helper function to get opacity for a layer
+const getOpacity = (layerId: LayerId): number => {
+  const scheme = getColorScheme(layerId);
+  return scheme.opacity;
+};
+
+// Helper function to get color expression for a layer
+const getColorExpression = (layerId: LayerId): ExpressionSpecification => {
+  const scheme = getColorScheme(layerId);
+  return [
+    "step",
+    ["get", "point_count"],
+    scheme.colors[0],
+    100,
+    scheme.colors[1],
+    750,
+    scheme.colors[2],
+  ];
+};
+
+// Helper function to get opacity expression for a layer
+const getOpacityExpression = (layerId: LayerId): ExpressionSpecification => {
+  const opacity = getOpacity(layerId);
+  return ["literal", opacity];
+};
+
+// Helper function to get cluster paint properties
+const getClusterPaint = (
+  sourceId: LayerId
+): Record<string, ExpressionSpecification> => ({
+  "circle-color": getColorExpression(sourceId),
+  "circle-opacity": getOpacityExpression(sourceId),
+  "circle-radius": [
+    "step",
+    ["get", "point_count"],
+    ["literal", 10],
+    100,
+    ["literal", 15],
+    750,
+    ["literal", 25],
+  ],
+  "circle-stroke-width": ["literal", 1],
+  "circle-stroke-color": ["literal", "#fff"],
+});
+
 const RELIGION_FILL_LAYER_ID = "religion-fill";
 // Helper to load images asynchronously
 const loadMapImage = async (
@@ -167,7 +255,7 @@ export function useMapLayers(
                         "line-opacity": 0.7,
                       }
                     : {
-                        "line-color": "#4A90E2",
+                        "line-color": "#4a78bc",
                         "line-width": 1,
                         "line-opacity": 0.7,
                       },
@@ -188,31 +276,7 @@ export function useMapLayers(
                 layout: {
                   visibility: visibilityValue,
                 },
-                paint: {
-                  // Use step expressions to style clusters based on point_count
-                  // Example: make larger clusters for more points
-                  "circle-color": [
-                    "step",
-                    ["get", "point_count"],
-                    "#51bbd6", // Default color for < 100 points
-                    100,
-                    "#f1f075", // Color for 100-750 points
-                    750,
-                    "#f28cb1", // Color for >= 750 points
-                  ],
-                  "circle-radius": [
-                    "step",
-                    ["get", "point_count"],
-                    20, // Default radius for < 100 points
-                    100,
-                    30, // Radius for 100-750 points
-                    750,
-                    40, // Radius for >= 750 points
-                  ],
-                  "circle-opacity": 0.8,
-                  "circle-stroke-width": 1,
-                  "circle-stroke-color": "#fff",
-                },
+                paint: getClusterPaint(sourceId as LayerId),
               });
             }
 

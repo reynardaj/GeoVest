@@ -64,7 +64,7 @@ export const INFRASTRUCTURE_LAYERS: InfrastructureLayer[] = [
     iconUrl: "/icons/icon-rs.png",
     iconId: "bus-icon",
     layerType: "line",
-  }, 
+  },
 ];
 
 // Layer IDs used in MapLibre style
@@ -76,13 +76,13 @@ export const RAIL_LINE_LAYER_ID = "rel-kereta-layer";
 export const BUS_LINE_LAYER_ID = "transjakarta-layer";
 export const AGE_FILL_LAYER_ID = "age-fill";
 
-export const CLUSTER_MAX_ZOOM = 14; 
-export const CLUSTER_RADIUS = 100; 
+export const CLUSTER_MAX_ZOOM = 14;
+export const CLUSTER_RADIUS = 100;
 
 export const BASE_MAP_STYLES = [
   {
     id: "street-2d-building",
-    name: "Street Mapid - 2d building only", 
+    name: "Street Mapid - 2d building only",
     url: `https://basemap.mapid.io/styles/street-2d-building/style.json?key=${MAP_SERVICE_KEY}`,
   },
   {
@@ -96,12 +96,12 @@ export const BASE_MAP_STYLES = [
     url: `https://basemap.mapid.io/styles/satellite/style.json?key=${MAP_SERVICE_KEY}`,
   },
   {
-    id: "dark", 
+    id: "dark",
     name: "Dark Mapid",
     url: `https://basemap.mapid.io/styles/dark/style.json?key=${MAP_SERVICE_KEY}`,
   },
   {
-    id: "light", 
+    id: "light",
     name: "Light Mapid",
     url: `https://basemap.mapid.io/styles/light/style.json?key=${MAP_SERVICE_KEY}`,
   },
