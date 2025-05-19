@@ -35,10 +35,10 @@ export default function BaseMapSwitcher({
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-24 h-24">
       {/* Main container */}
       <div
-        className="w-24 max-h-24 cursor-pointer rounded-lg transition-all duration-200 overflow-hidden p-4 shadow-xl bg-white"
+        className="absolute bottom-0 w-24 h-24 cursor-pointer rounded-lg shadow-xl border-2 border-white bg-white p-2"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <Image
@@ -53,8 +53,8 @@ export default function BaseMapSwitcher({
 
       {/* Expanded container */}
       {isExpanded && (
-        <div className="absolute bottom-28 left-0 -mb-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 z-50">
-          <div className="p-4 grid grid-cols-2 gap-2">
+        <div className="absolute bottom-28 left-0 -mb-2 w-64  bg-white rounded-xl shadow-lg border border-gray-200 z-50">
+          <div className="p-2 grid grid-cols-2 gap-2">
             {baseMapStyles.map((style) => (
               <div
                 key={style.id}

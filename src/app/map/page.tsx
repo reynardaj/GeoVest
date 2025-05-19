@@ -589,13 +589,13 @@ export default function MapPage() {
         ageOpacity={ageOpacity}
         onAgeOpacityChange={setAgeOpacity}
       />
-      <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3 justify-end">
+      <div className="absolute z-20 bottom-4 left-4 flex gap-3 items-end">
         <BaseMapSwitcher
           selectedBaseMapId={selectedBaseMapId}
           onBaseMapChange={handleBaseMapChange}
         />
         {(selectedAgeBin || selectedReligionBin) && (
-          <div className="flex align-bottom">
+          <div className="flex align-bottom gap-3">
             {selectedAgeBin && (
               <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-auto">
                 <h4 className="font-bold mb-2 text-sm">
