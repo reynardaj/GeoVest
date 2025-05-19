@@ -2,48 +2,58 @@
 import { useState, useEffect, RefObject } from "react";
 import maplibregl, { Map, MapOptions } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import {
-  MAPTILER_STYLE_URL,
-  INITIAL_CENTER,
-  INITIAL_ZOOM,
-} from "@/config/mapConstants"; // Import constants
+import { INITIAL_CENTER, INITIAL_ZOOM } from "@/config/mapConstants"; // Import constants
 
 export function useMapInitialization(
   mapContainerRef: RefObject<HTMLDivElement>,
-  options?: Partial<Omit<MapOptions, "container">> // Allow partial overrides
+  options?: Partial<Omit<MapOptions, "container">>,
+  styleUrl?: string // Allow partial overrides
 ) {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!mapContainerRef.current || mapInstance) return; // Already initialized or container not ready
+    if (!mapContainerRef.current || mapInstance) return;
+    console.log(
+      "useMapInitialization: Initializing new map with style:",
+      styleUrl
+    );
 
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
-      style: MAPTILER_STYLE_URL,
+      style: styleUrl,
       center: options?.center ?? INITIAL_CENTER,
       zoom: options?.zoom ?? INITIAL_ZOOM,
       ...options, // Apply other overrides
     });
 
     map.on("load", () => {
-      console.log("Map Loaded Event Fired"); // Debug log
+      console.log("useMapInitialization: Map Loaded for style:", styleUrl);
       setMapInstance(map);
       setIsLoaded(true);
     });
 
     map.on("error", (e) => {
-      console.error("MapLibre Error:", e);
+      console.error(
+        "useMapInitialization: MapLibre Error:",
+        e,
+        "for style:",
+        styleUrl
+      );
     });
 
     // Cleanup function
     return () => {
-      console.log("Cleaning up map instance"); // Debug log
+      console.log(
+        "useMapInitialization: Cleaning up map instance for style:",
+        styleUrl,
+        map
+      );
+      map?.remove();
       setIsLoaded(false);
       setMapInstance(null); // Set state to null BEFORE removing map
-      map?.remove();
     };
-  }, [mapContainerRef]); // Only depends on the container ref
+  }, [mapContainerRef, styleUrl, options]); // Only depends on the container ref
 
   return { mapInstance, isLoaded };
 }

@@ -8,7 +8,7 @@ import {
   PopupData,
 } from "@/types/map";
 import PropertyAnalytics from "./PropertyAnalytics";
-import ROICalculator from "./roi-calculator"; 
+import ROICalculator from "./roi-calculator";
 
 interface MenuProps {
   priceRange: [number, number];
@@ -31,7 +31,12 @@ interface MenuProps {
   income: number[];
   setIncome: (values: number[]) => void;
   selectedPropertyData: SelectedPropertyData | null;
-  regionData?: PopupData | null; // Add regionData prop
+  regionData?: PopupData | null;
+  onRegionBarZoom?: (center: [number, number]) => void;
+  ageOpacity: number;
+  onAgeOpacityChange: (opacity: number) => void;
+  religionOpacity: number;
+  onReligionOpacityChange: (opacity: number) => void;
 }
 
 function Menu({
@@ -55,7 +60,12 @@ function Menu({
   income,
   setIncome,
   selectedPropertyData,
-  regionData, // Added regionData
+  regionData,
+  onRegionBarZoom,
+  religionOpacity,
+  onReligionOpacityChange,
+  ageOpacity,
+  onAgeOpacityChange,
 }: MenuProps) {
   return (
     <div className="shadow-xl rounded-tl-lg  2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#fff] justify-center z-50 overflow-hidden">
@@ -136,6 +146,13 @@ function Menu({
             selectedAgeBin={selectedAgeBin}
             income={income}
             setIncome={setIncome}
+            selectedPropertyData={selectedPropertyData}
+            regionData={regionData}
+            onRegionBarZoom={onRegionBarZoom}
+            religionOpacity={religionOpacity}
+            onReligionOpacityChange={onReligionOpacityChange}
+            ageOpacity={ageOpacity}
+            onAgeOpacityChange={onAgeOpacityChange}
           />
         )}
         {activeTab === "Analytics" && (
@@ -149,10 +166,13 @@ function Menu({
                   }
                 : null
             }
+            onRegionBarZoom={onRegionBarZoom}
           />
         )}
 
-        {activeTab === "Time Machine" && <TimeMachine selectedPropertyData={selectedPropertyData} />}
+        {activeTab === "Time Machine" && (
+          <TimeMachine selectedPropertyData={selectedPropertyData} />
+        )}
         {activeTab === "ROI Calculator" && <ROICalculator />}
       </div>
     </div>

@@ -17,10 +17,16 @@ import type {
 } from "@/types/map"; // Adjust path
 
 // Import Constants
-import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
+import {
+  INFRASTRUCTURE_LAYERS,
+  BASE_MAP_STYLES,
+  DEFAULT_BASE_MAP_ID,
+} from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
 import Image from "next/image";
 import NavbarMap from "@/components/NavbarMap";
+import { AlignCenter } from "lucide-react";
+import BaseMapSwitcher from "@/components/map/BaseMapSwitcher";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
@@ -35,6 +41,8 @@ export default function MapPage() {
   const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
     [number, number, number] | null
   >(null);
+  const [religionOpacity, setReligionOpacity] = useState<number>(15);
+  const [ageOpacity, setAgeOpacity] = useState<number>(15);
   // Renamed from Page for clarity
   useEffect(() => {
     // Check if there's a selected property from dashboard
@@ -89,6 +97,11 @@ export default function MapPage() {
   );
   const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
   const [income, setIncome] = useState<number[]>([4, 7]);
+  const [targetMapCenter, setTargetMapCenter] = useState<
+    [number, number] | null
+  >(null);
+  const [selectedBaseMapId, setSelectedBaseMapId] =
+    useState<string>(DEFAULT_BASE_MAP_ID);
 
   // Fetch bin ranges
   useEffect(() => {
@@ -221,6 +234,11 @@ export default function MapPage() {
     [clickedRegionId]
   ); // Depends on clickedRegionId
 
+  const handleRegionBarZoom = useCallback((center: [number, number]) => {
+    console.log("MapPage: handleRegionBarZoom triggered with center:", center);
+    setTargetMapCenter(center);
+  }, []);
+
   // Memoize the handlers passed to the map component
   const mapEventHandlers: MapEventHandlers = useMemo(
     () => ({
@@ -278,6 +296,15 @@ export default function MapPage() {
   const handleAgeBinChange = useCallback((bin: string) => {
     setSelectedAgeBin(bin);
   }, []);
+  const handleBaseMapChange = useCallback((baseMapId: string) => {
+    setSelectedBaseMapId(baseMapId);
+  }, []);
+  const selectedBaseMapStyleUrl = useMemo(() => {
+    return (
+      BASE_MAP_STYLES.find((style) => style.id === selectedBaseMapId)?.url ||
+      BASE_MAP_STYLES[0].url
+    );
+  }, [selectedBaseMapId]);
 
   // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
@@ -292,6 +319,9 @@ export default function MapPage() {
       binRanges,
       income,
       regionPopupVisibility,
+      targetMapCenter,
+      religionOpacity,
+      ageOpacity,
     }),
     [
       floodVisible,
@@ -304,6 +334,9 @@ export default function MapPage() {
       binRanges,
       income,
       regionPopupVisibility,
+      targetMapCenter,
+      religionOpacity,
+      ageOpacity,
     ]
   );
 
@@ -406,6 +439,8 @@ export default function MapPage() {
         initialOptions={initialMapOptions}
         layerControls={mapLayerControls}
         eventHandlers={mapEventHandlers}
+        baseMapStyleUrl={selectedBaseMapStyleUrl}
+        key={selectedBaseMapId}
       />
       {/* Region Info Floating Box */}
       {regionPopupVisibility && !selectedPropertyData && (
@@ -416,31 +451,35 @@ export default function MapPage() {
           <div className="text-black space-y-1">
             <p>
               <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
-              {regionData?.jumlahKecamatan}
+              {regionData?.jumlahKecamatan?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah Desa:</strong>{" "}
-              {regionData?.jumlahDesa}
+              {regionData?.jumlahDesa?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
-              {regionData?.jumlahPenduduk}
+              {regionData?.jumlahPenduduk?.toLocaleString("id-ID")}
             </p>
             <p>
-              <strong className="font-semibold">Kepadatan per km2:</strong>{" "}
-              {regionData?.kepadatanPerKm2}
+              <strong className="font-semibold">
+                Kepadatan per km<sup>2</sup> :
+              </strong>{" "}
+              {regionData?.kepadatanPerKm2?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah laki-laki:</strong>{" "}
-              {regionData?.jumlahLakiLaki}
+              {regionData?.jumlahLakiLaki?.toLocaleString("id-ID")}
             </p>
             <p>
               <strong className="font-semibold">Jumlah perempuan:</strong>{" "}
-              {regionData?.jumlahPerempuan}
+              {regionData?.jumlahPerempuan?.toLocaleString("id-ID")}
             </p>
             <p>
-              <strong className="font-semibold">luas wilayah (km2):</strong>{" "}
-              {regionData?.luasWilayahKm2}
+              <strong className="font-semibold">
+                Luas wilayah (km<sup>2</sup>):
+              </strong>{" "}
+              {regionData?.luasWilayahKm2?.toLocaleString("id-ID")}
             </p>
           </div>
           <div className="mt-3 flex justify-between items-center">
@@ -534,9 +573,9 @@ export default function MapPage() {
         infrastructureVisibility={infrastructureVisibility}
         onToggleInfrastructure={handleInfrastructureToggle}
         selectedReligionBin={selectedReligionBin}
-        onReligionBinChange={handleReligionBinChange}
         selectedAgeBin={selectedAgeBin}
         onAgeBinChange={handleAgeBinChange}
+        onReligionBinChange={handleReligionBinChange}
         binRanges={binRanges}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -544,58 +583,70 @@ export default function MapPage() {
         setIncome={handleIncomeChange}
         selectedPropertyData={selectedPropertyData}
         regionData={regionData}
+        onRegionBarZoom={handleRegionBarZoom}
+        religionOpacity={religionOpacity}
+        onReligionOpacityChange={setReligionOpacity}
+        ageOpacity={ageOpacity}
+        onAgeOpacityChange={setAgeOpacity}
       />
-      {(selectedAgeBin || selectedReligionBin) && (
-        <div className="absolute z-20 bottom-4 left-4 flex flex-col sm:flex-row gap-3">
-          {selectedAgeBin && (
-            <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
-              <h4 className="font-bold mb-2 text-sm">
-                {selectedAgeBin.replace(/_[0-9]+.*|_>.*|_/g, " ").trim()}
-              </h4>
-              {getRangeLabels(selectedAgeBin).map((range, index) => (
-                <div
-                  key={`age-${index}`}
-                  className="flex items-center mb-1 text-sm"
-                >
-                  <span
-                    className="w-4 h-4 mr-2 inline-block"
-                    style={{ backgroundColor: colorScale[index] }}
-                  ></span>
-                  <span>{range}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {selectedReligionBin && (
-            <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md ">
-              <h4 className="font-bold mb-2 text-sm">
-                {selectedReligionBin
-                  .replace(/_bin$/, "")
-                  .replace(/(^|_)(\w)/g, (_, __, letter) =>
-                    letter.toUpperCase()
-                  )
-                  .replace(
-                    /\w\S*/g,
-                    (txt) =>
-                      txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                  )}
-              </h4>
-              {getRangeLabels(selectedReligionBin).map((range, index) => (
-                <div
-                  key={`religion-${index}`}
-                  className="flex items-center mb-1 text-sm"
-                >
-                  <span
-                    className="w-4 h-4 mr-2 inline-block"
-                    style={{ backgroundColor: colorScale[index] }}
-                  ></span>
-                  <span>{range}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      <div className="absolute z-20 bottom-4 left-4 flex gap-3 items-end">
+        <BaseMapSwitcher
+          selectedBaseMapId={selectedBaseMapId}
+          onBaseMapChange={handleBaseMapChange}
+        />
+        {(selectedAgeBin || selectedReligionBin) && (
+          <div className="flex align-bottom gap-3">
+            {selectedAgeBin && (
+              <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-auto">
+                <h4 className="font-bold mb-2 text-sm">
+                  {selectedAgeBin.replace(/_[0-9]+.*|_>.*|_/g, " ").trim()}
+                </h4>
+                {getRangeLabels(selectedAgeBin).map((range, index) => (
+                  <div
+                    key={`age-${index}`}
+                    className="flex items-center mb-1 text-sm"
+                  >
+                    <span
+                      className="w-4 h-4 mr-2 inline-block"
+                      style={{ backgroundColor: colorScale[index] }}
+                    ></span>
+                    <span>{range}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {selectedReligionBin && (
+              <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md ">
+                <h4 className="font-bold mb-2 text-sm">
+                  {selectedReligionBin
+                    .replace(/_bin$/, "")
+                    .replace(/(^|_)(\w)/g, (_, __, letter) =>
+                      letter.toUpperCase()
+                    )
+                    .replace(
+                      /\w\S*/g,
+                      (txt) =>
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                    )}
+                </h4>
+                {getRangeLabels(selectedReligionBin).map((range, index) => (
+                  <div
+                    key={`religion-${index}`}
+                    className="flex items-center mb-1 text-sm"
+                  >
+                    <span
+                      className="w-4 h-4 mr-2 inline-block"
+                      style={{ backgroundColor: colorScale[index] }}
+                    ></span>
+                    <span>{range}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -19,6 +19,94 @@ import {
   CLUSTER_MAX_ZOOM,
   CLUSTER_RADIUS,
 } from "@/config/mapConstants";
+
+type ColorScheme = {
+  colors: string[];
+  opacity: number;
+};
+
+// Type for all possible layer IDs
+export type LayerId =
+  | "rumah-sakit"
+  | "bandara"
+  | "pusat-perbelanjaan"
+  | "pendidikan"
+  | "default";
+
+// Cluster color schemes for different layer types
+const CLUSTER_COLOR_SCHEMES: Record<LayerId, ColorScheme> = {
+  "rumah-sakit": {
+    colors: ["#C72875", "#D94D93", "#E66DB1"], // Shades of C72875
+    opacity: 0.5,
+  },
+  bandara: {
+    colors: ["#32A3D0", "#45B5E2", "#58C7F4"], // Shades of 32A3D0
+    opacity: 0.5,
+  },
+  "pusat-perbelanjaan": {
+    colors: ["#850A93", "#A12DAD", "#BC4DC7"], // Shades of 850A93
+    opacity: 0.5,
+  },
+  pendidikan: {
+    colors: ["#72A324", "#89B936", "#A1D048"], // Shades of 72A324
+    opacity: 0.5,
+  },
+  default: {
+    colors: ["#51bbd6", "#f1f075", "#f28cb1"], // Default colors for <100, 100-750, >750 points
+    opacity: 0.5,
+  },
+};
+
+// Update the getColorScheme function to use layer ID directly
+const getColorScheme = (layerId: LayerId): ColorScheme => {
+  return CLUSTER_COLOR_SCHEMES[layerId] || CLUSTER_COLOR_SCHEMES.default;
+};
+
+// Helper function to get opacity for a layer
+const getOpacity = (layerId: LayerId): number => {
+  const scheme = getColorScheme(layerId);
+  return scheme.opacity;
+};
+
+// Helper function to get color expression for a layer
+const getColorExpression = (layerId: LayerId): ExpressionSpecification => {
+  const scheme = getColorScheme(layerId);
+  return [
+    "step",
+    ["get", "point_count"],
+    scheme.colors[0],
+    100,
+    scheme.colors[1],
+    750,
+    scheme.colors[2],
+  ];
+};
+
+// Helper function to get opacity expression for a layer
+const getOpacityExpression = (layerId: LayerId): ExpressionSpecification => {
+  const opacity = getOpacity(layerId);
+  return ["literal", opacity];
+};
+
+// Helper function to get cluster paint properties
+const getClusterPaint = (
+  sourceId: LayerId
+): Record<string, ExpressionSpecification> => ({
+  "circle-color": getColorExpression(sourceId),
+  "circle-opacity": getOpacityExpression(sourceId),
+  "circle-radius": [
+    "step",
+    ["get", "point_count"],
+    ["literal", 10],
+    100,
+    ["literal", 15],
+    750,
+    ["literal", 25],
+  ],
+  "circle-stroke-width": ["literal", 1],
+  "circle-stroke-color": ["literal", "#fff"],
+});
+
 const RELIGION_FILL_LAYER_ID = "religion-fill";
 // Helper to load images asynchronously
 const loadMapImage = async (
@@ -40,8 +128,8 @@ const loadMapImage = async (
 
 export function useMapLayers(
   map: Map | null,
-  isLoaded: boolean, // Pass map load status from useMapInitialization
-  layerControls: MapLayerControls // Pass state for filters/visibility
+  isLoaded: boolean,
+  layerControls: MapLayerControls
 ) {
   const layerControlsRef = useRef(layerControls);
 
@@ -65,37 +153,6 @@ export function useMapLayers(
           const infraLayerConfig = INFRASTRUCTURE_LAYERS.find(
             (l) => l.id === fileName && l.layerType !== "line" // Ensure it's a point layer
           );
-          // ---- START DEBUG LOGGING ----
-          console.log(`Processing source: ${fileName}`);
-          if (infraLayerConfig) {
-            console.log(
-              `  Applying clustering for ${fileName}. Layer type: ${infraLayerConfig.layerType}`
-            );
-          } else {
-            // Check if it's a line layer that should NOT have clustering
-            const isLineLayer = INFRASTRUCTURE_LAYERS.find(
-              (l) => l.id === fileName && l.layerType === "line"
-            );
-            if (isLineLayer) {
-              console.log(
-                `  Skipping clustering for ${fileName} (Line Layer).`
-              );
-            } else if (
-              fileName.includes("demografi") ||
-              fileName.includes("jakarta")
-            ) {
-              console.log(
-                `  Skipping clustering for ${fileName} (Likely Polygon/Base Layer).`
-              );
-            } else {
-              // This case is important: a GEOJSON_SOURCE that ISN'T in INFRASTRUCTURE_LAYERS
-              // or doesn't have a layerType. Could it be one of these?
-              console.warn(
-                `  Skipping clustering for ${fileName} (Not found as point infra layer or type mismatch).`
-              );
-            }
-          }
-          // ---- END DEBUG LOGGING ----
           const sourceOptions: maplibregl.GeoJSONSourceSpecification = {
             type: "geojson",
             data: `/${
@@ -193,13 +250,13 @@ export function useMapLayers(
                 paint:
                   layer.id === "rel-kereta"
                     ? {
-                        "line-color": "#72A324",
+                        "line-color": "#63A4FF",
                         "line-width": 2,
                         "line-opacity": 0.7,
                       }
                     : {
-                        "line-color": "#0000ff",
-                        "line-width": 1,
+                        "line-color": "#4a78bc",
+                        "line-width": 2,
                         "line-opacity": 0.7,
                       },
               });
@@ -219,31 +276,7 @@ export function useMapLayers(
                 layout: {
                   visibility: visibilityValue,
                 },
-                paint: {
-                  // Use step expressions to style clusters based on point_count
-                  // Example: make larger clusters for more points
-                  "circle-color": [
-                    "step",
-                    ["get", "point_count"],
-                    "#51bbd6", // Default color for < 100 points
-                    100,
-                    "#f1f075", // Color for 100-750 points
-                    750,
-                    "#f28cb1", // Color for >= 750 points
-                  ],
-                  "circle-radius": [
-                    "step",
-                    ["get", "point_count"],
-                    20, // Default radius for < 100 points
-                    100,
-                    30, // Radius for 100-750 points
-                    750,
-                    40, // Radius for >= 750 points
-                  ],
-                  "circle-opacity": 0.8,
-                  "circle-stroke-width": 1,
-                  "circle-stroke-color": "#fff",
-                },
+                paint: getClusterPaint(sourceId as LayerId),
               });
             }
 
@@ -318,20 +351,20 @@ export function useMapLayers(
             "circle-radius": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              10,
-              6,
+              14, // hover
+              8, // default
             ],
             "circle-color": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              "#959f8d",
-              "#959f8d",
+              "#17488D", // hover
+              "#17488D", // default
             ],
             "circle-stroke-width": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              2,
-              1,
+              2, // hover
+              1, // default
             ],
             "circle-stroke-color": "#ffffff",
           },
@@ -353,7 +386,7 @@ export function useMapLayers(
         });
       }
 
-      if (layerControls.floodVisible) {
+      if (layerControlsRef.current.floodVisible) {
         if (!floodLayerExists) {
           try {
             map.addLayer(
@@ -414,7 +447,7 @@ export function useMapLayers(
     return () => {
       isMounted = false;
     };
-  }, [map, isLoaded, layerControls]);
+  }, [map, isLoaded]);
 
   // --- Effect for region popup close (on seemore click) ---
   useEffect(() => {
@@ -426,12 +459,6 @@ export function useMapLayers(
 
   // --- Effect for Income filter on jakarta-fill layer ---
   useEffect(() => {
-    console.log(
-      "income:",
-      layerControls.income[0] * 1000000,
-      layerControls.income[1] * 1000000
-    );
-
     if (!map || !map.getLayer(JAKARTA_FILL_LAYER_ID)) return;
     map.setFilter(JAKARTA_FILL_LAYER_ID, [
       "all",
@@ -465,7 +492,6 @@ export function useMapLayers(
     }
   }, [map, isLoaded, layerControls.floodVisible]);
 
-  // --- Effect for Toggling Infrastructure Visibility ---
   // --- Effect for Toggling Infrastructure Visibility ---
   useEffect(() => {
     if (!map || !isLoaded || !layerControls.infrastructureVisibility) return;
@@ -538,6 +564,8 @@ export function useMapLayers(
         "#6baed6",
         "#08306b",
       ];
+      const opacity = layerControls.religionOpacity / 100; // Convert percentage to decimal
+
       if (!map.getLayer(RELIGION_FILL_LAYER_ID)) {
         map.addLayer(
           {
@@ -558,7 +586,7 @@ export function useMapLayers(
                 4,
                 colorScale[4],
               ],
-              "fill-opacity": 0.2,
+              "fill-opacity": opacity,
             },
           },
           JAKARTA_BORDER_LAYER_ID // Place below border for visibility
@@ -577,6 +605,7 @@ export function useMapLayers(
           4,
           colorScale[4],
         ]);
+        map.setPaintProperty(RELIGION_FILL_LAYER_ID, "fill-opacity", opacity);
       }
     } else {
       // Remove layer if no religion selected
@@ -584,16 +613,15 @@ export function useMapLayers(
         map.removeLayer(RELIGION_FILL_LAYER_ID);
       }
     }
-  }, [map, isLoaded, layerControls.selectedReligionBin]);
+  }, [
+    map,
+    isLoaded,
+    layerControls.selectedReligionBin,
+    layerControls.religionOpacity,
+  ]);
 
   useEffect(() => {
     if (!map || !isLoaded) return;
-
-    console.log("Age effect triggered:", {
-      selectedAgeBin: layerControls.selectedAgeBin,
-      hasSource: !!map.getSource("demografi-jakarta"),
-      hasLayer: !!map.getLayer(AGE_FILL_LAYER_ID),
-    });
 
     if (layerControls.selectedAgeBin) {
       if (!map.getSource("demografi-jakarta")) {
@@ -603,7 +631,6 @@ export function useMapLayers(
             data: "/demografi-jakarta-with-bins.geojson",
             generateId: true,
           });
-          console.log("Added demografi-jakarta source for age");
         } catch (error) {
           console.error(
             "Failed to add demografi-jakarta source for age:",
@@ -612,6 +639,7 @@ export function useMapLayers(
           return;
         }
       }
+      const opacity = layerControls.ageOpacity / 100; // Convert percentage to decimal
 
       const colorScale = [
         "#f7fbff",
@@ -642,12 +670,11 @@ export function useMapLayers(
                   4,
                   colorScale[4],
                 ],
-                "fill-opacity": 0.2,
+                "fill-opacity": opacity,
               },
             },
             JAKARTA_BORDER_LAYER_ID
           );
-          console.log("Added age-fill layer");
         } catch (error) {
           console.error("Failed to add age-fill layer:", error);
         }
@@ -666,8 +693,7 @@ export function useMapLayers(
             4,
             colorScale[4],
           ]);
-          map.setLayoutProperty(AGE_FILL_LAYER_ID, "visibility", "visible");
-          console.log("Updated age-fill layer");
+          map.setPaintProperty(AGE_FILL_LAYER_ID, "fill-opacity", opacity);
         } catch (error) {
           console.error("Failed to update age-fill layer:", error);
         }
@@ -676,16 +702,27 @@ export function useMapLayers(
       if (map.getLayer(AGE_FILL_LAYER_ID)) {
         try {
           map.removeLayer(AGE_FILL_LAYER_ID);
-          console.log("Removed age-fill layer");
         } catch (error) {
           console.error("Failed to remove age-fill layer:", error);
         }
       }
     }
-  }, [map, isLoaded, layerControls.selectedAgeBin]);
+  }, [map, isLoaded, layerControls.selectedAgeBin, layerControls.ageOpacity]);
+
+  // useEffect for Handling Programmatic Zoom (RegionBarZoom)
+  useEffect(() => {
+    if (map && isLoaded && layerControls.targetMapCenter) {
+      map.flyTo({
+        center: layerControls.targetMapCenter,
+        zoom: 14,
+        duration: 1000,
+        essential: true,
+      });
+    }
+  }, [map, isLoaded, layerControls.targetMapCenter]);
 }
 
-// --- Helper Function: Apply Properties Filter ---
+// Helper Function: Apply Properties Filter
 const applyPropertiesFilter = (map: Map, controls: MapLayerControls) => {
   const priceRange = controls.priceRange ?? [0, 100];
   const categories = controls.selectedCategories ?? [];
