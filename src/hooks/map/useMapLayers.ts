@@ -256,7 +256,7 @@ export function useMapLayers(
                       }
                     : {
                         "line-color": "#4a78bc",
-                        "line-width": 1,
+                        "line-width": 2,
                         "line-opacity": 0.7,
                       },
               });
