@@ -578,10 +578,10 @@ const PropertyAnalytics = ({
                   </ResponsiveContainer>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
+      </div>
       <Bars regionName={regionName} onRegionBarZoom={onRegionBarZoom} />
     </div>
   );
