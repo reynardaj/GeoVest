@@ -4,14 +4,10 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import Authentication from "../../components/AuthenticationDashboard";
-import Image from "next/image";
 import ChartDashboard from "../../components/Chart";
 import PropertyCard from "../../components/propertycard";
-import Navbar from "@/components/Navbar";
 import NavbarNews from "@/components/NavbarNews";
 
-// Define TypeScript interfaces for our data
 interface Property {
   image: string;
   title: string;
@@ -64,19 +60,15 @@ export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(true);
   const [formData, setFormData] = useState<FormData | null>(null);
 
-  // Fetch properties from geojson file and user preferences
   useEffect(() => {
-    // Get stored form data if available
     const storedFormData = localStorage.getItem("formData");
 
-    // Fetch properties from geojson
     fetch("/properties.geojson")
       .then((response) => response.json())
       .then((data: GeoJSONData) => {
         const propertiesFromGeoJSON: Property[] = data.features.map(
           (feature: GeoJSONFeature, index) => {
             const { properties: prop, geometry } = feature;
-            // Use the feature ID or fall back to the index
             const propertyId = feature.id || index;
             return {
               image: prop.property_url || "/property/property1.png",
@@ -91,7 +83,6 @@ export default function Dashboard() {
               status: prop.property_status,
               certificateType: prop.certificate_type,
               propertyUrl: prop.property_url,
-              // Include the property ID in the coordinates for use in map focusing
               coordinates: [
                 geometry.coordinates[0],
                 geometry.coordinates[1],
@@ -106,14 +97,12 @@ export default function Dashboard() {
           const parsedFormData: FormData = JSON.parse(storedFormData);
           setFormData(parsedFormData);
 
-          // Filter properties based on form data
           const recommended = recommendProperties(
             propertiesFromGeoJSON,
             parsedFormData
           );
           setProperties(recommended);
         } else {
-          // If no form data, show all properties
           setProperties(propertiesFromGeoJSON);
         }
         setLoading(false);
@@ -124,12 +113,10 @@ export default function Dashboard() {
       });
   }, []);
 
-  // Helper function to format currency
   const formatCurrency = (amount: number): string => {
     return `Rp ${amount.toLocaleString("id-ID")},00`;
   };
 
-  // Helper function to get price range category for matching with form data
   const getPriceRange = (price: number): string => {
     if (price < 100000000) return "< 100 Juta";
     if (price < 500000000) return "100-500 Juta";
@@ -138,15 +125,12 @@ export default function Dashboard() {
     return "> 5 M";
   };
 
-  // Function to recommend properties based on form data
   const recommendProperties = (
     allProperties: Property[],
     formData: FormData
   ): Property[] => {
-    // Start with all properties
     let filtered = [...allProperties];
 
-    // Apply filters based on form data
     if (formData.fund) {
       filtered = filtered.filter((property) => property.fund === formData.fund);
     }
@@ -167,7 +151,6 @@ export default function Dashboard() {
       );
     }
 
-    // If no matches, return all properties
     if (filtered.length === 0) {
       return allProperties;
     }
@@ -178,8 +161,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#B0E0F9] via-[#f9f9f9] to-[#91E0B5]">
       <NavbarNews isSignedIn={false} />
-
-      <div className="flex items-center w-full h-[100px]">
+      <div className="flex items-center w-full h-[100px] bg-[#b6cade]">
         <div className="pl-[7%] text-[#17488D] text-[20px] font-semibold">
           Selamat datang{user ? `, ${user.firstName}!` : ""}
         </div>

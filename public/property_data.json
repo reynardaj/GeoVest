@@ -1,0 +1,32 @@
+[
+  {
+    "year": 2020,
+    "residential_property": 100.47,
+    "housing": 100.49,
+    "apartment": 100.02
+  },
+  {
+    "year": 2021,
+    "residential_property": 102.11,
+    "housing": 102.11,
+    "apartment": 102.27
+  },
+  {
+    "year": 2022,
+    "residential_property": 104.94,
+    "housing": 104.97,
+    "apartment": 104.23
+  },
+  {
+    "year": 2023,
+    "residential_property": 107.93,
+    "housing": 107.99,
+    "apartment": 106.61
+  },
+  {
+    "year": 2024,
+    "residential_property": 110.90,
+    "housing": 111.19,
+    "apartment": 105.52
+  }
+]

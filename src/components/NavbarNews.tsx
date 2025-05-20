@@ -22,7 +22,7 @@ export default function Navbar({ isSignedIn }: NavbarProps) {
     <nav className="bg-primary-700 text-[#17488D] py-4 px-6 sm:px-10 w-full">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center">
+          <Link href="/dashboard" className="flex items-center">
             <Image src="/logo-news.svg" alt="GeoVest Logo" width={42} height={42} />
           </Link>
           <div className="ml-8 hidden md:flex space-x-10">

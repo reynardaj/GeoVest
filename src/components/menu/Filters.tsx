@@ -317,9 +317,9 @@ const Filters = ({
                 checked={selectedReligionBin === religion.value}
                 onChange={() => {
                   if (selectedReligionBin === religion.value) {
-                    onReligionBinChange(""); // Deselect if already selected
+                    onReligionBinChange("");
                   } else {
-                    onReligionBinChange(religion.value); // Select the new value
+                    onReligionBinChange(religion.value);
                   }
                 }}
                 className="hidden"

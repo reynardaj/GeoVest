@@ -1,33 +1,28 @@
-// src/app/map/page.tsx
-/* eslint-disable react-hooks/exhaustive-deps */ // Keep if needed for useCallback dependencies
 "use client";
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import type { MapGeoJSONFeature, Map, LngLatBoundsLike } from "maplibre-gl"; // Import necessary types
+import type { MapGeoJSONFeature, Map, LngLatBoundsLike } from "maplibre-gl";
+import { Resizable } from "re-resizable";
 
-// Import Components
-import MapComponent from "@/components/map/MapComponent"; // Adjust path
+import MapComponent from "@/components/map/MapComponent";
 
-// Import Types
 import type {
   PopupData,
   SelectedPropertyData,
   MapEventHandlers,
   MapLayerControls,
   InfrastructureVisibilityState,
-} from "@/types/map"; // Adjust path
+} from "@/types/map";
 
-// Import Constants
-import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants"; // Adjust path
+import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants";
 import Menu from "@/components/Menu";
 import Image from "next/image";
 import NavbarMap from "@/components/NavbarMap";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
-// Initialize infrastructure visibility state dynamically
 const initialInfraVisibility: InfrastructureVisibilityState =
   INFRASTRUCTURE_LAYERS.reduce((acc, layer) => {
-    acc[layer.id] = false; // Start with all false
+    acc[layer.id] = false;
     return acc;
   }, {} as InfrastructureVisibilityState);
 
@@ -35,9 +30,7 @@ export default function MapPage() {
   const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
     [number, number, number] | null
   >(null);
-  // Renamed from Page for clarity
   useEffect(() => {
-    // Check if there's a selected property from dashboard
     const storedCoordinates = localStorage.getItem(
       "selectedPropertyCoordinates"
     );
@@ -45,7 +38,6 @@ export default function MapPage() {
 
     if (storedCoordinates) {
       const coords = JSON.parse(storedCoordinates) as [number, number, number];
-      // Clear the storage after reading it
       localStorage.removeItem("selectedPropertyCoordinates");
       setSelectedPropertyToFocus(coords);
     }
@@ -58,8 +50,6 @@ export default function MapPage() {
     }
   }, []);
 
-  // --- State Management ---
-  // Filter State
   const [priceRange, setPriceRange] = useState<[number, number]>([
     0, 10000000000,
   ]);
@@ -70,15 +60,14 @@ export default function MapPage() {
   const [activeTab, setActiveTab] = useState<string>("Analytics");
 
   // Layer Visibility State
-  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false); // Heatmap visibility state
+  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false);
   const [infrastructureVisibility, setInfrastructureVisibility] =
     useState<InfrastructureVisibilityState>(initialInfraVisibility);
   const [regionPopupVisibility, setRegionPopupVisibility] =
     useState<boolean>(false);
-  // Data Display State
   const [clickedRegionId, setClickedRegionId] = useState<
     string | number | null
-  >(null); // Keep track of clicked region for visual state
+  >(null);
   const [regionData, setRegionData] = useState<PopupData | null>(null);
   const [selectedPropertyData, setSelectedPropertyData] =
     useState<SelectedPropertyData | null>(null);
@@ -90,7 +79,21 @@ export default function MapPage() {
   const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
   const [income, setIncome] = useState<number[]>([4, 7]);
 
-  // Fetch bin ranges
+  const [isMobile, setIsMobile] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
   useEffect(() => {
     fetch("/jenks_breakpoints.json")
       .then((res) => res.json())
@@ -112,13 +115,9 @@ export default function MapPage() {
 
   const handleRegionClick = useCallback(
     (feature: MapGeoJSONFeature, map: Map) => {
-      // feature.id can be string, number, or undefined.
-      // We need string | number | null for the state.
       const clickedId = feature.id;
-      // Check if clickedId is valid (not undefined) before proceeding with state updates that rely p it.
       if (clickedId === undefined || !map) return;
 
-      // Reset previous clicked state if different
       if (clickedRegionId !== null && clickedRegionId !== clickedId) {
         try {
           map.setFeatureState(
@@ -130,7 +129,6 @@ export default function MapPage() {
         }
       }
 
-      // Set new clicked state visually and update React state
       try {
         map.setFeatureState(
           { source: "jakarta", id: clickedId },
@@ -140,10 +138,8 @@ export default function MapPage() {
         console.error("Error setting feature state:", e);
       }
       setRegionPopupVisibility(true);
-      // Ensure we set state with a valid type (string | number | null)
-      setClickedRegionId(clickedId ?? null); // Use nullish coalescing to default undefined to null
+      setClickedRegionId(clickedId ?? null);
 
-      // Update sidebar data
       const props = feature.properties;
       if (props) {
         setRegionData({
@@ -160,11 +156,10 @@ export default function MapPage() {
         setRegionData(null);
       }
 
-      // Zoom to region
       zoomToRegion(map, feature);
     },
     [clickedRegionId, regionPopupVisibility]
-  ); // Depends on clickedRegionId to reset previous state
+  );
 
   const handleIncomeChange = useCallback((values: number[]) => {
     console.log("handleIncomeChange", values);
@@ -191,16 +186,16 @@ export default function MapPage() {
           propertyUrl: props.property_url,
         };
         setSelectedPropertyData(propertyData);
+        
       } else {
         setSelectedPropertyData(null);
       }
     },
-    [setActiveTab] // Add setActiveTab to dependency array
+    [setActiveTab, isMobile]
   );
 
   const handleBackgroundClick = useCallback(
     (map: Map) => {
-      // Reset clicked region visual state and React state
       if (clickedRegionId !== null) {
         try {
           map.setFeatureState(
@@ -215,29 +210,22 @@ export default function MapPage() {
       setSelectedPropertyData(null);
       setRegionData(null);
       setRegionPopupVisibility(false);
-      // Optionally close property popup if desired on background click
-      // setSelectedPropertyData(null);
     },
     [clickedRegionId]
-  ); // Depends on clickedRegionId
-
-  // Memoize the handlers passed to the map component
+  );
   const mapEventHandlers: MapEventHandlers = useMemo(
     () => ({
       onRegionClick: handleRegionClick,
       onPropertyClick: handlePropertyClick,
       onBackgroundClick: handleBackgroundClick,
-      // onRegionHover: handleRegionHover, // Add if needed
-      // onPropertyHover: handlePropertyHover, // Add if needed
     }),
     [
       handleRegionClick,
       handlePropertyClick,
-      handleBackgroundClick /*, handleRegionHover, handlePropertyHover */,
+      handleBackgroundClick
     ]
   );
 
-  // --- UI Control Handlers ---
   const handlePriceChange = useCallback((values: number[]) => {
     setPriceRange(values as [number, number]);
   }, []);
@@ -271,15 +259,17 @@ export default function MapPage() {
     setSelectedPropertyData(null);
     setRegionPopupVisibility(false);
   }, []);
-  // New handler for religion bin
   const handleReligionBinChange = useCallback((bin: string) => {
     setSelectedReligionBin(bin);
   }, []);
   const handleAgeBinChange = useCallback((bin: string) => {
     setSelectedAgeBin(bin);
   }, []);
+  
+  const toggleDrawer = useCallback(() => {
+    setIsDrawerOpen(prev => !prev);
+  }, []);
 
-  // Memoize layer controls passed to map component
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
       heatmapVisible,
@@ -307,22 +297,15 @@ export default function MapPage() {
     ]
   );
 
-  // Initial Map Options (Optional Overrides)
   const initialMapOptions = useMemo(
     () => ({
-      // Example: Override center or zoom if needed dynamically
-      // center: [107, -7],
-      // zoom: 11
     }),
     []
   );
 
-  // --- Helper Function: Zoom to Region ---
   const zoomToRegion = (map: Map, feature: MapGeoJSONFeature) => {
     const geometry = feature.geometry;
-    let calculatedBounds: [number, number, number, number] | null = null; // More specific type
-
-    // Calculation functions - ensure they strictly return the tuple or null
+    let calculatedBounds: [number, number, number, number] | null = null;
     const calculateBounds = (
       coords: number[][][]
     ): [number, number, number, number] | null => {
@@ -332,7 +315,6 @@ export default function MapPage() {
       const lons = flatCoords.map((c) => c[0]).filter(isFinite);
       const lats = flatCoords.map((c) => c[1]).filter(isFinite);
       if (lons.length === 0 || lats.length === 0) return null;
-      // Return as a specific tuple type
       return [
         Math.min(...lons),
         Math.min(...lats),
@@ -350,7 +332,6 @@ export default function MapPage() {
       const lons = allCoords.map((c) => c[0]).filter(isFinite);
       const lats = allCoords.map((c) => c[1]).filter(isFinite);
       if (lons.length === 0 || lats.length === 0) return null;
-      // Return as a specific tuple type
       return [
         Math.min(...lons),
         Math.min(...lats),
@@ -369,17 +350,13 @@ export default function MapPage() {
     }
 
     if (calculatedBounds) {
-      // We know calculatedBounds is [number, number, number, number] here
-      const boundsAreFinite = calculatedBounds.every(isFinite); // No need for explicit type 'b' now
+      const boundsAreFinite = calculatedBounds.every(isFinite);
 
       if (
         boundsAreFinite &&
-        calculatedBounds[0] <= calculatedBounds[2] && // Access elements directly
+        calculatedBounds[0] <= calculatedBounds[2] &&
         calculatedBounds[1] <= calculatedBounds[3]
       ) {
-        // Access elements directly
-        // Bounds are valid numbers and logically correct (sw <= ne)
-        // Use the confirmed tuple type for fitBounds
         map.fitBounds(calculatedBounds, {
           padding: 40,
           maxZoom: 15,
@@ -398,181 +375,227 @@ export default function MapPage() {
 
   // --- JSX Structure ---
   return (
-    // Use h-screen and w-screen on the outer div to ensure full viewport height
-    <div className="flex relative h-screen w-screen overflow-hidden">
-      <NavbarMap />
-      {/* Map Component takes up remaining space */}
-      <MapComponent
-        initialOptions={initialMapOptions}
-        layerControls={mapLayerControls}
-        eventHandlers={mapEventHandlers}
-      />
-      {/* Region Info Floating Box */}
-      {regionPopupVisibility && !selectedPropertyData && (
-        <div className="absolute top-[76px] left-4 z-10 bg-popup p-4 rounded-lg shadow-md bg-white text-black max-w-xs text-sm">
-          <h3 className="text-base text-black font-bold mb-2">
-            {regionData?.regionName}
-          </h3>
-          <div className="text-black space-y-1">
-            <p>
-              <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
-              {regionData?.jumlahKecamatan}
-            </p>
-            <p>
-              <strong className="font-semibold">Jumlah Desa:</strong>{" "}
-              {regionData?.jumlahDesa}
-            </p>
-            <p>
-              <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
-              {regionData?.jumlahPenduduk}
-            </p>
-            <p>
-              <strong className="font-semibold">Kepadatan per km2:</strong>{" "}
-              {regionData?.kepadatanPerKm2}
-            </p>
-            <p>
-              <strong className="font-semibold">Jumlah laki-laki:</strong>{" "}
-              {regionData?.jumlahLakiLaki}
-            </p>
-            <p>
-              <strong className="font-semibold">Jumlah perempuan:</strong>{" "}
-              {regionData?.jumlahPerempuan}
-            </p>
-            <p>
-              <strong className="font-semibold">luas wilayah (km2):</strong>{" "}
-              {regionData?.luasWilayahKm2}
-            </p>
-          </div>
-          <div className="mt-3 flex justify-between items-center">
-            <button
-              onClick={() => setRegionPopupVisibility(false)} // Use the handler
-              className="text-xs text-red-500 hover:underline  focus:outline-none"
-            >
-              Tutup
-            </button>
-            {/* <button
-              className="text-black text-xs hover:underline focus:outline-none"
-              onClick={handleSeeMore}
-            >
-              See More
-            </button> */}
-          </div>
-        </div>
-      )}
+  <div className="flex flex-col h-screen w-screen overflow-hidden relative">
+    <NavbarMap />
 
-      {/* Property Info Floating Box */}
-      {selectedPropertyData && (
-        <div className="absolute top-[76px] left-4 z-10 bg-white p-4 rounded-lg shadow-md text-black max-w-xs text-sm">
-          <h3 className="text-base font-bold mb-2">
-            {selectedPropertyData.propertyName}
-          </h3>
-          {selectedPropertyData.propertyUrl && (
-            <Image
-              src={selectedPropertyData.propertyUrl}
-              alt={selectedPropertyData.propertyName}
-              width={300}
-              height={300}
-              className="w-full mb-2 max-h-48 object-cover"
-              unoptimized
-            />
-          )}
-          <div className="space-y-1">
-            <p>
-              <strong className="font-semibold">Kategori:</strong>{" "}
-              {selectedPropertyData.category}
-            </p>
-            <p>
-              <strong className="font-semibold">Status:</strong>{" "}
-              {selectedPropertyData.status}
-            </p>
-            <p>
-              <strong className="font-semibold">Harga:</strong> Rp{" "}
-              {selectedPropertyData.price?.toLocaleString("id-ID") ?? "N/A"}
-            </p>
-            <p>
-              <strong className="font-semibold">Luas Bangunan:</strong>{" "}
-              {selectedPropertyData.buildingArea?.toLocaleString("id-ID") ??
-                "N/A"}{" "}
-              {selectedPropertyData.buildingArea !== "N/A" && "m²"}
-            </p>
-            <p>
-              <strong className="font-semibold">Luas Tanah:</strong>{" "}
-              {selectedPropertyData.landArea?.toLocaleString("id-ID") ?? "N/A"}{" "}
-              {selectedPropertyData.landArea !== "N/A" && "m²"}
-            </p>
-            <p>
-              <strong className="font-semibold">Sertifikat:</strong>{" "}
-              {selectedPropertyData.certificateType}
-            </p>
-          </div>
-          <div className="mt-3 flex justify-between items-center">
-            <button
-              onClick={handleClosePropertyInfo} // Use the handler
-              className="text-xs text-red-600 hover:text-red-800 hover:underline focus:outline-none"
-            >
-              Tutup
-            </button>
+    {/* Main content with resizable sidebar and map */}
+    <div className="flex flex-row flex-grow w-full h-full">
+      
+      {/* Map and overlays */}
+      <div
+        className="absolute top-0 left-0 bottom-0 right-0"
+        style={{ right: isMobile ? 0 : undefined }}
+      >
+        <MapComponent
+          initialOptions={initialMapOptions}
+          layerControls={mapLayerControls}
+          eventHandlers={mapEventHandlers}
+        />
 
-            {/* <button
-              onClick={handleSeeMore}
-              className="text-xs text-black hover:underline focus:outline-none"
+        {/* Mobile Burger Menu Button */}
+        {isMobile && (
+          <button 
+            onClick={toggleDrawer}
+            className="fixed top-2 right-3 z-20 flex items-center justify-center w-14 h-14 bg-white rounded-xl shadow-lg"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-6 w-6 text-[#17488D]" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
             >
-              See More
-            </button> */}
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d={isDrawerOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
+              />
+            </svg>
+          </button>
+        )}
+
+        {/* Region Info Floating Box */}
+        {regionPopupVisibility && !selectedPropertyData && (
+          <div className="absolute top-[76px] left-4 z-10 bg-white p-4 rounded-xl shadow-md text-black max-w-xs text-sm">
+            <h3 className="text-base font-bold mb-2">
+              {regionData?.regionName}
+            </h3>
+            <div className="space-y-1">
+              <p><strong className="font-semibold">Jumlah Kecamatan:</strong> {regionData?.jumlahKecamatan}</p>
+              <p><strong className="font-semibold">Jumlah Desa:</strong> {regionData?.jumlahDesa}</p>
+              <p><strong className="font-semibold">Jumlah Penduduk:</strong> Rp {regionData?.jumlahPenduduk}</p>
+              <p><strong className="font-semibold">Kepadatan per km2:</strong> {regionData?.kepadatanPerKm2}</p>
+              <p><strong className="font-semibold">Jumlah laki-laki:</strong> {regionData?.jumlahLakiLaki}</p>
+              <p><strong className="font-semibold">Jumlah perempuan:</strong> {regionData?.jumlahPerempuan}</p>
+              <p><strong className="font-semibold">Luas wilayah (km2):</strong> {regionData?.luasWilayahKm2}</p>
+            </div>
+            <div className="mt-3 flex justify-between items-center">
+              <button
+                onClick={() => setRegionPopupVisibility(false)}
+                className="text-xs text-red-500 hover:underline focus:outline-none"
+              >
+                Tutup
+              </button>
+            </div>
           </div>
+        )}
+
+        {/* Property Info Floating Box */}
+        {selectedPropertyData && (
+          <div className="absolute top-[76px] left-4 z-10 bg-white p-4 rounded-xl shadow-md text-black max-w-xs text-sm">
+            <h3 className="text-base font-bold mb-2">{selectedPropertyData.propertyName}</h3>
+            {selectedPropertyData.propertyUrl && (
+              <Image
+                src={selectedPropertyData.propertyUrl}
+                alt={selectedPropertyData.propertyName}
+                width={300}
+                height={300}
+                className="w-full mb-2 max-h-48 object-cover"
+                unoptimized
+              />
+            )}
+            <div className="space-y-1">
+              <p><strong className="font-semibold">Kategori:</strong> {selectedPropertyData.category}</p>
+              <p><strong className="font-semibold">Status:</strong> {selectedPropertyData.status}</p>
+              <p><strong className="font-semibold">Harga:</strong> Rp {selectedPropertyData.price?.toLocaleString("id-ID") ?? "N/A"}</p>
+              <p><strong className="font-semibold">Luas Bangunan:</strong> {selectedPropertyData.buildingArea?.toLocaleString("id-ID") ?? "N/A"}{selectedPropertyData.buildingArea !== "N/A" && " m²"}</p>
+              <p><strong className="font-semibold">Luas Tanah:</strong> {selectedPropertyData.landArea?.toLocaleString("id-ID") ?? "N/A"}{selectedPropertyData.landArea !== "N/A" && " m²"}</p>
+              <p><strong className="font-semibold">Sertifikat:</strong> {selectedPropertyData.certificateType}</p>
+            </div>
+            <div className="mt-3 flex justify-between items-center">
+              <button
+                onClick={handleClosePropertyInfo}
+                className="text-xs text-red-600 hover:text-red-800 hover:underline focus:outline-none"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Age Legend */}
+        {selectedAgeBin && (
+          <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
+            <h4 className="font-bold mb-2 text-sm">Legend</h4>
+            {getRangeLabels(selectedAgeBin).map((range, index) => (
+              <div key={index} className="flex items-center mb-1 text-sm">
+                <span className="w-4 h-4 mr-2 inline-block" style={{ backgroundColor: colorScale[index] }}></span>
+                <span>{range}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Religion Legend */}
+        {selectedReligionBin && (
+          <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-2">
+            <h4 className="font-bold mb-2 text-sm">Legend</h4>
+            {getRangeLabels(selectedReligionBin).map((range, index) => (
+              <div key={index} className="flex items-center mb-1 text-sm">
+                <span className="w-4 h-4 mr-2 inline-block" style={{ backgroundColor: colorScale[index] }}></span>
+                <span>{range}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Mobile Drawer Menu */}
+      {isMobile && (
+        <div 
+          className={`fixed inset-y-0 right-0 z-30 bg-white shadow-xl transition-transform duration-300 ease-in-out w-[85%] max-w-sm transform ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'} overflow-hidden`}
+        >
+          <Menu
+            priceRange={priceRange}
+            onPriceChange={handlePriceChange}
+            selectedCategories={selectedCategories}
+            onCategoryChange={handleCategoryChange}
+            selectedInvestmentTypes={selectedInvestmentTypes}
+            onInvestmentTypeChange={handleInvestmentTypeChange}
+            heatmapVisible={heatmapVisible}
+            onToggleHeatmap={handleToggleHeatmap}
+            infrastructureVisibility={infrastructureVisibility}
+            onToggleInfrastructure={handleInfrastructureToggle}
+            selectedReligionBin={selectedReligionBin}
+            onReligionBinChange={handleReligionBinChange}
+            selectedAgeBin={selectedAgeBin}
+            onAgeBinChange={handleAgeBinChange}
+            binRanges={binRanges}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            income={income}
+            setIncome={handleIncomeChange}
+            selectedPropertyData={selectedPropertyData}
+            regionData={regionData}
+          />
         </div>
       )}
-      <Menu
-        priceRange={priceRange}
-        onPriceChange={handlePriceChange}
-        selectedCategories={selectedCategories}
-        onCategoryChange={handleCategoryChange}
-        selectedInvestmentTypes={selectedInvestmentTypes}
-        onInvestmentTypeChange={handleInvestmentTypeChange}
-        heatmapVisible={heatmapVisible}
-        onToggleHeatmap={handleToggleHeatmap}
-        infrastructureVisibility={infrastructureVisibility}
-        onToggleInfrastructure={handleInfrastructureToggle}
-        selectedReligionBin={selectedReligionBin}
-        onReligionBinChange={handleReligionBinChange}
-        selectedAgeBin={selectedAgeBin}
-        onAgeBinChange={handleAgeBinChange}
-        binRanges={binRanges}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        income={income}
-        setIncome={handleIncomeChange}
-        selectedPropertyData={selectedPropertyData}
-        regionData={regionData}
-      />
-      {selectedAgeBin && (
-        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md">
-          <h4 className="font-bold mb-2 text-sm">Legend</h4>
-          {getRangeLabels(selectedAgeBin).map((range, index) => (
-            <div key={index} className="flex items-center mb-1 text-sm">
-              <span
-                className="w-4 h-4 mr-2 inline-block"
-                style={{ backgroundColor: colorScale[index] }}
-              ></span>
-              <span>{range}</span>
-            </div>
-          ))}
-        </div>
+      
+      {/* Overlay when drawer is open on mobile */}
+      {isMobile && isDrawerOpen && (
+        <div 
+          className="fixed h-full inset-0 bg-black bg-opacity-50 z-20"
+          onClick={toggleDrawer}
+        />
       )}
-      {selectedReligionBin && (
-        <div className="absolute z-20 bottom-4 left-4 max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-2">
-          <h4 className="font-bold mb-2 text-sm">Legend</h4>
-          {getRangeLabels(selectedReligionBin).map((range, index) => (
-            <div key={index} className="flex items-center mb-1 text-sm">
-              <span
-                className="w-4 h-4 mr-2 inline-block"
-                style={{ backgroundColor: colorScale[index] }}
-              ></span>
-              <span>{range}</span>
-            </div>
-          ))}
-        </div>
+      
+      {/* Desktop Resizable Sidebar */}
+      {!isMobile && (
+        <Resizable
+          defaultSize={{ width: 500, height: "100%" }}
+          minWidth={500}
+          maxWidth="50vw"
+          enable={{ left: true }}
+          handleComponent={{
+            left: (
+              <div
+                style={{
+                  width: 8,
+                  height: "100%",
+                  cursor: "col-resize",
+                  backgroundColor: "#b8b8b8",
+                }}
+              />
+            ),
+          }}
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "white",
+            boxShadow: "-2px 0 5px rgba(0,0,0,0.1)",
+            overflowY: "auto",
+            zIndex: 10,
+          }}
+        >
+          <Menu
+            priceRange={priceRange}
+            onPriceChange={handlePriceChange}
+            selectedCategories={selectedCategories}
+            onCategoryChange={handleCategoryChange}
+            selectedInvestmentTypes={selectedInvestmentTypes}
+            onInvestmentTypeChange={handleInvestmentTypeChange}
+            heatmapVisible={heatmapVisible}
+            onToggleHeatmap={handleToggleHeatmap}
+            infrastructureVisibility={infrastructureVisibility}
+            onToggleInfrastructure={handleInfrastructureToggle}
+            selectedReligionBin={selectedReligionBin}
+            onReligionBinChange={handleReligionBinChange}
+            selectedAgeBin={selectedAgeBin}
+            onAgeBinChange={handleAgeBinChange}
+            binRanges={binRanges}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            income={income}
+            setIncome={handleIncomeChange}
+            selectedPropertyData={selectedPropertyData}
+            regionData={regionData}
+          />
+        </Resizable>
       )}
     </div>
-  );
+  </div>
+);
 }

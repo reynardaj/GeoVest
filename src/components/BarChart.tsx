@@ -89,13 +89,13 @@ const Bars: React.FC<BarsProps> = ({ regionName = "" }) => {
         }));
 
     return (
-        <div className="mt-8">
-            <h3 className="text-xl font-bold text-[#17488D] mb-4">
+        <div>
+            <h3 className="text-xl font-bold text-center text-[#17488D] mb-8">
                 {filteredData.length > 0 
                 ? `ROI per Kecamatan di ${mappedRegion}`
                 : 'ROI Rata-rata per Wilayah Jakarta'}
             </h3>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width={350} height={250}>
                 <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey={filteredData.length > 0 ? "location" : "region"} />
