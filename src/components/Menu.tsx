@@ -8,6 +8,8 @@ import {
   PopupData,
 } from "@/types/map";
 import PropertyAnalytics from "./PropertyAnalytics";
+
+import quarterlyData from "@/../backend/model/combined_forecast.json";
 import ROICalculator from "./roi-calculator";
 
 interface MenuProps {
@@ -67,9 +69,23 @@ function Menu({
   ageOpacity,
   onAgeOpacityChange,
 }: MenuProps) {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
   return (
-    <div className="shadow-xl rounded-tl-lg  2xl:w-[25%] xl:w-[28%] md:w-[30%] h-screen bg-[#fff] justify-center z-50 overflow-hidden">
-      <div className="flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
+    <div className={`bg-[#fff] justify-center z-50 overflow-hidden h-full ${!isMobile ? 'shadow-xl rounded-tl-lg' : ''}`}>
+      <div className="ml-[5px] flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
         <button
           onClick={() => setActiveTab("Filters")}
           className={`relative w-[25%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg
@@ -122,7 +138,7 @@ function Menu({
       <div
         className="overflow-y-auto flex-1 p-5 pb-[100px] text-black"
         style={{
-          maxHeight: "100vh",
+          maxHeight: isMobile ? "calc(100vh - 56px)" : "100vh",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
@@ -185,7 +201,6 @@ interface TimeMachineProps {
 
 const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
   const yearsOptions = [1, 5, 10, 15, 20];
-  const ANNUAL_RATE = 1.67;
 
   const [initialInvestment, setInitialInvestment] = useState<number | null>(
     null
@@ -193,45 +208,76 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(1);
 
-  // Update initial investment whenever selectedPropertyData changes
-  useEffect(() => {
-    console.log("Selected property data:", selectedPropertyData);
-    const defaultValue = 0;
+  const calculateFutureValue = (initial: number, years: number) => {
+    if (!initial || initial <= 0) {
+      setEstimatedValue(null);
+      return;
+    }
 
+    const baseQuarter = 88;
+
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentQuarterInYear = Math.floor(currentMonth / 3) + 1;
+
+    const yearDiff = currentYear - 2025;
+
+    const startQuarterNumber = baseQuarter + yearDiff * 4 + (currentQuarterInYear);
+
+    let projectedPrice = initial;
+
+    for (let year = 0; year < years; year++) {
+      const firstQuarterOfYear = startQuarterNumber + year * 4;
+
+      const quartersThisYear = [
+        firstQuarterOfYear,
+        firstQuarterOfYear + 1,
+        firstQuarterOfYear + 2,
+        firstQuarterOfYear + 3,
+      ];
+
+      const rois = quartersThisYear.map((qNum) => {
+        const roiEntry = quarterlyData.find((d) => d.Quarter === qNum);
+        return roiEntry ? roiEntry.Value / 100 : 0;
+      });
+
+      const meanROI =
+        rois.reduce((sum, val) => sum + val, 0) / rois.length || 0;
+      
+      console.log(`Year ${year + 1}: Quarters ${quartersThisYear.join(", ")}, Mean ROI: ${meanROI}`);
+
+      projectedPrice = projectedPrice * (1 + meanROI);
+    }
+
+    setEstimatedValue(Math.round(projectedPrice));
+  };
+
+  useEffect(() => {
     if (selectedPropertyData && selectedPropertyData.price) {
-      // Handle different price formats
-      let priceValue: number;
+      let priceNum: number;
 
       if (typeof selectedPropertyData.price === "string") {
-        // Remove any non-numeric characters (like currency symbols, commas, etc.)
-        const cleanedPrice = selectedPropertyData.price.replace(/[^\d.-]/g, "");
-        priceValue = parseFloat(cleanedPrice);
+        const cleaned = selectedPropertyData.price.replace(/[^\d.-]/g, "");
+        priceNum = parseFloat(cleaned);
+
       } else {
-        priceValue = selectedPropertyData.price;
+        priceNum = selectedPropertyData.price;
       }
 
-      console.log("Parsed price value:", priceValue);
-
-      if (!isNaN(priceValue) && priceValue > 0) {
-        setInitialInvestment(priceValue);
-        calculateFutureValue(priceValue, selectedYear);
+      if (!isNaN(priceNum) && priceNum > 0) {
+        setInitialInvestment(priceNum);
+        calculateFutureValue(priceNum, selectedYear);
       } else {
-        setInitialInvestment(defaultValue);
-        calculateFutureValue(defaultValue, selectedYear);
+        setInitialInvestment(0);
+        setEstimatedValue(0);
       }
     } else {
-      setInitialInvestment(defaultValue);
-      calculateFutureValue(defaultValue, selectedYear);
+      setInitialInvestment(0);
+      setEstimatedValue(0);
     }
   }, [selectedPropertyData, selectedYear]);
 
-  const calculateFutureValue = (currentValue: number, years: number) => {
-    console.log(
-      `Calculating future value with: ${currentValue} for ${years} years`
-    );
-    const futureValue = currentValue * Math.pow(1 + ANNUAL_RATE / 100, years);
-    setEstimatedValue(Math.round(futureValue));
-  };
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
@@ -239,6 +285,17 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
       calculateFutureValue(initialInvestment, year);
     }
   };
+
+  if (!selectedPropertyData) {
+    return (
+      <div className="px-4 py-8 text-center">
+        <h2 className="text-xl font-bold text-[#17488D] mb-4">Mesin Waktu</h2>
+        <p className="text-gray-600">
+          Pilih properti pada peta untuk melihat estimasi investasi.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="px-3 text-[#17488D]">
@@ -261,12 +318,12 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
             key={year}
             onClick={() => handleYearSelection(year)}
             className={`px-4 py-2 text-[#17488D] font-bold border-[1px] rounded-full border-[#17488D] hover:bg-gray-200
-                        ${
-                          selectedYear === year
-                            ? "outline outline-[3px] outline-[#17488D]"
-                            : ""
-                        }
-                    `}
+              ${
+                selectedYear === year
+                  ? "outline outline-[3px] outline-[#17488D]"
+                  : ""
+              }
+            `}
           >
             {year} Years
           </button>

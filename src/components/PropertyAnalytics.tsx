@@ -15,9 +15,8 @@ import {
 } from "recharts";
 import { SelectedPropertyData, PopupData, MapEventHandlers } from "@/types/map";
 import { useState, useEffect } from "react";
-import Bars from "@/components/BarChart";
-import { Bold } from "lucide-react";
-import { string } from "@tensorflow/tfjs";
+import Bars from "@/components/BarChart"
+import quarterlyData from "@/../backend/model/combined_forecast.json";
 
 type AgeGroup = {
   "Balita (0-5 tahun)": number;
@@ -93,46 +92,46 @@ const AgeDistribution: Record<RegionKey, AgeGroup> = {
   },
 };
 
-const ReligionDistribution: Record<RegionKey, ReligionGroup> = {
+const ReligionDistribution: Record<RegionKey, Record<string, number>> = {
   "JAKARTA BARAT": {
-    ISLAM: 1924301,
-    KRISTEN: 266689,
-    KATHOLIK: 148645,
-    HINDU: 2785,
-    BUDHA: 203850,
-    KONGHUCU: 804,
+    Islam: 1924301,
+    Kristen: 266689,
+    Katolik: 148645,
+    Hindu: 2785,
+    Budha: 203850,
+    Konghucu: 804,
   },
   "JAKARTA PUSAT": {
-    ISLAM: 943452,
-    KRISTEN: 112608,
-    KATHOLIK: 51801,
-    HINDU: 3889,
-    BUDHA: 39772,
-    KONGHUCU: 121,
+    Islam: 943452,
+    Kristen: 112608,
+    Katolik: 51801,
+    Hindu: 3889,
+    Budha: 39772,
+    Konghucu: 121,
   },
   "JAKARTA SELATAN": {
-    ISLAM: 1931232,
-    KRISTEN: 106944,
-    KATHOLIK: 53777,
-    HINDU: 3568,
-    BUDHA: 10895,
-    KONGHUCU: 83,
+    Islam: 1931232,
+    Kristen: 106944,
+    Katolik: 53777,
+    Hindu: 3568,
+    Budha: 10895,
+    Konghucu: 83,
   },
   "JAKARTA TIMUR": {
-    ISLAM: 2831170,
-    KRISTEN: 258426,
-    KATHOLIK: 83616,
-    HINDU: 5521,
-    BUDHA: 15450,
-    KONGHUCU: 229,
+    Islam: 2831170,
+    Kristen: 258426,
+    Katolik: 83616,
+    Hindu: 5521,
+    Budha: 15450,
+    Konghucu: 229,
   },
   "JAKARTA UTARA": {
-    ISLAM: 1405482,
-    KRISTEN: 196294,
-    KATHOLIK: 91878,
-    HINDU: 4288,
-    BUDHA: 127781,
-    KONGHUCU: 321,
+    Islam: 1405482,
+    Kristen: 196294,
+    Katolik: 91878,
+    Hindu: 4288,
+    Budha: 127781,
+    Konghucu: 321,
   },
 };
 
@@ -141,68 +140,6 @@ interface PropertyAnalyticsProps {
   regionData?: { regionName: string } | null;
   onRegionBarZoom?: (center: [number, number]) => void;
 }
-
-const randomNormal = (mean: number, stdDev: number): number => {
-  let u = 0,
-    v = 0;
-  while (u === 0) u = Math.random();
-  while (v === 0) v = Math.random();
-  const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-  return mean + z * stdDev;
-};
-
-const getROIForArea = (area: string): number => {
-  const roiRates: { [key: string]: number } = {
-    "Jakarta Barat": 3.42,
-    "Jakarta Pusat": 4.03,
-    "Jakarta Timur": 3.76,
-    "Jakarta Utara": 3.55,
-    "Jakarta Selatan": 3.86,
-  };
-  return roiRates[area] || 3.67;
-};
-
-const generatePriceProjection = (currentPrice: number, regionName: string) => {
-  const projection = [];
-  let price = currentPrice;
-  const baseGrowthRate = getROIForArea(regionName) / 100;
-
-  for (let i = 0; i <= 5; i++) {
-    const growthRate = randomNormal(baseGrowthRate, 0.6 / 100);
-    price += price * growthRate;
-    projection.push({
-      year: new Date().getFullYear() + i,
-      price: parseFloat(price.toFixed(2)),
-    });
-  }
-
-  return projection;
-};
-
-const generateIndependentROIData = (
-  initialPrice: number,
-  regionName: string
-) => {
-  const roiData = [];
-  const baseMarketTrend = getROIForArea(regionName) / 100;
-  let accumulatedValue = initialPrice;
-
-  for (let i = 0; i <= 5; i++) {
-    const marketFactor = randomNormal(baseMarketTrend, 0.6 / 100);
-
-    if (i > 0) {
-      accumulatedValue = accumulatedValue * (1 + marketFactor);
-    }
-
-    const roi = ((accumulatedValue - initialPrice) / initialPrice) * 100;
-    roiData.push({
-      year: new Date().getFullYear() + i,
-      roi: parseFloat(roi.toFixed(2)),
-      trend: i > 0 ? parseFloat((marketFactor * 100).toFixed(2)) : 0,
-    });
-  }
-  return roiData;
-};
 
 const getFormattedRegionName = (name: string | undefined): RegionKey | "" => {
   if (!name) return "";
@@ -241,6 +178,94 @@ const getReligionData = (region: string) => {
     })
   );
 };
+
+function generatePriceProjection(basePrice: number) {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const currentQuarter = Math.floor(currentMonth / 3) + 1;
+
+  const baseQuarterForCurrentYear = 85 + (currentYear - 2024) * 4;
+  const projection = [];
+
+  let projectedPrice = basePrice;
+
+  for (let i = 0; i < 5; i++) {
+    const year = currentYear + i;
+    const startQuarter = baseQuarterForCurrentYear + i * 4;
+    let quartersToUse: number[];
+
+    if (i === 0) {
+      const startQuarterOffset = currentQuarter - 1;
+      quartersToUse = Array.from(
+        { length: 4 - startQuarterOffset },
+        (_, idx) => startQuarter + startQuarterOffset + idx
+      );
+    } else {
+      quartersToUse = Array.from({ length: 4 }, (_, idx) => startQuarter + idx);
+    }
+
+    const yearlyROIs = quarterlyData
+      .filter((d) => quartersToUse.includes(d.Quarter))
+      .map((d) => d.Value / 100);
+
+    let meanAnnualROI = 0;
+    if (yearlyROIs.length > 0) {
+      meanAnnualROI = yearlyROIs.reduce((sum, roi) => sum + roi, 0) / yearlyROIs.length;
+    } else if (i > 0) {
+      meanAnnualROI = projection[i - 1].roi || 0;
+    }
+
+    projectedPrice = projectedPrice * (1 + meanAnnualROI);
+
+    projection.push({ year, price: projectedPrice, roi: meanAnnualROI });
+  }
+
+  return projection.map(({ year, price }) => ({ year, price }));
+}
+
+function generateCumulativeROI(basePrice: number) {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const currentQuarter = Math.floor(currentMonth / 3) + 1;
+
+  const baseQuarterForCurrentYear = 85 + (currentYear - 2024) * 4;
+  const projection = [];
+
+  let cumulativeROI = 0;
+
+  for (let i = 0; i < 6; i++) {
+    const year = currentYear + i;
+    const startQuarter = baseQuarterForCurrentYear + i * 4;
+    let quartersToUse: number[];
+
+    if (i === 0) {
+      const startQuarterOffset = currentQuarter - 1;
+      quartersToUse = Array.from(
+        { length: 4 - startQuarterOffset },
+        (_, idx) => startQuarter + startQuarterOffset + idx
+      );
+    } else {
+      quartersToUse = Array.from({ length: 4 }, (_, idx) => startQuarter + idx);
+    }
+
+    const yearlyROIs = quarterlyData
+      .filter((d) => quartersToUse.includes(d.Quarter))
+      .map((d) => d.Value / 100);
+
+    let meanAnnualROI = 0;
+    if (yearlyROIs.length > 0) {
+      meanAnnualROI = yearlyROIs.reduce((sum, roi) => sum + roi, 0) / yearlyROIs.length;
+    } else if (i > 0) {
+      meanAnnualROI = projection[i - 1].roi || 0;
+    }
+
+    cumulativeROI = (1 + cumulativeROI) * (1 + meanAnnualROI) - 1;
+
+    projection.push({ year, cumulativeROI, roi: meanAnnualROI });
+  }
+
+  return projection.map(({ year, cumulativeROI }) => ({ year, cumulativeROI }));
+}
 
 const PropertyAnalytics = ({
   selectedPropertyData,
@@ -295,216 +320,263 @@ const PropertyAnalytics = ({
   }
 
   const projectionData = selectedPropertyData
-    ? generatePriceProjection(Number(selectedPropertyData.price), regionName)
+    ? generatePriceProjection(Number(selectedPropertyData.price))
     : [];
 
   const roiData = selectedPropertyData
-    ? generateIndependentROIData(Number(selectedPropertyData.price), regionName)
+    ? generateCumulativeROI(Number(selectedPropertyData.price))
     : [];
 
-  const displayedRoiData = roiData.filter(
-    (item) => item.year > new Date().getFullYear()
-  );
+  const currentYear = new Date().getFullYear();
+
+  const displayedRoiData = roiData
+  .filter(item => item.year > currentYear)
+  .map(item => {
+    const prevYearData = roiData.find(d => d.year === item.year - 1);
+    return {
+      year: item.year - 1,
+      roi: prevYearData ? prevYearData.cumulativeROI * 100 : 0,
+    };
+  });
+
+  const renderInsideLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }: {
+    cx: number;
+    cy: number;
+    midAngle: number;
+    innerRadius: number;
+    outerRadius: number;
+    percent: number;
+    index: number;
+  }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) / 1.6;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    if (percent < 0.05) return null;
+    
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight="bold"
+      >
+        {(percent * 100).toFixed(1)}%
+      </text>
+    );
+  };
 
   return (
-    <div className="text-black space-y-6 px-4 py-2">
-      {selectedPropertyData && (
-        <>
-          {/* <div>
-            <h2 className="text-xl font-bold text-[#17488D]">Detail Properti</h2>
-            <h3 className="text-lg font-semibold mt-3">{selectedPropertyData.propertyName}</h3>
-
-            <div className="mt-4 space-y-2 text-sm">
-              <p><span className="font-semibold">Kategori:</span> {selectedPropertyData.category}</p>
-              <p><span className="font-semibold">Status:</span> {selectedPropertyData.status}</p>
-              <p><span className="font-semibold">Harga:</span> Rp {selectedPropertyData.price?.toLocaleString('id-ID') ?? 'N/A'}</p>
-              <p><span className="font-semibold">Luas Bangunan:</span> {selectedPropertyData.buildingArea?.toLocaleString('id-ID') ?? 'N/A'} {selectedPropertyData.buildingArea !== 'N/A' && 'm²'}</p>
-              <p><span className="font-semibold">Luas Tanah:</span> {selectedPropertyData.landArea?.toLocaleString('id-ID') ?? 'N/A'} {selectedPropertyData.landArea !== 'N/A' && 'm²'}</p>
-              <p><span className="font-semibold">Sertifikat:</span> {selectedPropertyData.certificateType}</p>
-            </div>
-          </div> */}
-
-          <div>
-            <h2 className="text-xl font-bold text-[#17488D] pb-3">
-              Proyeksi Harga
-            </h2>
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={projectionData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" />
-                <YAxis
-                  tickFormatter={(value) =>
-                    `${(value / 1_000_000).toFixed(0)} jt`
-                  }
-                  domain={["auto", "auto"]}
-                />
-                <Tooltip
-                  formatter={(value) => [
-                    `Rp ${value.toLocaleString("id-ID")}`,
-                    "Harga Proyeksi",
-                  ]}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="price"
-                  stroke="#17488D"
-                  name="Harga Proyeksi"
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-bold text-[#17488D] pb-3">
-              ROI Pasar di {regionName || "Jakarta"}
-            </h2>
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={displayedRoiData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" />
-                <YAxis
-                  tickFormatter={(value) => `${value.toFixed(0)}%`}
-                  domain={[0, "auto"]}
-                />
-                <Tooltip
-                  formatter={(value) => [`${Number(value).toFixed(2)}%`, "ROI"]}
-                />
-                <Bar
-                  dataKey="roi"
-                  fill="#17488D"
-                  name="ROI"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </>
-      )}
-
-      {/* Demographic information section - only show when a region is actually selected */}
-      {hasDemographicData && regionData?.regionName && (
-        <div>
-          {ageData.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-xl font-bold text-[#17488D] mb-8">
-                Distribusi Umur {regionName || "Jakarta"}
-              </h3>
-              <div className="h-[400px] w-full mt-6">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={ageData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      outerRadius={100}
-                      fill="#17488D"
-                      dataKey="value"
-                    >
-                      {ageData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS_AGE[index % COLORS_AGE.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value, name, props) => {
-                        const total = ageData.reduce(
-                          (sum, entry) => sum + entry.value,
-                          0
-                        );
-                        const percent = ((Number(value) / total) * 100).toFixed(
-                          1
-                        );
-                        return [
-                          `${Number(value).toLocaleString(
-                            "id-ID"
-                          )} (${percent}%)`,
-                          name,
-                        ];
-                      }}
-                      itemStyle={{
-                        color: "#17488D",
-                      }}
-                    />
-                    <Legend
-                      layout="vertical"
-                      verticalAlign="bottom"
-                      align="center"
-                      wrapperStyle={{
-                        paddingTop: 20,
-                        fontSize: 16,
-                        fontWeight: 700,
-                      }}
-                      iconSize={10}
-                      iconType="circle"
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          )}
-
-          {religionData.length > 0 && (
+    <div className="container justify-center">
+      <div className="grid gap-10 px-4 py-2 text-black grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] justify-items-center items-start">
+        {selectedPropertyData && (
+          <>
             <div>
-              <h3 className="text-xl font-bold text-[#17488D] mb-2">
-                Distribusi Agama {regionName || "Jakarta"}
-              </h3>
-              <div className="h-[350px] w-full mt-6">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={religionData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      outerRadius={100}
-                      fill="#17488D"
-                      dataKey="value"
-                    >
-                      {religionData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS_RELIGION[index % COLORS_RELIGION.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value, name, props) => {
-                        const total = religionData.reduce(
-                          (sum, entry) => sum + entry.value,
-                          0
-                        );
-                        const percent = ((Number(value) / total) * 100).toFixed(
-                          1
-                        );
-                        return [
-                          `${Number(value).toLocaleString(
-                            "id-ID"
-                          )} (${percent}%)`,
-                          name,
-                        ];
-                      }}
-                      itemStyle={{
-                        color: "#17488D",
-                      }}
-                    />
-                    <Legend
-                      layout="vertical"
-                      verticalAlign="bottom"
-                      align="center"
-                      wrapperStyle={{
-                        paddingTop: 20,
-                        fontSize: 14,
-                        fontWeight: 700,
-                      }}
-                      iconSize={10}
-                      iconType="circle"
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <h2 className="text-xl font-bold text-center text-[#17488D] mb-8">
+                Proyeksi Harga
+              </h2>
+              <ResponsiveContainer width={270} height={250}>
+                <LineChart data={projectionData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="year" />
+                  <YAxis
+                    tickFormatter={(value) =>
+                      `${(value / 1_000_000).toFixed(0)} jt`
+                    }
+                    domain={["auto", "auto"]}
+                  />
+                  <Tooltip
+                    formatter={(value) => [
+                      `Rp ${value.toLocaleString("id-ID")}`,
+                      "Harga Proyeksi",
+                    ]}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="price"
+                    stroke="#17488D"
+                    name="Harga Proyeksi"
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </>
+        )}
+        {selectedPropertyData && (
+          <>
+            <div>
+              <h2 className="text-xl font-bold text-center text-[#17488D] mb-8">
+                ROI Pasar di {regionName || "Jakarta"}
+              </h2>
+              <ResponsiveContainer width={270} height={250}>
+                <BarChart data={displayedRoiData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="year" />
+                  <YAxis
+                    tickFormatter={(value) => `${value.toFixed(0)}%`}
+                    domain={[0, "auto"]}
+                  />
+                  <Tooltip
+                    formatter={(value) => [`${Number(value).toFixed(2)}%`, "ROI"]}
+                  />
+                  <Bar
+                    dataKey="roi"
+                    fill="#17488D"
+                    name="ROI"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </>
+        )}
+
+        <div className="w-full flex justify-center">
+          <Bars regionName={regionName}/>
+        </div>
+
+        {/* Demographic information section - only show when a region is actually selected */}
+        {hasDemographicData && regionData?.regionName && (
+          <div>
+            {ageData.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-center text-[#17488D] mb-8">
+                  Distribusi Umur {regionName || "Jakarta"}
+                </h3>
+                <div className="h-[400px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={ageData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        outerRadius={100}
+                        fill="#17488D"
+                        dataKey="value"
+                        label={renderInsideLabel}
+                      >
+                        {ageData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS_AGE[index % COLORS_AGE.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value, name, props) => {
+                          const total = ageData.reduce(
+                            (sum, entry) => sum + entry.value,
+                            0
+                          );
+                          const percent = ((Number(value) / total) * 100).toFixed(
+                            1
+                          );
+                          return [
+                            `${Number(value).toLocaleString(
+                              "id-ID"
+                            )} (${percent}%)`,
+                            name,
+                          ];
+                        }}
+                        itemStyle={{
+                          color: "#17488D",
+                        }}
+                      />
+                      <Legend
+                        layout="vertical"
+                        verticalAlign="bottom"
+                        align="center"
+                        wrapperStyle={{
+                          paddingTop: 20,
+                          fontSize: 16,
+                          fontWeight: 500,
+                        }}
+                        iconSize={10}
+                        iconType="circle"
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {hasDemographicData && regionData?.regionName && (
+          <div>
+            {religionData.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-center text-[#17488D] mb-8">
+                  Distribusi Agama {regionName || "Jakarta"}
+                </h3>
+                <div className="h-[350px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={religionData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        outerRadius={100}
+                        fill="#17488D"
+                        dataKey="value"
+                        label={renderInsideLabel}
+                      >
+                        {religionData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS_RELIGION[index % COLORS_RELIGION.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value, name, props) => {
+                          const total = religionData.reduce(
+                            (sum, entry) => sum + entry.value,
+                            0
+                          );
+                          const percent = ((Number(value) / total) * 100).toFixed(
+                            1
+                          );
+                          return [
+                            `${Number(value).toLocaleString(
+                              "id-ID"
+                            )} (${percent}%)`,
+                            name,
+                          ];
+                        }}
+                        itemStyle={{
+                          color: "#17488D",
+                        }}
+                      />
+                      <Legend
+                        layout="vertical"
+                        verticalAlign="bottom"
+                        align="center"
+                        wrapperStyle={{
+                          paddingTop: 20,
+                          fontSize: 14,
+                          fontWeight: 500,
+                        }}
+                        iconSize={10}
+                        iconType="circle"
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             </div>
           )}

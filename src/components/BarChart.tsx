@@ -303,6 +303,7 @@ const Bars: React.FC<BarsProps> = ({ regionName = "", onRegionBarZoom }) => {
             ?.coordinates,
         }));
 
+
   const handleBarClick = (data: any) => {
     if (
       data !== undefined &&

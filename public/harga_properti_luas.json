@@ -1,0 +1,42 @@
+[
+  {
+    "luas_tanah_m2": 36, 
+    "total_harga_properti_rp": 462600000
+  },
+  {
+    "luas_tanah_m2": 50,
+    "total_harga_properti_rp": 605000000
+  },
+  {
+    "luas_tanah_m2": 70,
+    "total_harga_properti_rp": 817600000
+  },
+  {
+    "luas_tanah_m2": 85,
+    "total_harga_properti_rp": 947750000
+  },
+  {
+    "luas_tanah_m2": 95,
+    "total_harga_properti_rp": 1035500000
+  },
+  {
+    "luas_tanah_m2": 120,
+    "total_harga_properti_rp": 1227600000
+  },
+  {
+    "luas_tanah_m2": 150,
+    "total_harga_properti_rp": 1480500000
+  },
+  {
+    "luas_tanah_m2": 200,
+    "total_harga_properti_rp": 1860000000
+  },
+  {
+    "luas_tanah_m2": 300,
+    "total_harga_properti_rp": 2880000000
+  },
+  {
+    "luas_tanah_m2": 500,
+    "total_harga_properti_rp": 4250000000
+  }
+]

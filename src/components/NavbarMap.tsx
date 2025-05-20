@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     // 2xl:w-[25%] xl:w-[28%] md:w-[30%]
     <nav className="absolute top-0 left-0 z-10 items-center justify-between px-4 py-2">
-      <div className="bg-[#ffffff] flex items-center px-8 py-2 border rounded-xl max-w-max">
+      <div className="bg-[#ffffff] flex items-center px-8 py-2 border rounded-xl max-w-max shadow-lg">
         <Link href="/dashboard" className="flex items-center">
           <Image src="/logo1.svg" alt="GeoVest Logo" width={42} height={42} />
         </Link>
