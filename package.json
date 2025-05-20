@@ -10,7 +10,9 @@
     },
     "dependencies": {
         "@clerk/nextjs": "^6.12.0",
+        "@radix-ui/react-label": "^2.1.6",
         "@radix-ui/react-slot": "^1.1.2",
+        "@radix-ui/react-tabs": "^1.1.11",
         "@tensorflow/tfjs": "^4.22.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -30,8 +32,7 @@
         "react-range": "^1.10.0",
         "recharts": "^2.15.3",
         "tailwind-merge": "^3.0.2",
-        "tailwindcss-animate": "^1.0.7",
-        "xlsx": "^0.18.5"
+        "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",

@@ -13,10 +13,18 @@ import type {
   InfrastructureVisibilityState,
 } from "@/types/map";
 
-import { INFRASTRUCTURE_LAYERS } from "@/config/mapConstants";
+
+// Import Constants
+import {
+  INFRASTRUCTURE_LAYERS,
+  BASE_MAP_STYLES,
+  DEFAULT_BASE_MAP_ID,
+} from "@/config/mapConstants"; // Adjust path
 import Menu from "@/components/Menu";
 import Image from "next/image";
 import NavbarMap from "@/components/NavbarMap";
+import { AlignCenter } from "lucide-react";
+import BaseMapSwitcher from "@/components/map/BaseMapSwitcher";
 
 const colorScale = ["#f7fbff", "#c6dbef", "#9ecae1", "#6baed6", "#08306b"];
 
@@ -30,6 +38,10 @@ export default function MapPage() {
   const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
     [number, number, number] | null
   >(null);
+
+  const [religionOpacity, setReligionOpacity] = useState<number>(15);
+  const [ageOpacity, setAgeOpacity] = useState<number>(15);
+  // Renamed from Page for clarity
   useEffect(() => {
     const storedCoordinates = localStorage.getItem(
       "selectedPropertyCoordinates"
@@ -60,7 +72,9 @@ export default function MapPage() {
   const [activeTab, setActiveTab] = useState<string>("Analytics");
 
   // Layer Visibility State
-  const [heatmapVisible, setHeatmapVisible] = useState<boolean>(false);
+
+  const [floodVisible, setFloodVisible] = useState<boolean>(false);
+
   const [infrastructureVisibility, setInfrastructureVisibility] =
     useState<InfrastructureVisibilityState>(initialInfraVisibility);
   const [regionPopupVisibility, setRegionPopupVisibility] =
@@ -78,6 +92,11 @@ export default function MapPage() {
   );
   const [binRanges, setBinRanges] = useState<{ [key: string]: number[] }>({});
   const [income, setIncome] = useState<number[]>([4, 7]);
+  const [targetMapCenter, setTargetMapCenter] = useState<
+    [number, number] | null
+  >(null);
+  const [selectedBaseMapId, setSelectedBaseMapId] =
+    useState<string>(DEFAULT_BASE_MAP_ID);
 
   const [isMobile, setIsMobile] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -212,7 +231,15 @@ export default function MapPage() {
       setRegionPopupVisibility(false);
     },
     [clickedRegionId]
-  );
+
+  ); // Depends on clickedRegionId
+
+  const handleRegionBarZoom = useCallback((center: [number, number]) => {
+    console.log("MapPage: handleRegionBarZoom triggered with center:", center);
+    setTargetMapCenter(center);
+  }, []);
+
+  // Memoize the handlers passed to the map component
   const mapEventHandlers: MapEventHandlers = useMemo(
     () => ({
       onRegionClick: handleRegionClick,
@@ -244,8 +271,8 @@ export default function MapPage() {
     );
   }, []);
 
-  const handleToggleHeatmap = useCallback(() => {
-    setHeatmapVisible((v) => !v);
+  const handleToggleFlood = useCallback(() => {
+    setFloodVisible((v) => !v);
   }, []);
 
   const handleInfrastructureToggle = useCallback((layerId: string) => {
@@ -265,14 +292,24 @@ export default function MapPage() {
   const handleAgeBinChange = useCallback((bin: string) => {
     setSelectedAgeBin(bin);
   }, []);
+
   
   const toggleDrawer = useCallback(() => {
     setIsDrawerOpen(prev => !prev);
   }, []);
+  const handleBaseMapChange = useCallback((baseMapId: string) => {
+    setSelectedBaseMapId(baseMapId);
+  }, []);
+  const selectedBaseMapStyleUrl = useMemo(() => {
+    return (
+      BASE_MAP_STYLES.find((style) => style.id === selectedBaseMapId)?.url ||
+      BASE_MAP_STYLES[0].url
+    );
+  }, [selectedBaseMapId]);
 
   const mapLayerControls: MapLayerControls = useMemo(
     () => ({
-      heatmapVisible,
+      floodVisible,
       infrastructureVisibility,
       priceRange,
       selectedCategories,
@@ -282,9 +319,12 @@ export default function MapPage() {
       binRanges,
       income,
       regionPopupVisibility,
+      targetMapCenter,
+      religionOpacity,
+      ageOpacity,
     }),
     [
-      heatmapVisible,
+      floodVisible,
       infrastructureVisibility,
       priceRange,
       selectedCategories,
@@ -294,6 +334,9 @@ export default function MapPage() {
       binRanges,
       income,
       regionPopupVisibility,
+      targetMapCenter,
+      religionOpacity,
+      ageOpacity,
     ]
   );
 
@@ -375,6 +418,7 @@ export default function MapPage() {
 
   // --- JSX Structure ---
   return (
+
   <div className="flex flex-col h-screen w-screen overflow-hidden relative">
     <NavbarMap />
 
@@ -390,6 +434,8 @@ export default function MapPage() {
           initialOptions={initialMapOptions}
           layerControls={mapLayerControls}
           eventHandlers={mapEventHandlers}
+          baseMapStyleUrl={selectedBaseMapStyleUrl}
+          key={selectedBaseMapId}
         />
 
         {/* Mobile Burger Menu Button */}
@@ -416,24 +462,49 @@ export default function MapPage() {
         )}
 
         {/* Region Info Floating Box */}
-        {regionPopupVisibility && !selectedPropertyData && (
-          <div className="absolute top-[76px] left-4 z-10 bg-white p-4 rounded-xl shadow-md text-black max-w-xs text-sm">
-            <h3 className="text-base font-bold mb-2">
-              {regionData?.regionName}
-            </h3>
-            <div className="space-y-1">
-              <p><strong className="font-semibold">Jumlah Kecamatan:</strong> {regionData?.jumlahKecamatan}</p>
-              <p><strong className="font-semibold">Jumlah Desa:</strong> {regionData?.jumlahDesa}</p>
-              <p><strong className="font-semibold">Jumlah Penduduk:</strong> Rp {regionData?.jumlahPenduduk}</p>
-              <p><strong className="font-semibold">Kepadatan per km2:</strong> {regionData?.kepadatanPerKm2}</p>
-              <p><strong className="font-semibold">Jumlah laki-laki:</strong> {regionData?.jumlahLakiLaki}</p>
-              <p><strong className="font-semibold">Jumlah perempuan:</strong> {regionData?.jumlahPerempuan}</p>
-              <p><strong className="font-semibold">Luas wilayah (km2):</strong> {regionData?.luasWilayahKm2}</p>
-            </div>
-            <div className="mt-3 flex justify-between items-center">
-              <button
-                onClick={() => setRegionPopupVisibility(false)}
-                className="text-xs text-red-500 hover:underline focus:outline-none"
+      {regionPopupVisibility && !selectedPropertyData && (
+        <div className="absolute top-[76px] left-4 z-10 bg-popup p-4 rounded-xl shadow-md bg-white text-black max-w-xs text-sm">
+          <h3 className="text-base text-black font-bold mb-2">
+            {regionData?.regionName}
+          </h3>
+          <div className="text-black space-y-1">
+            <p>
+              <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
+              {regionData?.jumlahKecamatan?.toLocaleString("id-ID")}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah Desa:</strong>{" "}
+              {regionData?.jumlahDesa?.toLocaleString("id-ID")}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
+              {regionData?.jumlahPenduduk?.toLocaleString("id-ID")}
+            </p>
+            <p>
+              <strong className="font-semibold">
+                Kepadatan per km<sup>2</sup> :
+              </strong>{" "}
+              {regionData?.kepadatanPerKm2?.toLocaleString("id-ID")}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah laki-laki:</strong>{" "}
+              {regionData?.jumlahLakiLaki?.toLocaleString("id-ID")}
+            </p>
+            <p>
+              <strong className="font-semibold">Jumlah perempuan:</strong>{" "}
+              {regionData?.jumlahPerempuan?.toLocaleString("id-ID")}
+            </p>
+            <p>
+              <strong className="font-semibold">
+                Luas wilayah (km<sup>2</sup>):
+              </strong>{" "}
+              {regionData?.luasWilayahKm2?.toLocaleString("id-ID")}
+            </p>
+          </div>
+          <div className="mt-3 flex justify-between items-center">
+            <button
+              onClick={() => setRegionPopupVisibility(false)} // Use the handler
+              className="text-xs text-red-500 hover:underline  focus:outline-none"
               >
                 Tutup
               </button>
@@ -531,7 +602,7 @@ export default function MapPage() {
           />
         </div>
       )}
-      
+
       {/* Overlay when drawer is open on mobile */}
       {isMobile && isDrawerOpen && (
         <div 
@@ -577,8 +648,8 @@ export default function MapPage() {
             onCategoryChange={handleCategoryChange}
             selectedInvestmentTypes={selectedInvestmentTypes}
             onInvestmentTypeChange={handleInvestmentTypeChange}
-            heatmapVisible={heatmapVisible}
-            onToggleHeatmap={handleToggleHeatmap}
+            floodVisible={floodVisible}
+            onToggleFlood={handleToggleFlood}
             infrastructureVisibility={infrastructureVisibility}
             onToggleInfrastructure={handleInfrastructureToggle}
             selectedReligionBin={selectedReligionBin}
@@ -592,9 +663,72 @@ export default function MapPage() {
             setIncome={handleIncomeChange}
             selectedPropertyData={selectedPropertyData}
             regionData={regionData}
+            onRegionBarZoom={handleRegionBarZoom}
+            religionOpacity={religionOpacity}
+            onReligionOpacityChange={setReligionOpacity}
+            ageOpacity={ageOpacity}
+            onAgeOpacityChange={setAgeOpacity}
           />
         </Resizable>
-      )}
+      )}      
+      <div className="absolute z-20 bottom-4 left-4 flex gap-3 items-end">
+        <BaseMapSwitcher
+          selectedBaseMapId={selectedBaseMapId}
+          onBaseMapChange={handleBaseMapChange}
+        />
+        {(selectedAgeBin || selectedReligionBin) && (
+          <div className="flex align-bottom gap-3">
+            {selectedAgeBin && (
+              <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md mt-auto">
+                <h4 className="font-bold mb-2 text-sm">
+                  {selectedAgeBin.replace(/_[0-9]+.*|_>.*|_/g, " ").trim()}
+                </h4>
+                {getRangeLabels(selectedAgeBin).map((range, index) => (
+                  <div
+                    key={`age-${index}`}
+                    className="flex items-center mb-1 text-sm"
+                  >
+                    <span
+                      className="w-4 h-4 mr-2 inline-block"
+                      style={{ backgroundColor: colorScale[index] }}
+                    ></span>
+                    <span>{range}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {selectedReligionBin && (
+              <div className="max-w-40 w-[80vw] md:w-64 p-3 rounded-lg bg-white text-black shadow-md ">
+                <h4 className="font-bold mb-2 text-sm">
+                  {selectedReligionBin
+                    .replace(/_bin$/, "")
+                    .replace(/(^|_)(\w)/g, (_, __, letter) =>
+                      letter.toUpperCase()
+                    )
+                    .replace(
+                      /\w\S*/g,
+                      (txt) =>
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                    )}
+                </h4>
+                {getRangeLabels(selectedReligionBin).map((range, index) => (
+                  <div
+                    key={`religion-${index}`}
+                    className="flex items-center mb-1 text-sm"
+                  >
+                    <span
+                      className="w-4 h-4 mr-2 inline-block"
+                      style={{ backgroundColor: colorScale[index] }}
+                    ></span>
+                    <span>{range}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   </div>
 );

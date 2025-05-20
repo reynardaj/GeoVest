@@ -2,9 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Filters from "./menu/Filters";
-import { InfrastructureVisibilityState, SelectedPropertyData, PopupData } from "@/types/map";
+import {
+  InfrastructureVisibilityState,
+  SelectedPropertyData,
+  PopupData,
+} from "@/types/map";
 import PropertyAnalytics from "./PropertyAnalytics";
+
 import quarterlyData from "@/../backend/model/combined_forecast.json";
+import ROICalculator from "./roi-calculator";
 
 interface MenuProps {
   priceRange: [number, number];
@@ -13,8 +19,8 @@ interface MenuProps {
   onCategoryChange: (category: string) => void;
   selectedInvestmentTypes: string[];
   onInvestmentTypeChange: (type: string) => void;
-  heatmapVisible: boolean;
-  onToggleHeatmap: () => void;
+  floodVisible: boolean;
+  onToggleFlood: () => void;
   infrastructureVisibility: InfrastructureVisibilityState;
   onToggleInfrastructure: (layerId: string) => void;
   selectedReligionBin: string | null;
@@ -28,6 +34,11 @@ interface MenuProps {
   setIncome: (values: number[]) => void;
   selectedPropertyData: SelectedPropertyData | null;
   regionData?: PopupData | null;
+  onRegionBarZoom?: (center: [number, number]) => void;
+  ageOpacity: number;
+  onAgeOpacityChange: (opacity: number) => void;
+  religionOpacity: number;
+  onReligionOpacityChange: (opacity: number) => void;
 }
 
 function Menu({
@@ -37,8 +48,8 @@ function Menu({
   onCategoryChange,
   selectedInvestmentTypes,
   onInvestmentTypeChange,
-  heatmapVisible,
-  onToggleHeatmap,
+  floodVisible,
+  onToggleFlood,
   infrastructureVisibility,
   onToggleInfrastructure,
   selectedReligionBin,
@@ -52,6 +63,11 @@ function Menu({
   setIncome,
   selectedPropertyData,
   regionData,
+  onRegionBarZoom,
+  religionOpacity,
+  onReligionOpacityChange,
+  ageOpacity,
+  onAgeOpacityChange,
 }: MenuProps) {
   const [isMobile, setIsMobile] = useState(false);
   
@@ -72,7 +88,7 @@ function Menu({
       <div className="ml-[5px] flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
         <button
           onClick={() => setActiveTab("Filters")}
-          className={`relative w-[33.3%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg
+          className={`relative w-[25%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg
                         ${
                           activeTab === "Filters"
                             ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
@@ -84,7 +100,7 @@ function Menu({
         </button>
         <button
           onClick={() => setActiveTab("Analytics")}
-          className={`relative w-[33.3%] py-4 hover:bg-[#ededed]
+          className={`relative w-[25%] py-4 hover:bg-[#ededed]
                         ${
                           activeTab === "Analytics"
                             ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
@@ -96,7 +112,7 @@ function Menu({
         </button>
         <button
           onClick={() => setActiveTab("Time Machine")}
-          className={`relative w-[33.3%] py-4 hover:bg-[#ededed]
+          className={`relative w-[25%] py-4 hover:bg-[#ededed]
                         ${
                           activeTab === "Time Machine"
                             ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
@@ -105,6 +121,18 @@ function Menu({
                     `}
         >
           Time Machine
+        </button>
+        <button
+          onClick={() => setActiveTab("ROI Calculator")}
+          className={`relative w-[25%] py-4 hover:bg-[#ededed]
+                        ${
+                          activeTab === "ROI Calculator"
+                            ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-[60%] after:h-[3px] after:bg-[#17488D] after:-translate-x-1/2 after:rounded-t-lg"
+                            : "font-medium"
+                        }
+                    `}
+        >
+          Investment Calculator
         </button>
       </div>
       <div
@@ -123,8 +151,8 @@ function Menu({
             onCategoryChange={onCategoryChange}
             selectedInvestmentTypes={selectedInvestmentTypes}
             onInvestmentTypeChange={onInvestmentTypeChange}
-            heatmapVisible={heatmapVisible}
-            onToggleHeatmap={onToggleHeatmap}
+            floodVisible={floodVisible}
+            onToggleFlood={onToggleFlood}
             infrastructureVisibility={infrastructureVisibility}
             onToggleInfrastructure={onToggleInfrastructure}
             binRanges={binRanges}
@@ -134,18 +162,34 @@ function Menu({
             selectedAgeBin={selectedAgeBin}
             income={income}
             setIncome={setIncome}
+            selectedPropertyData={selectedPropertyData}
+            regionData={regionData}
+            onRegionBarZoom={onRegionBarZoom}
+            religionOpacity={religionOpacity}
+            onReligionOpacityChange={onReligionOpacityChange}
+            ageOpacity={ageOpacity}
+            onAgeOpacityChange={onAgeOpacityChange}
           />
         )}
         {activeTab === "Analytics" && (
-          <PropertyAnalytics 
-            selectedPropertyData={selectedPropertyData} 
-            regionData={regionData ? {
-              ...regionData,
-              regionName: String(regionData.regionName)
-            } : null} 
+          <PropertyAnalytics
+            selectedPropertyData={selectedPropertyData}
+            regionData={
+              regionData
+                ? {
+                    ...regionData,
+                    regionName: String(regionData.regionName), // Convert to string
+                  }
+                : null
+            }
+            onRegionBarZoom={onRegionBarZoom}
           />
         )}
-        {activeTab === "Time Machine" && <TimeMachine selectedPropertyData={selectedPropertyData} />}
+
+        {activeTab === "Time Machine" && (
+          <TimeMachine selectedPropertyData={selectedPropertyData} />
+        )}
+        {activeTab === "ROI Calculator" && <ROICalculator />}
       </div>
     </div>
   );
@@ -158,7 +202,9 @@ interface TimeMachineProps {
 const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
   const yearsOptions = [1, 5, 10, 15, 20];
 
-  const [initialInvestment, setInitialInvestment] = useState<number | null>(null);
+  const [initialInvestment, setInitialInvestment] = useState<number | null>(
+    null
+  );
   const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(1);
 
@@ -214,6 +260,7 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
       if (typeof selectedPropertyData.price === "string") {
         const cleaned = selectedPropertyData.price.replace(/[^\d.-]/g, "");
         priceNum = parseFloat(cleaned);
+
       } else {
         priceNum = selectedPropertyData.price;
       }
@@ -230,6 +277,7 @@ const TimeMachine = ({ selectedPropertyData }: TimeMachineProps) => {
       setEstimatedValue(0);
     }
   }, [selectedPropertyData, selectedYear]);
+
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);

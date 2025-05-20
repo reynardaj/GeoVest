@@ -13,7 +13,7 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-import { SelectedPropertyData, PopupData } from "@/types/map";
+import { SelectedPropertyData, PopupData, MapEventHandlers } from "@/types/map";
 import { useState, useEffect } from "react";
 import Bars from "@/components/BarChart"
 import quarterlyData from "@/../backend/model/combined_forecast.json";
@@ -138,6 +138,7 @@ const ReligionDistribution: Record<RegionKey, Record<string, number>> = {
 interface PropertyAnalyticsProps {
   selectedPropertyData: SelectedPropertyData | null;
   regionData?: { regionName: string } | null;
+  onRegionBarZoom?: (center: [number, number]) => void;
 }
 
 const getFormattedRegionName = (name: string | undefined): RegionKey | "" => {
@@ -269,6 +270,7 @@ function generateCumulativeROI(basePrice: number) {
 const PropertyAnalytics = ({
   selectedPropertyData,
   regionData,
+  onRegionBarZoom,
 }: PropertyAnalyticsProps) => {
   const [regionName, setRegionName] = useState<string>("");
 
@@ -576,10 +578,11 @@ const PropertyAnalytics = ({
                   </ResponsiveContainer>
                 </div>
               </div>
-            )}
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+        </div>
+      )}
+      <Bars regionName={regionName} onRegionBarZoom={onRegionBarZoom} />
     </div>
   );
 };
