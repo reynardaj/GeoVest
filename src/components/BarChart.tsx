@@ -303,7 +303,6 @@ const Bars: React.FC<BarsProps> = ({ regionName = "", onRegionBarZoom }) => {
             ?.coordinates,
         }));
 
-
   const handleBarClick = (data: any) => {
     if (
       data !== undefined &&
@@ -315,7 +314,7 @@ const Bars: React.FC<BarsProps> = ({ regionName = "", onRegionBarZoom }) => {
   };
 
   return (
-    <div className="mt-8">
+    <div>
       <h3 className="text-xl font-bold text-[#17488D] mb-4">
         {filteredData.length > 0
           ? `ROI per Kecamatan di ${mappedRegion}`

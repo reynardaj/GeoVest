@@ -250,12 +250,12 @@ export function useMapLayers(
                 paint:
                   layer.id === "rel-kereta"
                     ? {
-                        "line-color": "#63A4FF",
+                        "line-color": "#287399",
                         "line-width": 2,
                         "line-opacity": 0.7,
                       }
                     : {
-                        "line-color": "#4a78bc",
+                        "line-color": "#5aa17b",
                         "line-width": 2,
                         "line-opacity": 0.7,
                       },
@@ -351,7 +351,7 @@ export function useMapLayers(
             "circle-radius": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
-              14, // hover
+              11, // hover
               8, // default
             ],
             "circle-color": [

@@ -15,7 +15,7 @@ import {
 } from "recharts";
 import { SelectedPropertyData, PopupData, MapEventHandlers } from "@/types/map";
 import { useState, useEffect } from "react";
-import Bars from "@/components/BarChart"
+import Bars from "@/components/BarChart";
 import quarterlyData from "@/../backend/model/combined_forecast.json";
 
 type AgeGroup = {
@@ -210,7 +210,8 @@ function generatePriceProjection(basePrice: number) {
 
     let meanAnnualROI = 0;
     if (yearlyROIs.length > 0) {
-      meanAnnualROI = yearlyROIs.reduce((sum, roi) => sum + roi, 0) / yearlyROIs.length;
+      meanAnnualROI =
+        yearlyROIs.reduce((sum, roi) => sum + roi, 0) / yearlyROIs.length;
     } else if (i > 0) {
       meanAnnualROI = projection[i - 1].roi || 0;
     }
@@ -254,7 +255,8 @@ function generateCumulativeROI(basePrice: number) {
 
     let meanAnnualROI = 0;
     if (yearlyROIs.length > 0) {
-      meanAnnualROI = yearlyROIs.reduce((sum, roi) => sum + roi, 0) / yearlyROIs.length;
+      meanAnnualROI =
+        yearlyROIs.reduce((sum, roi) => sum + roi, 0) / yearlyROIs.length;
     } else if (i > 0) {
       meanAnnualROI = projection[i - 1].roi || 0;
     }
@@ -330,14 +332,14 @@ const PropertyAnalytics = ({
   const currentYear = new Date().getFullYear();
 
   const displayedRoiData = roiData
-  .filter(item => item.year > currentYear)
-  .map(item => {
-    const prevYearData = roiData.find(d => d.year === item.year - 1);
-    return {
-      year: item.year - 1,
-      roi: prevYearData ? prevYearData.cumulativeROI * 100 : 0,
-    };
-  });
+    .filter((item) => item.year > currentYear)
+    .map((item) => {
+      const prevYearData = roiData.find((d) => d.year === item.year - 1);
+      return {
+        year: item.year - 1,
+        roi: prevYearData ? prevYearData.cumulativeROI * 100 : 0,
+      };
+    });
 
   const renderInsideLabel = ({
     cx,
@@ -362,7 +364,7 @@ const PropertyAnalytics = ({
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     if (percent < 0.05) return null;
-    
+
     return (
       <text
         x={x}
@@ -430,7 +432,10 @@ const PropertyAnalytics = ({
                     domain={[0, "auto"]}
                   />
                   <Tooltip
-                    formatter={(value) => [`${Number(value).toFixed(2)}%`, "ROI"]}
+                    formatter={(value) => [
+                      `${Number(value).toFixed(2)}%`,
+                      "ROI",
+                    ]}
                   />
                   <Bar
                     dataKey="roi"
@@ -445,7 +450,7 @@ const PropertyAnalytics = ({
         )}
 
         <div className="w-full flex justify-center">
-          <Bars regionName={regionName}/>
+          <Bars regionName={regionName} onRegionBarZoom={onRegionBarZoom} />
         </div>
 
         {/* Demographic information section - only show when a region is actually selected */}
@@ -482,9 +487,10 @@ const PropertyAnalytics = ({
                             (sum, entry) => sum + entry.value,
                             0
                           );
-                          const percent = ((Number(value) / total) * 100).toFixed(
-                            1
-                          );
+                          const percent = (
+                            (Number(value) / total) *
+                            100
+                          ).toFixed(1);
                           return [
                             `${Number(value).toLocaleString(
                               "id-ID"
@@ -538,7 +544,9 @@ const PropertyAnalytics = ({
                         {religionData.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
-                            fill={COLORS_RELIGION[index % COLORS_RELIGION.length]}
+                            fill={
+                              COLORS_RELIGION[index % COLORS_RELIGION.length]
+                            }
                           />
                         ))}
                       </Pie>
@@ -548,9 +556,10 @@ const PropertyAnalytics = ({
                             (sum, entry) => sum + entry.value,
                             0
                           );
-                          const percent = ((Number(value) / total) * 100).toFixed(
-                            1
-                          );
+                          const percent = (
+                            (Number(value) / total) *
+                            100
+                          ).toFixed(1);
                           return [
                             `${Number(value).toLocaleString(
                               "id-ID"
@@ -582,7 +591,6 @@ const PropertyAnalytics = ({
           </div>
         )}
       </div>
-      <Bars regionName={regionName} onRegionBarZoom={onRegionBarZoom} />
     </div>
   );
 };
