@@ -232,7 +232,6 @@ export default function MapPage() {
   ); // Depends on clickedRegionId
 
   const handleRegionBarZoom = useCallback((center: [number, number]) => {
-    console.log("MapPage: handleRegionBarZoom triggered with center:", center);
     setTargetMapCenter(center);
   }, []);
 

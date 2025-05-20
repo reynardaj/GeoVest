@@ -373,10 +373,11 @@ export function useMapLayers(
         applyPropertiesFilter(map, layerControlsRef.current);
       }
 
-      // --- Add or Remove Jakarta Flood Hazard Fill Layer ---
+      // --- Add or Update Jakarta Flood Hazard Fill Layer ---
       const floodLayerId = "jakarta-flood-hazard-fill";
       const floodLayerExists = map.getLayer(floodLayerId);
       const propertiesLayerId = "properties";
+      
       // Ensure the source always exists before adding the layer
       if (!map.getSource("jakarta-flood-hazard")) {
         map.addSource("jakarta-flood-hazard", {
@@ -386,56 +387,45 @@ export function useMapLayers(
         });
       }
 
-      if (layerControlsRef.current.floodVisible) {
-        if (!floodLayerExists) {
-          try {
-            map.addLayer(
-              {
-                id: floodLayerId,
-                type: "fill",
-                source: "jakarta-flood-hazard",
-                paint: {
-                  "fill-color": [
-                    "interpolate",
-                    ["linear"],
-                    ["get", "hazard_score"],
-                    1,
-                    "#00FF00", // Green (Lowest Hazard)
-                    2,
-                    "#ADFF2F", // Yellow-Green (Low-Medium Hazard)
-                    3,
-                    "#FFFF00", // Yellow (Medium Hazard)
-                    4,
-                    "#FFA500", // Orange (Medium-High Hazard)
-                    5,
-                    "#FF0000", // Red (Highest Hazard)
-                  ],
-                  "fill-opacity": 0.15,
-                },
-                layout: { visibility: "visible" },
+      // Always add or update the layer, just toggle visibility
+      if (!floodLayerExists) {
+        try {
+          map.addLayer(
+            {
+              id: floodLayerId,
+              type: "fill",
+              source: "jakarta-flood-hazard",
+              paint: {
+                "fill-color": [
+                  "interpolate",
+                  ["linear"],
+                  ["get", "hazard_score"],
+                  1,"#00FF00", // Green (Lowest Hazard)
+                  2, "#ADFF2F", // Yellow-Green (Low-Medium Hazard)
+                  3, "#FFFF00", // Yellow (Medium Hazard)
+                  4, "#FFA500", // Orange (Medium-High Hazard)
+                  5, "#FF0000", // Red (Highest Hazard)
+                ],
+                "fill-opacity": 0.15,
               },
-              propertiesLayerId
-            ); // Insert below property points for correct stacking
-            console.log("Flood hazard layer added");
-          } catch (e) {
-            console.error("Failed to add flood hazard layer:", e);
-          }
-        } else {
-          try {
-            map.setLayoutProperty(floodLayerId, "visibility", "visible");
-            console.log("Flood hazard layer set to visible");
-          } catch (e) {
-            console.error("Failed to set flood hazard layer visible:", e);
-          }
+              layout: { 
+                visibility: layerControlsRef.current.floodVisible ? "visible" : "none" 
+              },
+            },
+            propertiesLayerId
+          );
+          console.log("Flood hazard layer added");
+        } catch (e) {
+          console.error("Failed to add flood hazard layer:", e);
         }
       } else {
-        if (floodLayerExists) {
-          try {
-            map.removeLayer(floodLayerId);
-            console.log("Flood hazard layer removed");
-          } catch (e) {
-            console.error("Failed to remove flood hazard layer:", e);
-          }
+        // Just update visibility if layer exists
+        const visibility = layerControlsRef.current.floodVisible ? "visible" : "none";
+        map.setLayoutProperty(floodLayerId, "visibility", visibility);
+        
+        // Ensure heatmap layer has the same visibility
+        if (map.getLayer(FLOOD_HEATMAP_LAYER_ID)) {
+          map.setLayoutProperty(FLOOD_HEATMAP_LAYER_ID, "visibility", visibility);
         }
       }
 
@@ -474,21 +464,57 @@ export function useMapLayers(
       ],
     ]);
   }, [isLoaded, layerControls.income, map]);
-  // --- Effect for Toggling Heatmap Visibility ---
+  // --- Effect for Toggling Flood Layer Visibility ---
   useEffect(() => {
-    if (!map || !isLoaded || !map.getLayer(FLOOD_HEATMAP_LAYER_ID)) return;
+    if (!map || !isLoaded) return;
 
-    const targetVisibility = layerControls.floodVisible ? "visible" : "none";
-    // Only update if the desired state is different from the current state
-    if (
-      map.getLayoutProperty(FLOOD_HEATMAP_LAYER_ID, "visibility") !==
-      targetVisibility
-    ) {
-      map.setLayoutProperty(
-        FLOOD_HEATMAP_LAYER_ID,
-        "visibility",
-        targetVisibility
+    const visibility = layerControls.floodVisible ? "visible" : "none";
+    const floodLayerId = "jakarta-flood-hazard-fill";
+    
+    // Update flood hazard fill layer if it exists
+    if (map.getLayer(floodLayerId)) {
+      map.setLayoutProperty(floodLayerId, "visibility", visibility);
+      console.log(`Flood layer visibility set to: ${visibility}`);
+    } else if (layerControls.floodVisible) {
+      // If layer doesn't exist but should be visible, ensure source exists and add layer
+      if (!map.getSource("jakarta-flood-hazard")) {
+        map.addSource("jakarta-flood-hazard", {
+          type: "geojson",
+          data: "/jakarta_flood_hazard_zones.geojson",
+          generateId: true,
+        });
+      }
+      
+      // Add the flood layer with proper visibility
+      map.addLayer(
+        {
+          id: floodLayerId,
+          type: "fill",
+          source: "jakarta-flood-hazard",
+          paint: {
+            "fill-color": [
+              "interpolate",
+              ["linear"],
+              ["get", "hazard_score"],
+              1, "#00FF00",
+              2, "#ADFF2F",
+              3, "#FFFF00",
+              4, "#FFA500",
+              5, "#FF0000",
+            ],
+            "fill-opacity": 0.15,
+          },
+          layout: { visibility },
+        },
+        "properties"
       );
+      console.log("Flood hazard layer added with visibility:", visibility);
+    }
+
+    // Always update heatmap layer visibility to match
+    if (map.getLayer(FLOOD_HEATMAP_LAYER_ID)) {
+      map.setLayoutProperty(FLOOD_HEATMAP_LAYER_ID, "visibility", visibility);
+      console.log(`Heatmap layer visibility set to: ${visibility}`);
     }
   }, [map, isLoaded, layerControls.floodVisible]);
 
