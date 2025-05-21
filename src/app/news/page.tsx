@@ -5,12 +5,13 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import NewsCard from "@/components/NewsCard";
 import NavbarNews from "@/components/NavbarNews";
-import { useState } from "react";
+import React, { useState } from "react";
 
 // News data
 const featuredNews = {
   id: "pik-2-development",
-  title: "PIK 2 dalam Pembangunan Besar. Bagaimana Dampaknya pada Sektor Properti?",
+  title:
+    "PIK 2 dalam Pembangunan Besar. Bagaimana Dampaknya pada Sektor Properti?",
   category: "Market Trends",
   date: "12 hours ago",
   image: "/placeholder.svg?height=400&width=600",
@@ -19,7 +20,8 @@ const featuredNews = {
 const recommendedNews = [
   {
     id: "market-trends-analysis",
-    title: "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
+    title:
+      "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
     category: "Market Trends",
     date: "1 week ago",
     image: "/recommended-1.jpeg",
@@ -33,7 +35,8 @@ const recommendedNews = [
   },
   {
     id: "policies-regulations",
-    title: "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
+    title:
+      "Jenis Pajak Properti Yang Harus Diketahui Pengusaha Bisnis Properti",
     category: "Policies & Regulations",
     date: "3 hours ago",
     image: "/recommended-3.png",
@@ -62,7 +65,8 @@ const initialNewsGrid = [
     insights: true,
     date: "23 April 2023",
     image: "/grid-1.png",
-    shortDescription: "Studi terbaru mengungkap ketimpangan kepemilikan tanah di Indonesia, memicu perdebatan kebijakan...",
+    shortDescription:
+      "Studi terbaru mengungkap ketimpangan kepemilikan tanah di Indonesia, memicu perdebatan kebijakan...",
   },
   {
     id: "intellectual-property",
@@ -71,7 +75,8 @@ const initialNewsGrid = [
     insights: true,
     date: "10 Mei 2023",
     image: "/grid-2.png",
-    shortDescription: "Perlindungan hak kekayaan intelektual dapat menentukan keberlanjutan bisnis startup di era digital...",
+    shortDescription:
+      "Perlindungan hak kekayaan intelektual dapat menentukan keberlanjutan bisnis startup di era digital...",
   },
   {
     id: "buying-vs-renting",
@@ -80,7 +85,8 @@ const initialNewsGrid = [
     insights: true,
     date: "5 Juni 2023",
     image: "/grid-3.png",
-    shortDescription: "Keputusan antara membeli atau menyewa rumah bergantung pada faktor ekonomi dan gaya hidup...",
+    shortDescription:
+      "Keputusan antara membeli atau menyewa rumah bergantung pada faktor ekonomi dan gaya hidup...",
   },
   {
     id: "for-rent",
@@ -89,7 +95,8 @@ const initialNewsGrid = [
     insights: true,
     date: "12 Juli 2023",
     image: "/grid-4.png",
-    shortDescription: "Pasar sewa properti mengalami peningkatan harga, tetapi permintaan tetap tinggi di kota besar...",
+    shortDescription:
+      "Pasar sewa properti mengalami peningkatan harga, tetapi permintaan tetap tinggi di kota besar...",
   },
   {
     id: "investment",
@@ -98,7 +105,8 @@ const initialNewsGrid = [
     insights: true,
     date: "21 Agustus 2023",
     image: "/grid-5.png",
-    shortDescription: "Pakar menyoroti strategi investasi properti yang menguntungkan di tengah kondisi ekonomi saat ini...",
+    shortDescription:
+      "Pakar menyoroti strategi investasi properti yang menguntungkan di tengah kondisi ekonomi saat ini...",
   },
   {
     id: "real-estate",
@@ -107,18 +115,25 @@ const initialNewsGrid = [
     insights: true,
     date: "3 September 2023",
     image: "/grid-6.png",
-    shortDescription: "Industri real estate Indonesia terus berkembang dengan berbagai tantangan dan peluang investasi...",
+    shortDescription:
+      "Industri real estate Indonesia terus berkembang dengan berbagai tantangan dan peluang investasi...",
   },
 ];
 
 export default function NewsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>("ALL");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    "ALL"
+  );
 
-  const filteredNewsGrid = selectedCategory === "ALL"
-    ? initialNewsGrid
-    : initialNewsGrid.filter((news) => news.category === selectedCategory);
+  const filteredNewsGrid =
+    selectedCategory === "ALL"
+      ? initialNewsGrid
+      : initialNewsGrid.filter((news) => news.category === selectedCategory);
 
-  const uniqueCategories = ["ALL", ...new Set(initialNewsGrid.map((news) => news.category))];
+  const uniqueCategories = [
+    "ALL",
+    ...new Set(initialNewsGrid.map((news) => news.category)),
+  ];
 
   return (
     <main className="min-h-screen bg-news">
@@ -129,17 +144,25 @@ export default function NewsPage() {
           {/* Left Column - Featured News */}
           <div className="lg:w-2/3 lg:pr-8 mb-8 lg:mb-0">
             <div className="mb-4">
-              <h2 className="text-lg font-bold text-black uppercase">BEST OF THE WEEK</h2>
+              <h2 className="text-lg font-bold text-black uppercase">
+                BEST OF THE WEEK
+              </h2>
             </div>
 
             <div>
               <div className="mb-2">
-                <span className="text-[#17488D] font-semibold font-ubuntu">{featuredNews.category}</span>
-                <span className="text-black ml-1">  •</span>
-                <span className="text-black font-semibold text-sm ml-2">{featuredNews.date}</span>
+                <span className="text-[#17488D] font-semibold font-ubuntu">
+                  {featuredNews.category}
+                </span>
+                <span className="text-black ml-1"> •</span>
+                <span className="text-black font-semibold text-sm ml-2">
+                  {featuredNews.date}
+                </span>
               </div>
 
-              <h1 className="text-2xl md:text-4xl font-bold text-black font-ubuntu-mono my-8 max-w-2xl">{featuredNews.title}</h1>
+              <h1 className="text-2xl md:text-4xl font-bold text-black font-ubuntu-mono my-8 max-w-2xl">
+                {featuredNews.title}
+              </h1>
 
               <div className="flex space-x-4 text-s text-[#17488D] font-extralight mb-4">
                 <span>#PIK2</span>
@@ -147,7 +170,10 @@ export default function NewsPage() {
               </div>
 
               <div className="flex items-center justify-between mt-8">
-                <Link href={`/news/${featuredNews.id}`} className="inline-flex items-center text-black font-bold bg-white hover:bg-[#E6E6E6] p-4 rounded-xl">
+                <Link
+                  href={`/news/${featuredNews.id}`}
+                  className="inline-flex items-center text-black font-bold bg-white hover:bg-[#E6E6E6] p-4 rounded-xl"
+                >
                   Read article
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -168,11 +194,17 @@ export default function NewsPage() {
                 >
                   <div>
                     <div className="mb-1">
-                      <span className="text-[#17488D] text-sm font-bold font-ubuntu">{news.category}</span>
-                      <span className="text-black ml-1">  •</span>
-                      <span className="text-black text-xs ml-2 font-semibold">{news.date}</span>
+                      <span className="text-[#17488D] text-sm font-bold font-ubuntu">
+                        {news.category}
+                      </span>
+                      <span className="text-black ml-1"> •</span>
+                      <span className="text-black text-xs ml-2 font-semibold">
+                        {news.date}
+                      </span>
                     </div>
-                    <h3 className="font-inter text-sm font-bold text-black">{news.title}</h3>
+                    <h3 className="font-inter text-sm font-bold text-black">
+                      {news.title}
+                    </h3>
                   </div>
                   <Image
                     src={news.image}
@@ -191,21 +223,27 @@ export default function NewsPage() {
       {/* Filter Section */}
       <section className="py-4 px-4 md:px-8">
         <div className="max-w-5xl mx-auto flex items-center space-x-4 text-black justify-center">
-          {uniqueCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`font-semibold hover:underline ${selectedCategory === category ? 'underline' : ''}`}
-            >
-              {category}
-            </button>
+          {uniqueCategories.map((category, index) => (
+            <React.Fragment key={category}>
+              <button
+                onClick={() => setSelectedCategory(category)}
+                className={`font-semibold hover:underline ${
+                  selectedCategory === category ? "underline" : ""
+                }`}
+              >
+                {category}
+              </button>
+              {index !== uniqueCategories.length - 1 && (
+                <span className="border-l border-black h-6 mx-2" />
+              )}
+            </React.Fragment>
           ))}
         </div>
       </section>
 
       {/* Categories Section */}
       <section className="py-6 px-4 md:px-8">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-14">
+        <div className="max-w-[86rem] px-4 md:px-8 mx-auto grid md:grid-cols-3 gap-8">
           {filteredNewsGrid.map((news) => (
             <NewsCard
               key={news.id}
