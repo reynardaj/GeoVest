@@ -38,6 +38,7 @@ export default function MapPage() {
   const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
     [number, number, number] | null
   >(null);
+  const [mapInstance, setMapInstance] = useState<Map | null>(null);
 
   const [religionOpacity, setReligionOpacity] = useState<number>(15);
   const [ageOpacity, setAgeOpacity] = useState<number>(15);
@@ -108,6 +109,34 @@ export default function MapPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  useEffect(() => {
+    const storedCoordinates = localStorage.getItem(
+      "selectedPropertyCoordinates"
+    );
+    const storedPropertyData = localStorage.getItem("selectedPropertyData");
+
+    if (storedCoordinates && mapInstance) {
+      const coords = JSON.parse(storedCoordinates) as [number, number, number];
+      console.log("Flying to coordinates:", coords);
+
+      mapInstance.flyTo({
+        center: [coords[0], coords[1]],
+        zoom: 15,
+        essential: true,
+      });
+
+      localStorage.removeItem("selectedPropertyCoordinates");
+      setSelectedPropertyToFocus(coords);
+    }
+
+    if (storedPropertyData) {
+      const parsedPropertyData = JSON.parse(
+        storedPropertyData
+      ) as SelectedPropertyData;
+      setSelectedPropertyData(parsedPropertyData);
+      localStorage.removeItem("selectedPropertyData");
+    }
+  }, [mapInstance]);
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768);
