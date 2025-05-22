@@ -24,6 +24,8 @@ export function useMapEvents(
   useEffect(() => {
     if (!map || !isLoaded) return;
 
+    
+
     // --- Region Click ---
     const handleRegionClick = (
       e: MapMouseEvent & { features?: MapGeoJSONFeature[] }
@@ -31,7 +33,6 @@ export function useMapEvents(
       const feature = e.features?.[0];
       if (!feature || feature.id == null) return;
       e.originalEvent.preventDefault(); // Prevent background click
-      // Reset previous clicked visual state if needed (managed in parent via feature state or specific prop)
       const handler = handlersRef.current.onRegionClick;
       if (handler !== undefined && handler !== null) {
         handler(feature, map);
