@@ -24,7 +24,7 @@ export default function Authentication({ isMobileMenu }: AuthenticationProps) {
             Sign Up
           </Button>
         </SignUpButton>
-        <SignInButton mode="modal">
+        <SignInButton mode="modal" forceRedirectUrl="/map">
           <Button variant="ghost" className="text-[15px] block py-2 px-4 hover:bg-primary-600 transition-colors font-inter font-bold rounded-md w-full text-left">
             Log In
           </Button>

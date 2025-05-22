@@ -14,6 +14,7 @@ interface PropertyCardProps {
   status?: string;
   certificateType?: string;
   propertyUrl?: string;
+  mcdaScore?: number;
 }
 
 export default function PropertyCard({
@@ -28,11 +29,11 @@ export default function PropertyCard({
   status = "N/A",
   certificateType = "N/A",
   propertyUrl,
+  mcdaScore
 }: PropertyCardProps) {
   const router = useRouter();
 
   const handleCardClick = () => {
-    // Build a SelectedPropertyData object
     const propertyData = {
       propertyName: title,
       category,
@@ -72,7 +73,7 @@ export default function PropertyCard({
   return (
     <div
       onClick={handleCardClick}
-      className="cursor-pointer border-2 border-[#9eb2cd] bg-white shadow-md rounded-xl overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[102%] hover:shadow-lg"
+      className="h-full flex flex-col cursor-pointer border-2 border-[#9eb2cd] bg-white shadow-md rounded-xl overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[100.5%] hover:shadow-lg"
     >
       <div className="relative h-80 w-full">
         <Image
@@ -84,6 +85,11 @@ export default function PropertyCard({
           className="rounded-t-xl"
           unoptimized
         />
+        {mcdaScore !== undefined && (
+          <div className="absolute top-0 right-0 bg-green-600 text-white px-2 py-1 rounded-tr-xl text-xs font-semibold z-10">
+            Match Score: {(mcdaScore * 100).toFixed(0)}%
+          </div>
+        )}
       </div>
       <div className="p-4">
         <h3 className="text-[#17488D] font-bold text-lg line-clamp-3">

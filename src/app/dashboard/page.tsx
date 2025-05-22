@@ -1,9 +1,10 @@
-// This goes in src/app/dashboard/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
+import { supabase } from '@/lib/supabase'
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ChartDashboard from "../../components/Chart";
 import PropertyCard from "../../components/propertycard";
 import NavbarNews from "@/components/NavbarNews";
@@ -21,20 +22,39 @@ interface Property {
   propertyUrl: string;
   coordinates?: [number, number, number];
   fund: string;
+  mcdaScore?: number;
+}
+
+interface UserFormData {
+  userid: string;
+  fullname: string;
+  nickname: string;
+  job?: string;
+  age?: string;
+  income?: string;
+  fund?: string;
+  plan?: string;
+  variety?: string;
+  time?: string;
+  location?: string;
+  facility?: string;
 }
 
 interface FormData {
   fund?: string;
   location?: string;
   variety?: string[];
+  plan?: string;
+  time?: string;
+  facility?: string;
   [key: string]: any;
 }
 
 interface GeoJSONFeature {
   type: string;
-  id?: number; // Add this line
+  id?: number;
   geometry: {
-    coordinates: [number, number, number]; // [longitude, latitude, propertyId]
+    coordinates: [number, number, number];
     type: string;
   };
   properties: {
@@ -56,17 +76,76 @@ interface GeoJSONData {
 
 export default function Dashboard() {
   const { user } = useUser();
+  const router = useRouter();
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [formData, setFormData] = useState<FormData | null>(null);
+  const [userFormData, setUserFormData] = useState<UserFormData | null>(null);
+
+  const getRecommendations = async (
+    propertiesData: Property[], 
+    userData?: UserFormData, 
+    basicFormData?: FormData
+  ) => {
+    try {
+      const requestBody = {
+        properties: propertiesData,
+        userData: userData,
+        formData: basicFormData,
+        recommendationType: userData ? 'mcda' : 'basic'
+      };
+
+      const response = await fetch('/api/recommendations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        return result.properties;
+      } else {
+        throw new Error(result.error || 'Unknown error occurred');
+      }
+    } catch (error) {
+      console.error('Error calling recommendation API:', error);
+      return propertiesData;
+    }
+  };
 
   useEffect(() => {
-    const storedFormData = localStorage.getItem("formData");
+    const initializeDashboard = async () => {
+      if (!user?.id) return;
+      
+      setLoading(true);
+      
+      try {
+        const { data: userData, error } = await supabase
+          .from('user_form')
+          .select('*')
+          .eq('userid', user.id)
+          .single();
+        
+        if (error && error.code === 'PGRST116') {
+          router.push('/form');
+          return;
+        }
 
-    fetch("/properties.geojson")
-      .then((response) => response.json())
-      .then((data: GeoJSONData) => {
-        const propertiesFromGeoJSON: Property[] = data.features.map(
+        if (error) {
+          console.error('Error fetching user form data:', error);
+        }
+
+        const response = await fetch("/properties.geojson");
+        const geoData: GeoJSONData = await response.json();
+        
+        const propertiesFromGeoJSON: Property[] = geoData.features.map(
           (feature: GeoJSONFeature, index) => {
             const { properties: prop, geometry } = feature;
             const propertyId = feature.id || index;
@@ -88,92 +167,75 @@ export default function Dashboard() {
                 geometry.coordinates[1],
                 propertyId,
               ],
-              fund: getPriceRange(prop.property_price),
+              fund: "",
             };
           }
         );
 
-        if (storedFormData) {
-          const parsedFormData: FormData = JSON.parse(storedFormData);
-          setFormData(parsedFormData);
-
-          const recommended = recommendProperties(
-            propertiesFromGeoJSON,
-            parsedFormData
-          );
-          setProperties(recommended);
-        } else {
-          setProperties(propertiesFromGeoJSON);
+        if (propertiesFromGeoJSON.length === 0) {
+          setLoading(false);
+          return;
         }
+
+        let recommendedProperties: Property[] = [];
+        
+        if (userData) {
+          setUserFormData(userData);
+          
+          const parsedFormData: FormData = {
+            fund: userData.fund,
+            location: userData.location,
+            variety: userData.variety ? userData.variety.split(',') : [],
+            plan: userData.plan,
+            time: userData.time,
+            facility: userData.facility
+          };
+          
+          setFormData(parsedFormData);
+          localStorage.setItem("formData", JSON.stringify(parsedFormData));
+          
+          recommendedProperties = await getRecommendations(propertiesFromGeoJSON, userData);
+        } else {
+          const storedFormData = localStorage.getItem("formData");
+          if (storedFormData) {
+            const parsedFormData: FormData = JSON.parse(storedFormData);
+            setFormData(parsedFormData);
+            
+            recommendedProperties = await getRecommendations(propertiesFromGeoJSON, undefined, parsedFormData);
+          } else {
+            recommendedProperties = await getRecommendations(propertiesFromGeoJSON);
+          }
+        }
+        
+        setProperties(recommendedProperties);
+        
+      } catch (error) {
+        console.error("Error in dashboard initialization:", error);
+        setProperties([]);
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching properties:", error);
-        setLoading(false);
-      });
-  }, []);
+      }
+    };
 
-  const formatCurrency = (amount: number): string => {
-    return `Rp ${amount.toLocaleString("id-ID")},00`;
-  };
-
-  const getPriceRange = (price: number): string => {
-    if (price < 100000000) return "< 100 Juta";
-    if (price < 500000000) return "100-500 Juta";
-    if (price < 1000000000) return "500 Juta-1 M";
-    if (price < 5000000000) return "1-5 M";
-    return "> 5 M";
-  };
-
-  const recommendProperties = (
-    allProperties: Property[],
-    formData: FormData
-  ): Property[] => {
-    let filtered = [...allProperties];
-
-    if (formData.fund) {
-      filtered = filtered.filter((property) => property.fund === formData.fund);
-    }
-
-    if (formData.location && formData.location.length > 0) {
-      filtered = filtered.filter((property) =>
-        property.location
-          .toLowerCase()
-          .includes(formData.location!.toLowerCase())
-      );
-    }
-
-    if (formData.variety && formData.variety.length > 0) {
-      filtered = filtered.filter((property) =>
-        formData.variety!.some((v: string) =>
-          property.category.toLowerCase().includes(v.toLowerCase())
-        )
-      );
-    }
-
-    if (filtered.length === 0) {
-      return allProperties;
-    }
-
-    return filtered;
-  };
+    initializeDashboard();
+  }, [user?.id, router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#B0E0F9] via-[#f9f9f9] to-[#91E0B5]">
-      <NavbarNews isSignedIn={false} />
+      <NavbarNews isSignedIn={!!user} />
       <div className="flex items-center w-full h-[100px] bg-[#b6cade]">
-        <div className="pl-[7%] text-[#17488D] text-[20px] font-semibold">
-          Selamat datang{user ? `, ${user.firstName}!` : ""}
-        </div>
+        {userFormData && (
+          <div className="pl-[7%] text-[#17488D] text-[20px] font-semibold">
+            Selamat datang {userFormData.nickname}!
+          </div>
+        )}
       </div>
       {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 p-12 overflow-x-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 p-10 overflow-x-hidden">
         {/* Left: Property Cards */}
-        <div className="lg:col-span-3 space-y-6 bg-[#ffffff] rounded-xl outline outline-2 outline-[#b8ccdc] px-16 py-12">
+        <div className="lg:col-span-3 space-y-6 bg-white rounded-xl outline outline-2 outline-[#b8ccdc] px-16 py-12">
           <h2 className="text-xl font-bold text-[#17488D]">
-            {formData
-              ? "Rekomendasi Properti Berdasarkan Profil Anda"
-              : "Rekomendasi Properti Anda"}
+            Rekomendasi Properti Anda
           </h2>
 
           {loading ? (
@@ -184,7 +246,11 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
               {properties.length > 0 ? (
                 properties.map((prop, index) => {
-                  return <PropertyCard key={index} {...prop} />;
+                  return (
+                    <div key={index} className="relative flex flex-col h-full">
+                      <PropertyCard {...prop} />
+                    </div>
+                  );
                 })
               ) : (
                 <div className="col-span-3 text-center py-12">
@@ -205,7 +271,50 @@ export default function Dashboard() {
 
         {/* Right: Analytics */}
         <div className="space-y-6">
-          <ChartDashboard />
+          <ChartDashboard properties={properties}/>
+          {/* MCDA Info Card */}
+          <div className="bg-white p-6 rounded-xl outline outline-2 outline-[#b8ccdc]">
+            <h3 className="text-lg font-bold text-[#17488D] mb-3">
+              Tentang Rekomendasi
+            </h3>
+            <p className="text-sm text-gray-700 my-4">
+              Rekomendasi properti menggunakan metode <span className="font-medium">Multi-Criteria Decision Analysis</span> untuk mencocokan properti dengan profil Anda.
+            </p>
+            {userFormData && (
+              <div className="rounded-lg text-sm mb-4">
+                <h3 className="font-bold text-[#17488D] mb-2">Preferensi Anda</h3>
+                <div className="text-[#17488D] grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {userFormData.fund && (
+                    <div><span className="font-medium">Dana:</span> {userFormData.fund}</div>
+                  )}
+                  {userFormData.location && (
+                    <div><span className="font-medium">Lokasi:</span> {userFormData.location}</div>
+                  )}
+                  {userFormData.variety && (
+                    <div>
+                      <span className="font-medium">Jenis Properti:</span>{" "}
+                      {(() => {
+                        const items = userFormData.variety.split(",").map(item => item.trim());
+                        if (items.length === 1) return items[0];
+                        return items.slice(0, -1).join(", ") + ", dan " + items[items.length - 1];
+                      })()}
+                    </div>
+                  )}
+                  {userFormData.plan && (
+                    <div><span className="font-medium">Rencana Pembelian:</span> {userFormData.plan}</div>
+                  )}
+                  {userFormData.time && (
+                    <div><span className="font-medium">Jangka Waktu:</span> {userFormData.time}</div>
+                  )}
+                </div>
+                <div className="mt-4 text-xs text-gray-600">
+                  <Link href="/form">
+                    <button className="text-blue-600 underline">Klik disini untuk mengubah preferensi</button>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

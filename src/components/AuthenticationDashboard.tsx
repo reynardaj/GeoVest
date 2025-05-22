@@ -19,7 +19,7 @@ export default function Authentication() {
           <SignUpButton signInForceRedirectUrl="/form" mode="modal">
             <Button variant="ghost" className="text-current hover:text-gray-200 font-inter font-bold">Sign Up</Button>
           </SignUpButton>
-          <SignInButton forceRedirectUrl="/dashboard" mode="modal">
+          <SignInButton forceRedirectUrl="/map" mode="modal">
             <Button variant="ghost" className="text-current hover:text-gray-200 font-inter font-bold">Log In</Button>
           </SignInButton>
         </>

@@ -1,12 +1,23 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import PiechartForm from '../../components/PiechartForm'
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
+import { supabase } from '@/lib/supabase';
+
+interface UserTypeData {
+    userType: string;
+    title: string;
+    description: string;
+    fallback?: boolean;
+}
 
 export default function form() {
+    const { user, isLoaded, isSignedIn } = useUser();
     const [dataSaved, setDataSaved] = useState(false);
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(13);
+    const [userTypeData, setUserTypeData] = useState<UserTypeData | null>(null);
+    const [isLoadingUserType, setIsLoadingUserType] = useState(false);
     const [formData, setFormData] = useState({
         fullName: "",
         nickname: "",
@@ -20,13 +31,6 @@ export default function form() {
         location: "",
         facility: [] as string[]
     });
-
-    useEffect(() => {
-        if (step === 13) {
-            saveFormDataToLocalStorage(formData);
-            setDataSaved(true);
-        }
-    }, [step, formData]);
 
     const jobs = [
         "Pengusaha", "Karyawan", "Pendidik", "Insinyur", 
@@ -50,8 +54,8 @@ export default function form() {
     ]
 
     const varieties = [
-        "Residensial", "Komersial", "Properti Campuran"
-    ]
+        "Residensial", "Komersial", "Properti Campuran", "Properti dengan HGB", "Properti dengan Hak Pakai", "Properti dengan status hak terbatas (seperti sewa, girik, atau tanah adat)"
+    ];
 
     const times = [
         "< 1 Tahun", "1-3 Tahun", "3-5 Tahun", "> 5 Tahun", "Belum Menentukan"
@@ -64,6 +68,8 @@ export default function form() {
     const facilities = [
         "Rumah Sakit", "Transportasi Umum"
     ]
+
+    const [error, setError] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -79,26 +85,127 @@ export default function form() {
           return;
         }
         
-        // If this is the step before the final step (step 12 -> 13), save form data
-        if (step === 12) {
-          saveFormDataToLocalStorage(formData);
-        }
-        
         setError("");
         setStep(step + 1);
     };
 
-    const saveFormDataToLocalStorage = (data: any): void => {
-        localStorage.setItem('formData', JSON.stringify(data));
+    // Function to determine user type using API
+    const determineUserType = async () => {
+        setIsLoadingUserType(true);
+        try {
+            const response = await fetch('/api/user_type', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ formData })
+            });
+
+            // Check if response is ok and has content
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Check if response has content
+            const text = await response.text();
+            if (!text) {
+                throw new Error('Empty response from server');
+            }
+
+            // Parse JSON
+            const data = JSON.parse(text);
+            
+            if (data.success) {
+                setUserTypeData({
+                    userType: data.userType,
+                    title: data.title,
+                    description: data.description,
+                    fallback: data.fallback
+                });
+            } else {
+                console.error('Error from API:', data.error);
+                // Fallback to default user type
+                setUserTypeData({
+                    userType: 'young_investor',
+                    title: 'The Young Investor 🔥',
+                    description: 'Kamu baru mulai berinvestasi dan ingin mendapatkan properti dengan modal terjangkau serta pertumbuhan nilai yang cepat. Properti kecil seperti apartemen di lokasi strategis bisa menjadi pilihan terbaik untukmu!',
+                    fallback: true
+                });
+            }
+        } catch (error) {
+            console.error('Error determining user type:', error);
+            // Fallback to default user type
+            setUserTypeData({
+                userType: 'young_investor',
+                title: 'The Young Investor 🔥',
+                description: 'Kamu baru mulai berinvestasi dan ingin mendapatkan properti dengan modal terjangkau serta pertumbuhan nilai yang cepat. Properti kecil seperti apartemen di lokasi strategis bisa menjadi pilihan terbaik untukmu!',
+                fallback: true
+            });
+        } finally {
+            setIsLoadingUserType(false);
+        }
     };
 
-    const [error, setError] = useState("");
+    const saveFormDataToServer = async () => {
+        if (!isSignedIn || !user) return;
+        
+        try {
+            const varietyString = formData.variety.join(',');
+            const facilityString = formData.facility.join(',');
+
+            const dataToSave = {
+                userid: user.id,
+                fullname: formData.fullName,
+                nickname: formData.nickname,
+                job: formData.job,
+                age: formData.age,
+                income: formData.income,
+                fund: formData.fund,
+                plan: formData.plan,
+                variety: varietyString,
+                time: formData.time,
+                location: formData.location,
+                facility: facilityString,
+                user_type: userTypeData?.userType || 'young_investor' // Save the determined user type
+            };
+
+            const { error } = await supabase
+                .from('user_form')
+                .upsert([dataToSave], {
+                    onConflict: 'userid',
+                    ignoreDuplicates: false
+                });
+
+            if (!error) {
+                setDataSaved(true);
+            }
+        } catch (err) {
+            console.error('Error saving form data:', err);
+        }
+    };
+
+    useEffect(() => {
+        const attemptSave = async () => {
+            if (step === 13 && !dataSaved && isLoaded && !isLoadingUserType && userTypeData) {
+                await saveFormDataToServer();
+            }
+        };
+        
+        attemptSave();
+    }, [step, isLoaded, dataSaved, userTypeData, isLoadingUserType]);
+
+    // Determine user type when reaching step 13
+    useEffect(() => {
+        if (step === 13 && !userTypeData && !isLoadingUserType) {
+            determineUserType();
+        }
+    }, [step]);
 
     return (
         <div
             className="relative h-screen w-full flex items-center justify-center"
             style={{
-                backgroundImage: `linear-gradient(to bottom left, #17488D 5%,rgb(103, 137, 185) 20%, #ddebf3 60%,rgb(210, 231, 220) 80%, #91E0B5 95%)`
+                backgroundImage: "linear-gradient(to bottom left, #17488D 5%,rgb(103, 137, 185) 20%, #ddebf3 60%,rgb(210, 231, 220) 80%, #91E0B5 95%)"
             }}
         >
             <img
@@ -110,67 +217,60 @@ export default function form() {
             />
             <div className="text-center w-full h-full">
                 {step === 1 && (
-                <div className="flex flex-col justify-center items-center h-full w-auto max-w-[600px] p-4 mx-auto">
-                    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-                        <h1 className="text-2xl md:text-3xl font-bold text-[#17488D] mb-4 text-start">
-                            Ayo temukan portfolio terbaik untuk Anda!
-                        </h1>
-                        <p className="text-sm md:text-base text-[#17488D] mb-8 text-start">
-                            Jawab beberapa pertanyaan singkat agar kami dapat merekomendasikan portfolio GeoVest terbaik untuk Anda!
-                        </p>
+                    <div className="flex flex-col justify-center items-center h-full w-auto max-w-[600px] p-4 mx-auto">
+                        <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
+                            <h1 className="text-2xl md:text-3xl font-bold text-[#17488D] mb-4 text-start">
+                                Ayo temukan portfolio terbaik untuk Anda!
+                            </h1>
+                            <p className="text-sm md:text-base text-[#17488D] mb-8 text-start">
+                                Jawab beberapa pertanyaan singkat agar kami dapat merekomendasikan portfolio GeoVest terbaik untuk Anda!
+                            </p>
 
-                        <div className="space-y-4 w-full">
-                            <button
-                            onClick={nextStep}
-                            className="w-full bg-[#17488D] hover:bg-[#0b2e5e] text-white font-semibold py-2 rounded-xl"
-                            >
-                            Mulai
-                            </button>
-
-                            <button
-                            onClick={() => {
-                              if (typeof window !== "undefined") {
-                                window.location.href = "/dashboard"
-                              }
-                            }}
-                            className="w-full border-2 border-[#17488D] text-[#17488D] hover:bg-[#17488D] hover:text-white font-semibold py-2 rounded-xl"
-                            >
-                            Saya sudah tau yang saya inginkan
-                            </button>
+                            <div className="space-y-4 w-full">
+                                <button
+                                    onClick={nextStep}
+                                    className="w-full bg-[#17488D] hover:bg-[#0b2e5e] text-white font-semibold py-2 rounded-xl"
+                                >
+                                    Mulai
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 )}
+                
                 {step === 2 && (
-                <div className="flex flex-col justify-center items-center h-full w-auto max-w-[600px] p-4 mx-auto">
-                    <div className="w-full text-left text-[35px] font-bold mb-4 text-blue-900">
-                        Apa nama lengkap Anda?
-                    </div>
-                    <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={(e) => {
-                            handleChange(e);
-                            if (e.target.value.trim() !== "") setError("");
-                        }}
-                        placeholder="Ketik disini..."
-                        className="w-full p-3 rounded-xl bg-[#b4c8dd] border border-[#17488D] text-[#17488D] font-semibold placeholder:text-[#17488D] "
-                    />
-                    {error && (
-                        <div className="text-red-600 text-sm font-semibold mt-2 text-left w-full">
-                            {error}
+                    <div className="flex flex-col justify-center items-center h-full w-auto max-w-[600px] p-4 mx-auto">
+                        <div className="w-full text-left text-[35px] font-bold mb-4 text-blue-900">
+                            Apa nama lengkap Anda?
                         </div>
-                    )}
-                    <div className="flex justify-end w-full">
-                        <button
-                            onClick={nextStep}
-                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
-                        >
-                            Lanjut
-                        </button>
+                        <input
+                            type="text"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={(e) => {
+                                handleChange(e);
+                                if (e.target.value.trim() !== "") setError("");
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') nextStep();
+                            }}
+                            placeholder="Ketik disini..."
+                            className="w-full p-3 rounded-xl bg-[#b4c8dd] border border-[#17488D] text-[#17488D] font-semibold placeholder:text-[#17488D] "
+                        />
+                        {error && (
+                            <div className="text-red-600 text-sm font-semibold mt-2 text-left w-full">
+                                {error}
+                            </div>
+                        )}
+                        <div className="flex justify-end w-full">
+                            <button
+                                onClick={nextStep}
+                                className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                                Lanjut
+                            </button>
+                        </div>
                     </div>
-                </div>
                 )}
 
                 {step === 3 && (
@@ -186,6 +286,9 @@ export default function form() {
                             handleChange(e);
                             if (e.target.value.trim() !== "") setError("");
                         }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') nextStep();
+                        }}
                         placeholder="Ketik disini..."
                         className="w-full p-3 rounded-xl bg-[#b4c8dd] border border-[#17488D] text-[#17488D] font-semibold placeholder:text-[#17488D] "
                     />
@@ -194,7 +297,13 @@ export default function form() {
                             {error}
                         </div>
                     )}
-                    <div className="w-full flex justify-end">
+                    <div className="w-full flex justify-between">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                         <button
                             onClick={nextStep}
                             className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
@@ -224,6 +333,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -245,6 +362,14 @@ export default function form() {
                             {age}
                             </button>
                         ))}
+                    </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                     </div>
                 </div>
                 )}
@@ -268,6 +393,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -290,6 +423,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -311,6 +452,14 @@ export default function form() {
                             {plan}
                             </button>
                         ))}
+                    </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                     </div>
                 </div>
                 )}
@@ -356,20 +505,26 @@ export default function form() {
                     <div className="w-full text-red-600 text-sm font-semibold mt-2 justify-start flex">{error}</div>
                     )}
 
-                    <div className="w-full flex justify-end">
-                    <button
-                        onClick={() => {
-                        if (formData.variety.length === 0) {
-                            setError("*Pilih setidaknya satu properti sebelum melanjutkan.");
-                            return;
-                        }
-                        setError("");
-                        nextStep();
-                        }}
-                        className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
-                    >
-                        Lanjut
-                    </button>
+                    <div className="w-full flex justify-between">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                        <button
+                            onClick={() => {
+                            if (formData.variety.length === 0) {
+                                setError("*Pilih setidaknya satu properti sebelum melanjutkan.");
+                                return;
+                            }
+                            setError("");
+                            nextStep();
+                            }}
+                            className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
+                        >
+                            Lanjut
+                        </button>
                     </div>
                 </div>
                 )}
@@ -393,13 +548,21 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
                 {step === 11 && (
                 <div className="flex flex-col justify-center items-center h-full w-auto max-w-[600px] p-4 mx-auto">
                     <div className="w-full text-left flex justify-start text-[35px] font-bold mb-4 text-blue-900">
-                        Di mana lokasi properti yang Anda inginkan?
+                        Di mana preferensi lokasi properti yang Anda inginkan?
                     </div>
                     <div className="w-full flex flex-col gap-2">
                         {locations.map((location) => (
@@ -414,6 +577,14 @@ export default function form() {
                             {location}
                             </button>
                         ))}
+                    </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                     </div>
                 </div>
                 )}
@@ -459,7 +630,13 @@ export default function form() {
                     <div className="w-full text-red-600 text-sm font-semibold mt-2 justify-start flex">{error}</div>
                     )}
 
-                    <div className="w-full flex justify-end">
+                    <div className="w-full flex justify-between">
+                    <button
+                        onClick={() => setStep(step - 1)}
+                        className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
+                        >
+                        Kembali
+                    </button>
                     <button
                         onClick={() => {
                         if (formData.facility.length === 0) {
@@ -478,97 +655,68 @@ export default function form() {
                 )}
 
                 {step === 13 && (
-                <div className="w-full h-full flex justify-center overflow-hidden">
-                    <div className="pt-10 w-full absolute h-[200px] bg-[#b8ccdc] top-[74px] text-[#17488D] font-semibold text-xl">
-                        Berdasarkan jawaban Anda, berikut rekomendasi GeoVest untuk Anda!
-                    </div>
-                    <div className="relative bg-[#DDEBF3] w-[50%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
-                        <div className="flex text-left justify-between items-start gap-6">
-                            {/* Left Column */}
-                            <div className="flex flex-col gap-4 w-[60%]">
-                                <h1 className="text-2xl font-bold text-[#17488D]">
-                                    {/* "18-24", "25-34", "35-44", "45-54", "55+" */}
-                                    {/* "< 1 Juta", "1-5 Juta", "5-10 Juta", "10-50 Juta", "50-100 Juta", "100+ Juta" */}
-                                    {/* "< 100 Juta", "100-500 Juta", "500 Juta-1 M", "1-5 M", "> 5 M"? */}
-                                    {(formData.age === "18-24" || formData.age === "25-34" || formData.income === "< 1 Juta") && (formData.fund === "< 100 Juta" || formData.fund === "100-500 Juta") ? (
-                                        <>The Young Investor 🔥</>
-                                    ) : null}
-                                    {(formData.fund === "500 Juta-1 M" || formData.fund === "1-5 M") ? (
-                                        <>The Long-Term Planner 📈</>
-                                    ) : null}
-                                    {(formData.fund === "> 5 M") ? (
-                                        <>The Commercial Investor 🏢</>
-                                    ) : null}
-                                </h1>
-                                <p className="text-[#17488D]">
-                                    {(formData.age === "18-24" || formData.age === "25-34" || formData.income === "< 1 Juta") && (formData.fund === "< 100 Juta" || formData.fund === "100-500 Juta") ? (
-                                        <>Kamu baru mulai berinvestasi dan ingin mendapatkan properti dengan modal terjangkau serta pertumbuhan nilai yang cepat. Properti kecil seperti apartemen di lokasi strategis bisa menjadi pilihan terbaik untukmu!</>
-                                    ) : null}
-                                    {(formData.fund === "500 Juta-1 M" || formData.fund === "1-5 M") ? (
-                                        <>Kamu sudah berada di tahap stabil dalam hidup dan ingin memastikan masa depan yang aman. Fokusmu adalah investasi jangka panjang dengan nilai yang terus naik seiring waktu. Properti rumah tapak di area yang berkembang menjadi pilihan ideal karena cocok untuk tempat tinggal sekaligus aset yang bisa diwariskan.</>
-                                    ) : null}
-                                    {(formData.fund === "> 5 M") ? (
-                                        <>Kamu adalah investor berpengalaman atau pelaku bisnis yang ingin mengembangkan aset di sektor properti komersial. Fokusmu adalah cashflow yang stabil dan potensi bisnis jangka menengah. Properti seperti ruko, gudang, atau kantor di lokasi strategis dengan tingkat sewa tinggi menjadi target utama investasimu.</>
-                                    ) : null}
-                                </p>
-
-                                {/* Ciri-ciri */}
-                                <div>
-                                    <h2 className="mt-[30px] font-bold text-[#17488D] mb-1">🙎‍♂️ Ciri-ciri</h2>
-                                    <ul className="list-disc list-inside text-[#17488D] text-sm">
-                                    <li>Usia: {formData.age}</li>
-                                    <li>Penghasilan: {formData.income}</li>
-                                    <li>Modal investasi: {formData.fund}</li>
-                                    <li>Preferensi: {formData.variety.join(', ')}</li>
-                                    <li>Jangka waktu: {formData.time}</li>
-                                    </ul>
+                    <div className="w-full h-full flex justify-center overflow-hidden">
+                        <div className="pt-10 w-full absolute h-[200px] bg-[#b8ccdc] top-[74px] text-[#17488D] font-semibold text-xl">
+                            Berdasarkan jawaban Anda, berikut rekomendasi GeoVest untuk Anda!
+                        </div>
+                        <div className="relative bg-[#DDEBF3] w-[50%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
+                            {isLoadingUserType ? (
+                                <div className="flex items-center justify-center h-full text-[#17488D] text-xl">
+                                    Menganalisis profil Anda...
                                 </div>
-
-                                {/* Strategi Investasi */}
+                            ) : userTypeData ? (
                                 <div>
-                                    <h2 className="mt-[30px] font-bold text-[#17488D] mb-1">📌 Strategi Investasi</h2>
-                                    <ul className="list-disc list-inside text-[#17488D] text-sm">
-                                    <li>
-                                        {(formData.age === "18-24" || formData.age === "25-34" || formData.income === "< 1 Juta") && (formData.fund === "< 100 Juta" || formData.fund === "100-500 Juta") ? (
-                                            <>Properti kecil dengan harga terjangkau & kenaikan nilai cepat.</>
-                                        ) : null}
-                                        {(formData.fund === "500 Juta-1 M" || formData.fund === "1-5 M") ? (
-                                            <>Rumah di area berkembang dengan potensi nilai naik.</>
-                                        ) : null}
-                                        {(formData.fund === "> 5 M") ? (
-                                            <>Ruko, gudang, atau kantor di area bisnis berkembang.</>
-                                        ) : null}
-                                    </li>
-                                    <li>
-                                        {(formData.age === "18-24" || formData.age === "25-34" || formData.income === "< 1 Juta") && (formData.fund === "< 100 Juta" || formData.fund === "100-500 Juta") ? (
-                                            <>Apartemen dekat transportasi & area bisnis.</>
-                                        ) : null}
-                                        {(formData.fund === "500 Juta-1 M" || formData.fund === "1-5 M") ? (
-                                            <>Dekat sekolah, rumah sakit, dan transportasi.</>
-                                        ) : null}
-                                        {(formData.fund === "> 5 M") ? (
-                                            <>Properti sewa tinggi dengan cashflow stabil.</>
-                                        ) : null}
-                                    </li>
-                                    </ul>
+                                    <div className="flex text-left justify-between items-start gap-6">
+                                    {/* Left Column */}
+                                    <div className="flex flex-col gap-4 w-[60%]">
+                                        <h1 className="text-2xl font-bold text-[#17488D]">
+                                            {userTypeData.title}
+                                        </h1>
+                                        <p className="text-[#17488D]">
+                                            {userTypeData.description}
+                                        </p>
+
+                                        {/* Ciri-ciri */}
+                                        <div>
+                                            <h2 className="mt-[30px] font-bold text-[#17488D] mb-1">🙎‍♂️ Ciri-ciri</h2>
+                                            <ul className="list-disc list-inside text-[#17488D] text-sm">
+                                                <li>Usia: {formData.age}</li>
+                                                <li>Penghasilan: {formData.income}</li>
+                                                <li>Modal investasi: {formData.fund}</li>
+                                                <li>
+                                                    Preferensi: {
+                                                        formData.variety.length === 1
+                                                        ? formData.variety[0]
+                                                        : formData.variety.slice(0, -1).join(', ') + ', dan ' + formData.variety.slice(-1)
+                                                    }
+                                                </li>
+                                                <li>Jangka waktu: {formData.time}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    {/* Right Column */}
+                                    <div className="flex flex-col items-center w-[40%] justify-between gap-10">
+                                        
+                                        {/* Button */}
+                                        <Link href="/dashboard">
+                                            <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white font-semibold px-4 py-2 rounded-xl">
+                                                Lihat Rekomendasi Properti
+                                            </button>
+                                        </Link>
+                                        
+                                    </div>
                                 </div>
-
                             </div>
-
-                            {/* Right Column */}
-                            <div className="flex flex-col items-center w-[40%] justify-between gap-4">
-                                {/* Button */}
-                                <Link href="/dashboard">
-                                    <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white font-semibold px-4 py-2 rounded-xl">
-                                        Lihat Rekomendasi Properti
-                                    </button>
-                                </Link>
-
-                                <PiechartForm/>
-                            </div>
+                            ) : (
+                                <div className="flex items-center justify-center h-full">
+                                    <div className="text-[#17488D] text-xl">
+                                        Terjadi kesalahan saat menganalisis profil Anda.
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
-                </div>
                 )}
             </div>
         </div>
