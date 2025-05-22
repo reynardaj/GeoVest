@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "GeoVest - AI-Powered Geospatial Investment Insights",
   description:
     "Make smarter investment decisions with AI-driven geospatial insights on property markets, historical trends, and price movements.",
+  icons: {
+    icon: '/logo1.svg'
+  }
 };
 
 interface ChildProps {

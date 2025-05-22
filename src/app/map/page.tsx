@@ -4,6 +4,7 @@ import type { MapGeoJSONFeature, Map, LngLatBoundsLike } from "maplibre-gl";
 import { Resizable } from "re-resizable";
 
 import MapComponent from "@/components/map/MapComponent";
+import MapDrawingTool from "@/components/map/MapDrawingTool";
 
 import type {
   PopupData,
@@ -40,6 +41,13 @@ export default function MapPage() {
 
   const [religionOpacity, setReligionOpacity] = useState<number>(15);
   const [ageOpacity, setAgeOpacity] = useState<number>(15);
+  const [mapInstance, setMapInstance] = useState<Map | null>(null);
+
+  const handleMapLoad = useCallback((map: Map) => {
+    console.log("Map instance set in MapPage after loading.");
+    setMapInstance(map); // This will set the mapInstance state in MapPage
+  }, []);
+  
   // Renamed from Page for clarity
   useEffect(() => {
     const storedCoordinates = localStorage.getItem(
@@ -100,6 +108,34 @@ export default function MapPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  useEffect(() => {
+    const storedCoordinates = localStorage.getItem(
+      "selectedPropertyCoordinates"
+    );
+    const storedPropertyData = localStorage.getItem("selectedPropertyData");
+
+    if (storedCoordinates && mapInstance) {
+      const coords = JSON.parse(storedCoordinates) as [number, number, number];
+      console.log("Flying to coordinates:", coords);
+
+      mapInstance.flyTo({
+        center: [coords[0], coords[1]],
+        zoom: 15,
+        essential: true,
+      });
+
+      localStorage.removeItem("selectedPropertyCoordinates");
+      setSelectedPropertyToFocus(coords);
+    }
+
+    if (storedPropertyData) {
+      const parsedPropertyData = JSON.parse(
+        storedPropertyData
+      ) as SelectedPropertyData;
+      setSelectedPropertyData(parsedPropertyData);
+      localStorage.removeItem("selectedPropertyData");
+    }
+  }, [mapInstance]);
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -421,7 +457,19 @@ export default function MapPage() {
             eventHandlers={mapEventHandlers}
             baseMapStyleUrl={selectedBaseMapStyleUrl}
             key={selectedBaseMapId}
+            onLoad={handleMapLoad}
           />
+
+            {mapInstance && (
+              <>
+                {console.log("mapInstance in render:", mapInstance)} {/* This log should now appear! */}
+                {/*
+                  Make sure MapDrawingTool receives mapInstance directly or through props
+                  If MapDrawingTool is a child of MapPage and depends on mapInstance:
+                */}
+                <MapDrawingTool map={mapInstance} />
+              </>
+            )}
 
           {/* Mobile Burger Menu Button */}
           {isMobile && (

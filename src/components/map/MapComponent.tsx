@@ -1,7 +1,7 @@
 // src/components/map/MapComponent.tsx
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { MapOptions, MapGeoJSONFeature, Map } from "maplibre-gl";
 import { useMapInitialization } from "@/hooks/map/useMapInitialization";
 import { useMapLayers } from "@/hooks/map/useMapLayers";
@@ -13,6 +13,7 @@ interface MapComponentProps {
   layerControls: MapLayerControls;
   eventHandlers: MapEventHandlers;
   baseMapStyleUrl: string;
+  onLoad?: (map: Map) => void;
 }
 
 export default function MapComponent({
@@ -20,14 +21,21 @@ export default function MapComponent({
   layerControls,
   eventHandlers,
   baseMapStyleUrl,
+  onLoad,
 }: MapComponentProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { mapInstance, isLoaded } = useMapInitialization(
     mapContainerRef as React.RefObject<HTMLDivElement>,
     initialOptions,
-    baseMapStyleUrl
+    baseMapStyleUrl,
+    onLoad
   );
+  useEffect(() => {
+    if (isLoaded && mapInstance && onLoad) {
+      onLoad(mapInstance);
+    }
+  }, [isLoaded, mapInstance, onLoad]);
 
   // Pass map instance, load status, and controls to the layers hook
   useMapLayers(mapInstance, isLoaded, layerControls);
