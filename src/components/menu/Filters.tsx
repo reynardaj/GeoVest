@@ -63,9 +63,6 @@ const Filters = ({
   ageOpacity,
   onAgeOpacityChange,
 }: FiltersProps) => {
-  const [selectedReligions, setSelectedReligions] = useState<string | null>(
-    null
-  );
   const [showDemografi, setShowDemografi] = useState(false);
   const [showDisaster, setShowDisaster] = useState(false);
   const [showInfrastructure, setShowInfrastructure] = useState(false);
@@ -94,8 +91,6 @@ const Filters = ({
     },
     { label: "Lansia (>60 tahun)", value: "Lansia_>60_tahun_bin" },
   ];
-  const minPrice = 100_000_000;
-  const maxPrice = 5_000_000_000;
 
   const formattedPrice = (value: number) => {
     if (value >= 1_000_000_000) {
@@ -259,9 +254,9 @@ const Filters = ({
                   checked={selectedAgeBin === ageGroup.value}
                   onChange={(e) => {
                     if (selectedAgeBin === ageGroup.value) {
-                      onAgeBinChange(""); // Deselect if already selected
+                      onAgeBinChange("");
                     } else {
-                      onAgeBinChange(ageGroup.value); // Select the new value
+                      onAgeBinChange(ageGroup.value);
                     }
                   }}
                   className="hidden"
@@ -371,9 +366,9 @@ const Filters = ({
                   checked={selectedReligionBin === religion.value}
                   onChange={() => {
                     if (selectedReligionBin === religion.value) {
-                      onReligionBinChange(""); // Deselect if already selected
+                      onReligionBinChange("");
                     } else {
-                      onReligionBinChange(religion.value); // Select the new value
+                      onReligionBinChange(religion.value);
                     }
                   }}
                   className="hidden"

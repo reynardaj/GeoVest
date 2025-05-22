@@ -59,38 +59,31 @@ function getCurrentQuarter(): number {
 const currentQuarter = getCurrentQuarter();
 const scatterData = getAnnualROI(quarterlyData, currentQuarter);
 
-const PropertyChart = () => {
-  return (
-    <div style={{ width: '100%', height: 400 }}>
-      <h2>Property Price Index (2020–2024)</h2>
-      <ResponsiveContainer>
-        <ComposedChart data={propertyData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-          <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="housing" name="Housing" barSize={20} fill="#0B0C0C" />
-          <Bar dataKey="apartment" name="Apartment" barSize={20} fill="#00AEEF" />
-          <Line
-            type="monotone"
-            dataKey="residential_property"
-            name="Residential Property"
-            stroke="#F47920"
-            strokeWidth={3}
-            dot={{ r: 4 }}
-          />
-        </ComposedChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
+interface Property {
+  image: string;
+  title: string;
+  location: string;
+  price: number;
+  category: string;
+  landArea: number;
+  buildingArea: number;
+  status: string;
+  certificateType: string;
+  propertyUrl: string;
+  coordinates?: [number, number, number];
+  fund: string;
+  mcdaScore?: number;
+}
 
-export default function ChartDashboard() {
+interface ChartDashboardProps {
+  properties?: Property[];
+}
+
+const ChartDashboard: React.FC<ChartDashboardProps> = ({ properties = [] }) => {
     return (
         <div className="p-6 space-y-2 max-w-4xl mx-auto">
             <h2 className="text-xl font-semibold text-center text-[#17488D]">Rekomendasi Properti</h2>
-            <Piechart/>
+            <Piechart properties={properties}/>
             <div>
                 <h2 className="text-xl font-semibold text-center text-[#17488D] mt-12 mb-4">
                     ROI Kumulatif Tahunan
@@ -145,24 +138,24 @@ export default function ChartDashboard() {
                         <CartesianGrid stroke="#f5f5f5" />
                         <XAxis dataKey="year" />
                         <YAxis
-                        label={{
-                            value: 'Indeks Properti',
-                            angle: -90,
-                            position: 'insideLeft',
-                            style: { textAnchor: 'middle' },
-                        }}
+                          label={{
+                              value: 'Indeks Properti',
+                              angle: -90,
+                              position: 'insideLeft',
+                              style: { textAnchor: 'middle' },
+                          }}
                         />
                         <Tooltip labelFormatter={() => ''} />
-                        <Legend layout="vertical" verticalAlign="bottom" align="center" />
+                        <Legend layout="vertical" verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: '14px' }} />
                         <Bar dataKey="housing" name="Housing" barSize={20} fill="#4CB8C4" />
                         <Bar dataKey="apartment" name="Apartment" barSize={20} fill="#17488D" />
                         <Line
-                        type="monotone"
-                        dataKey="residential_property"
-                        name="Residential Property"
-                        stroke="#2F4A6F"
-                        strokeWidth={3}
-                        dot={{ r: 4 }}
+                          type="monotone"
+                          dataKey="residential_property"
+                          name="Residential Property"
+                          stroke="#2F4A6F"
+                          strokeWidth={3}
+                          dot={{ r: 4 }}
                         />
                         </ComposedChart>
                     </ResponsiveContainer>
@@ -171,3 +164,5 @@ export default function ChartDashboard() {
         </div>
     );
 }
+
+export default ChartDashboard;

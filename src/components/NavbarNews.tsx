@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { UserButton } from "@clerk/nextjs";
 import AuthenticationNews from "./AuthenticationNews";
 
 interface NavbarProps {
@@ -43,7 +44,7 @@ export default function Navbar({ isSignedIn }: NavbarProps) {
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex">
             {!isSignedIn && <AuthenticationNews />}
-            {isSignedIn && <p className="font-inter font-semibold">Logged In</p>}
+            {isSignedIn && <UserButton />}
           </div>
           <div className="md:hidden">
             <button onClick={toggleMenu} className="text-[#17488D] focus:outline-none">
@@ -72,7 +73,7 @@ export default function Navbar({ isSignedIn }: NavbarProps) {
               <AuthenticationNews isMobileMenu={true} />
             </div>
           )}
-          {isSignedIn && <p className="py-2 px-4 font-inter font-semibold">Logged In</p>}
+          {isSignedIn && <UserButton />}
         </div>
       )}
     </nav>

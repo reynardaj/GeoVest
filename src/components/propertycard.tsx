@@ -72,7 +72,7 @@ export default function PropertyCard({
   return (
     <div
       onClick={handleCardClick}
-      className="cursor-pointer border-2 border-[#9eb2cd] bg-white shadow-md rounded-xl overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[102%] hover:shadow-lg"
+      className="h-full flex flex-col cursor-pointer border-2 border-[#9eb2cd] bg-white shadow-md rounded-xl overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[100.5%] hover:shadow-lg"
     >
       <div className="relative h-80 w-full">
         <Image

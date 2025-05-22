@@ -3,8 +3,11 @@
 import { useState, useEffect } from "react";
 import PiechartForm from '../../components/PiechartForm'
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
+import { supabase } from '@/lib/supabase'
 
 export default function form() {
+    const { user, isLoaded, isSignedIn } = useUser();
     const [dataSaved, setDataSaved] = useState(false);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -20,13 +23,6 @@ export default function form() {
         location: "",
         facility: [] as string[]
     });
-
-    useEffect(() => {
-        if (step === 13) {
-            saveFormDataToLocalStorage(formData);
-            setDataSaved(true);
-        }
-    }, [step, formData]);
 
     const jobs = [
         "Pengusaha", "Karyawan", "Pendidik", "Insinyur", 
@@ -65,6 +61,8 @@ export default function form() {
         "Rumah Sakit", "Transportasi Umum"
     ]
 
+    const [error, setError] = useState("");
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };  
@@ -79,26 +77,64 @@ export default function form() {
           return;
         }
         
-        // If this is the step before the final step (step 12 -> 13), save form data
-        if (step === 12) {
-          saveFormDataToLocalStorage(formData);
-        }
-        
         setError("");
         setStep(step + 1);
     };
 
-    const saveFormDataToLocalStorage = (data: any): void => {
-        localStorage.setItem('formData', JSON.stringify(data));
+
+    const saveFormDataToServer = async () => {
+        if (!isSignedIn || !user) return;
+        
+        try {
+            const varietyString = formData.variety.join(',');
+            const facilityString = formData.facility.join(',');
+
+            const dataToSave = {
+            userid: user.id,
+            fullname: formData.fullName,
+            nickname: formData.nickname,
+            job: formData.job,
+            age: formData.age,
+            income: formData.income,
+            fund: formData.fund,
+            plan: formData.plan,
+            variety: varietyString,
+            time: formData.time,
+            location: formData.location,
+            facility: facilityString
+            };
+
+            const { error } = await supabase
+            .from('user_form')
+            .upsert([dataToSave], {
+                onConflict: 'userid',
+                ignoreDuplicates: false
+            });
+
+            if (!error) {
+            setDataSaved(true);
+            }
+        } catch (err) {
+            console.error('Error saving form data:', err);
+        }
     };
 
-    const [error, setError] = useState("");
+    useEffect(() => {
+    const attemptSave = async () => {
+        if (step === 13 && !dataSaved && isLoaded) {
+        await saveFormDataToServer();
+        }
+    };
+    
+    attemptSave();
+    }, [step, isLoaded, dataSaved]);
 
     return (
+        
         <div
             className="relative h-screen w-full flex items-center justify-center"
             style={{
-                backgroundImage: `linear-gradient(to bottom left, #17488D 5%,rgb(103, 137, 185) 20%, #ddebf3 60%,rgb(210, 231, 220) 80%, #91E0B5 95%)`
+                backgroundImage: "linear-gradient(to bottom left, #17488D 5%,rgb(103, 137, 185) 20%, #ddebf3 60%,rgb(210, 231, 220) 80%, #91E0B5 95%)"
             }}
         >
             <img
@@ -126,17 +162,6 @@ export default function form() {
                             >
                             Mulai
                             </button>
-
-                            <button
-                            onClick={() => {
-                              if (typeof window !== "undefined") {
-                                window.location.href = "/dashboard"
-                              }
-                            }}
-                            className="w-full border-2 border-[#17488D] text-[#17488D] hover:bg-[#17488D] hover:text-white font-semibold py-2 rounded-xl"
-                            >
-                            Saya sudah tau yang saya inginkan
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -153,6 +178,9 @@ export default function form() {
                         onChange={(e) => {
                             handleChange(e);
                             if (e.target.value.trim() !== "") setError("");
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') nextStep();
                         }}
                         placeholder="Ketik disini..."
                         className="w-full p-3 rounded-xl bg-[#b4c8dd] border border-[#17488D] text-[#17488D] font-semibold placeholder:text-[#17488D] "
@@ -186,6 +214,9 @@ export default function form() {
                             handleChange(e);
                             if (e.target.value.trim() !== "") setError("");
                         }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') nextStep();
+                        }}
                         placeholder="Ketik disini..."
                         className="w-full p-3 rounded-xl bg-[#b4c8dd] border border-[#17488D] text-[#17488D] font-semibold placeholder:text-[#17488D] "
                     />
@@ -194,7 +225,13 @@ export default function form() {
                             {error}
                         </div>
                     )}
-                    <div className="w-full flex justify-end">
+                    <div className="w-full flex justify-between">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                         <button
                             onClick={nextStep}
                             className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
@@ -224,6 +261,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -245,6 +290,14 @@ export default function form() {
                             {age}
                             </button>
                         ))}
+                    </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                     </div>
                 </div>
                 )}
@@ -268,6 +321,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -290,6 +351,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -311,6 +380,14 @@ export default function form() {
                             {plan}
                             </button>
                         ))}
+                    </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                     </div>
                 </div>
                 )}
@@ -356,20 +433,26 @@ export default function form() {
                     <div className="w-full text-red-600 text-sm font-semibold mt-2 justify-start flex">{error}</div>
                     )}
 
-                    <div className="w-full flex justify-end">
-                    <button
-                        onClick={() => {
-                        if (formData.variety.length === 0) {
-                            setError("*Pilih setidaknya satu properti sebelum melanjutkan.");
-                            return;
-                        }
-                        setError("");
-                        nextStep();
-                        }}
-                        className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
-                    >
-                        Lanjut
-                    </button>
+                    <div className="w-full flex justify-between">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                        <button
+                            onClick={() => {
+                            if (formData.variety.length === 0) {
+                                setError("*Pilih setidaknya satu properti sebelum melanjutkan.");
+                                return;
+                            }
+                            setError("");
+                            nextStep();
+                            }}
+                            className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
+                        >
+                            Lanjut
+                        </button>
                     </div>
                 </div>
                 )}
@@ -393,6 +476,14 @@ export default function form() {
                             </button>
                         ))}
                     </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
+                    </div>
                 </div>
                 )}
 
@@ -414,6 +505,14 @@ export default function form() {
                             {location}
                             </button>
                         ))}
+                    </div>
+                    <div className="w-full flex justify-start mt-2">
+                        <button
+                            onClick={() => setStep(step - 1)}
+                            className="mt-4 px-8 py-2 bg-[#17488D] text-[#ffffff] font-normal rounded-xl hover:bg-[#0b2e5e]"
+                            >
+                            Kembali
+                        </button>
                     </div>
                 </div>
                 )}
@@ -459,7 +558,13 @@ export default function form() {
                     <div className="w-full text-red-600 text-sm font-semibold mt-2 justify-start flex">{error}</div>
                     )}
 
-                    <div className="w-full flex justify-end">
+                    <div className="w-full flex justify-between">
+                    <button
+                        onClick={() => setStep(step - 1)}
+                        className="mt-6 px-8 py-2 bg-[#17488D] text-white font-normal rounded-xl hover:bg-[#0b2e5e]"
+                        >
+                        Kembali
+                    </button>
                     <button
                         onClick={() => {
                         if (formData.facility.length === 0) {
@@ -487,9 +592,6 @@ export default function form() {
                             {/* Left Column */}
                             <div className="flex flex-col gap-4 w-[60%]">
                                 <h1 className="text-2xl font-bold text-[#17488D]">
-                                    {/* "18-24", "25-34", "35-44", "45-54", "55+" */}
-                                    {/* "< 1 Juta", "1-5 Juta", "5-10 Juta", "10-50 Juta", "50-100 Juta", "100+ Juta" */}
-                                    {/* "< 100 Juta", "100-500 Juta", "500 Juta-1 M", "1-5 M", "> 5 M"? */}
                                     {(formData.age === "18-24" || formData.age === "25-34" || formData.income === "< 1 Juta") && (formData.fund === "< 100 Juta" || formData.fund === "100-500 Juta") ? (
                                         <>The Young Investor 🔥</>
                                     ) : null}
