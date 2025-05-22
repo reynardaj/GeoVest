@@ -7,7 +7,8 @@ import { INITIAL_CENTER, INITIAL_ZOOM } from "@/config/mapConstants"; // Import 
 export function useMapInitialization(
   mapContainerRef: RefObject<HTMLDivElement>,
   options?: Partial<Omit<MapOptions, "container">>,
-  styleUrl?: string // Allow partial overrides
+  styleUrl?: string, // Allow partial overrides
+  onLoadCallback?: (map: Map) => void
 ) {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -31,6 +32,9 @@ export function useMapInitialization(
       console.log("useMapInitialization: Map Loaded for style:", styleUrl);
       setMapInstance(map);
       setIsLoaded(true);
+      if (onLoadCallback) { // ADD THESE TWO LINES
+        onLoadCallback(map); // ADD THESE TWO LINES
+      } // ADD THESE TWO LINES
     });
 
     map.on("error", (e) => {
@@ -53,7 +57,7 @@ export function useMapInitialization(
       setIsLoaded(false);
       setMapInstance(null); // Set state to null BEFORE removing map
     };
-  }, [mapContainerRef, styleUrl, options]); // Only depends on the container ref
+  }, [mapContainerRef, styleUrl, options, onLoadCallback]); // Only depends on the container ref
 
   return { mapInstance, isLoaded };
 }

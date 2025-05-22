@@ -13,6 +13,7 @@ interface MapComponentProps {
   layerControls: MapLayerControls;
   eventHandlers: MapEventHandlers;
   baseMapStyleUrl: string;
+  onLoad?: (map: Map) => void;
 }
 
 export default function MapComponent({
@@ -20,13 +21,15 @@ export default function MapComponent({
   layerControls,
   eventHandlers,
   baseMapStyleUrl,
+  onLoad,
 }: MapComponentProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { mapInstance, isLoaded } = useMapInitialization(
     mapContainerRef as React.RefObject<HTMLDivElement>,
     initialOptions,
-    baseMapStyleUrl
+    baseMapStyleUrl,
+    onLoad
   );
 
   // Pass map instance, load status, and controls to the layers hook
