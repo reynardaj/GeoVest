@@ -74,17 +74,6 @@ interface GeoJSONData {
   features: GeoJSONFeature[];
 }
 
-const CRITERIA_WEIGHTS = {
-  price: 0.25,
-  location: 0.25,
-  category: 0.15,
-  landArea: 0.1,
-  buildingArea: 0.1,
-  income: 0.05,
-  plan: 0.05,
-  time: 0.05
-};
-
 export default function Dashboard() {
   const { user } = useUser();
   const router = useRouter();
@@ -93,57 +82,70 @@ export default function Dashboard() {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [userFormData, setUserFormData] = useState<UserFormData | null>(null);
 
+  const getRecommendations = async (
+    propertiesData: Property[], 
+    userData?: UserFormData, 
+    basicFormData?: FormData
+  ) => {
+    try {
+      const requestBody = {
+        properties: propertiesData,
+        userData: userData,
+        formData: basicFormData,
+        recommendationType: userData ? 'mcda' : 'basic'
+      };
+
+      const response = await fetch('/api/recommendations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        return result.properties;
+      } else {
+        throw new Error(result.error || 'Unknown error occurred');
+      }
+    } catch (error) {
+      console.error('Error calling recommendation API:', error);
+      return propertiesData;
+    }
+  };
+
   useEffect(() => {
-    const fetchUserFormData = async () => {
+    const initializeDashboard = async () => {
       if (!user?.id) return;
       
+      setLoading(true);
+      
       try {
-        const { data, error } = await supabase
+        const { data: userData, error } = await supabase
           .from('user_form')
           .select('*')
           .eq('userid', user.id)
           .single();
         
-        if (error) {
-          console.error('Error fetching user form data:', error);
-          if (error.code === 'PGRST116') {
-            router.push('/form');
-            return;
-          }
-          return;
-        }
-
-        if (!data) {
+        if (error && error.code === 'PGRST116') {
           router.push('/form');
           return;
         }
-        
-        if (data) {
-          setUserFormData(data);
-          
-          const parsedFormData: FormData = {
-            fund: data.fund,
-            location: data.location,
-            variety: data.variety ? data.variety.split(',') : [],
-            plan: data.plan,
-            time: data.time,
-            facility: data.facility
-          };
-          
-          setFormData(parsedFormData);
-          localStorage.setItem("formData", JSON.stringify(parsedFormData));
+
+        if (error) {
+          console.error('Error fetching user form data:', error);
         }
-      } catch (error) {
-        console.error('Error in fetching user data:', error);
-      }
-    };
 
-    fetchUserFormData();
-
-    fetch("/properties.geojson")
-      .then((response) => response.json())
-      .then((data: GeoJSONData) => {
-        const propertiesFromGeoJSON: Property[] = data.features.map(
+        const response = await fetch("/properties.geojson");
+        const geoData: GeoJSONData = await response.json();
+        
+        const propertiesFromGeoJSON: Property[] = geoData.features.map(
           (feature: GeoJSONFeature, index) => {
             const { properties: prop, geometry } = feature;
             const propertyId = feature.id || index;
@@ -165,299 +167,58 @@ export default function Dashboard() {
                 geometry.coordinates[1],
                 propertyId,
               ],
-              fund: getPriceRange(prop.property_price),
+              fund: "",
             };
           }
         );
 
-        const allProperties = [...propertiesFromGeoJSON];
+        if (propertiesFromGeoJSON.length === 0) {
+          setLoading(false);
+          return;
+        }
+
+        let recommendedProperties: Property[] = [];
         
-        if (userFormData) {
-          const recommended = recommendPropertiesWithMCDA(
-            allProperties,
-            userFormData
-          );
-          setProperties(recommended);
+        if (userData) {
+          setUserFormData(userData);
+          
+          const parsedFormData: FormData = {
+            fund: userData.fund,
+            location: userData.location,
+            variety: userData.variety ? userData.variety.split(',') : [],
+            plan: userData.plan,
+            time: userData.time,
+            facility: userData.facility
+          };
+          
+          setFormData(parsedFormData);
+          localStorage.setItem("formData", JSON.stringify(parsedFormData));
+          
+          recommendedProperties = await getRecommendations(propertiesFromGeoJSON, userData);
         } else {
           const storedFormData = localStorage.getItem("formData");
           if (storedFormData) {
             const parsedFormData: FormData = JSON.parse(storedFormData);
             setFormData(parsedFormData);
-  
-            const recommended = recommendProperties(
-              propertiesFromGeoJSON,
-              parsedFormData
-            );
-            setProperties(recommended);
-          } else {
-            setProperties(propertiesFromGeoJSON);
-          }
-        }
-        
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching properties:", error);
-        setLoading(false);
-      });
-  }, [user?.id, userFormData]);
-
-  const getPriceRange = (price: number): string => {
-    if (price < 100000000) return "< 100 Juta";
-    if (price < 500000000) return "100-500 Juta";
-    if (price < 1000000000) return "500 Juta-1 M";
-    if (price < 5000000000) return "1-5 M";
-    return "> 5 M";
-  };
-
-  const recommendProperties = (
-    allProperties: Property[],
-    formData: FormData
-  ): Property[] => {
-    let filtered = [...allProperties];
-
-    if (formData.fund) {
-      filtered = filtered.filter((property) => property.fund === formData.fund);
-    }
-
-    if (formData.location && formData.location.length > 0) {
-      filtered = filtered.filter((property) =>
-        property.location
-          .toLowerCase()
-          .includes(formData.location!.toLowerCase())
-      );
-    }
-
-    if (formData.variety && formData.variety.length > 0) {
-      filtered = filtered.filter((property) =>
-        formData.variety!.some((v: string) =>
-          property.category.toLowerCase().includes(v.toLowerCase())
-        )
-      );
-    }
-
-    if (filtered.length === 0) {
-      return allProperties;
-    }
-
-    return filtered;
-  };
-
-  const recommendPropertiesWithMCDA = (
-    allProperties: Property[],
-    userData: UserFormData
-  ): Property[] => {
-    const fundRanks = {
-      "< 100 Juta": 1,
-      "100-500 Juta": 2,
-      "500 Juta-1 M": 3,
-      "1-5 M": 4,
-      "> 5 M": 5
-    };
-    
-    const incomeRanks = {
-      "< 1 Juta": 1,
-      "1-5 Juta": 2,
-      "5-10 Juta": 3,
-      "10-50 Juta": 4,
-      "50-100 Juta": 5,
-      "100+ Juta": 6
-    };
-    
-    const timeRanks = {
-      "< 1 Tahun": 1,
-      "1-3 Tahun": 2,
-      "3-5 Tahun": 3,
-      "> 5 Tahun": 4,
-      "Belum Menentukan": 2.5
-    };
-    
-    const locations = [
-      "Jakarta Barat", 
-      "Jakarta Utara", 
-      "Jakarta Selatan", 
-      "Jakarta Timur", 
-      "Jakarta Pusat"
-    ];
-    
-    const varietyTypes = [
-      "Residensial", 
-      "Komersial",
-      "Properti Campuran"
-    ];
-    
-    const facilityTypes = [
-      "Rumah Sakit", 
-      "Transportasi Umum"
-    ];
-    
-    let eligible = [...allProperties];
-    
-    const locationKeywords = locations.reduce((acc, loc) => {
-      const words = loc.toLowerCase().split(' ');
-      return [...acc, ...words, loc.toLowerCase()];
-    }, [] as string[]);
-    
-    const scoredProperties = eligible.map(property => {
-      let score = 0;
-      
-      if (userData.fund && property.fund) {
-        if (property.fund === userData.fund) {
-          score += CRITERIA_WEIGHTS.price;
-        } else {
-          const userFundRank = fundRanks[userData.fund as keyof typeof fundRanks] || 3;
-          const propertyFundRank = fundRanks[property.fund as keyof typeof fundRanks] || 3;
-          const fundProximity = 1 - Math.min(Math.abs(userFundRank - propertyFundRank) / 4, 1);
-          score += CRITERIA_WEIGHTS.price * fundProximity;
-          if (propertyFundRank < userFundRank) {
-            score += 0.05;
-          }
-        }
-      }
-      
-      if (userData.location && property.location) {
-        const propertyLocationLower = property.location.toLowerCase();
-        
-        if (propertyLocationLower.includes(userData.location.toLowerCase())) {
-          score += CRITERIA_WEIGHTS.location;
-        } else {
-          let maxLocationMatch = 0;
-          locationKeywords.forEach(keyword => {
-            if (propertyLocationLower.includes(keyword)) {
-              maxLocationMatch = Math.max(maxLocationMatch, 0.5);
-            }
             
-            if (keyword === "jakarta" && propertyLocationLower.includes(keyword)) {
-              maxLocationMatch = Math.max(maxLocationMatch, 0.3);
-            }
-          });
-          
-          score += CRITERIA_WEIGHTS.location * maxLocationMatch;
-        }
-      }
-      
-      if (userData.variety && property.category) {
-        const varietyList = userData.variety.split(',').map(v => v.trim().toLowerCase());
-        const propertyCategoryLower = property.category.toLowerCase();
-        
-        let varietyMatchScore = 0;
-        varietyList.forEach(variety => {
-          if (propertyCategoryLower.includes(variety)) {
-            varietyMatchScore = 1;
+            recommendedProperties = await getRecommendations(propertiesFromGeoJSON, undefined, parsedFormData);
           } else {
-            if ((variety === "residensial" && 
-                (propertyCategoryLower.includes("rumah") || 
-                 propertyCategoryLower.includes("apartment") || 
-                 propertyCategoryLower.includes("kondominium"))) ||
-                (variety === "komersial" && 
-                (propertyCategoryLower.includes("toko") || 
-                 propertyCategoryLower.includes("kantor") || 
-                 propertyCategoryLower.includes("ruko")))) {
-              varietyMatchScore = Math.max(varietyMatchScore, 0.7);
-            }
-          }
-        });
-        
-        score += CRITERIA_WEIGHTS.category * varietyMatchScore;
-      }
-      
-      const maxLandArea = Math.max(...eligible.map(p => p.landArea || 0));
-      if (maxLandArea > 0 && property.landArea) {
-        score += CRITERIA_WEIGHTS.landArea * (property.landArea / maxLandArea);
-      }
-      
-      const maxBuildingArea = Math.max(...eligible.map(p => p.buildingArea || 0));
-      if (maxBuildingArea > 0 && property.buildingArea) {
-        score += CRITERIA_WEIGHTS.buildingArea * (property.buildingArea / maxBuildingArea);
-      }
-      
-      if (userData.plan && property.status) {
-        if (userData.plan === "KPR" && property.status === "Dijual") {
-          score += CRITERIA_WEIGHTS.plan;
-        } 
-        else if (userData.plan === "Tunai" && property.price < 1000000000) {
-          score += CRITERIA_WEIGHTS.plan;
-        }
-        else if (userData.plan === "Belum Memutuskan") {
-          score += CRITERIA_WEIGHTS.plan * 0.5;
-        }
-      }
-      
-      if (userData.income && userData.fund) {
-        const incomeRank = incomeRanks[userData.income as keyof typeof incomeRanks] || 3;
-        const fundRank = fundRanks[userData.fund as keyof typeof fundRanks] || 3;
-        
-        if (property.fund) {
-          const propertyFundRank = fundRanks[property.fund as keyof typeof fundRanks] || 3;
-          
-          if (incomeRank <= 3 && propertyFundRank <= fundRank) {
-            score += CRITERIA_WEIGHTS.income;
-          }
-          else if (incomeRank >= 4 && propertyFundRank === fundRank) {
-            score += CRITERIA_WEIGHTS.income;
-          }
-          else if (Math.abs(propertyFundRank - fundRank) <= 1) {
-            score += CRITERIA_WEIGHTS.income * 0.5;
+            recommendedProperties = await getRecommendations(propertiesFromGeoJSON);
           }
         }
-      }
-      
-      if (userData.time && property.status) {
-        const timeRank = timeRanks[userData.time as keyof typeof timeRanks] || 2.5;
         
-        if (timeRank === 1 && property.status === "Siap Huni") {
-          score += CRITERIA_WEIGHTS.time;
-        }
-        else if (timeRank >= 3 && 
-                (property.status === "Siap Huni" || property.status === "Dalam Pembangunan")) {
-          score += CRITERIA_WEIGHTS.time;
-        }
-        else {
-          score += CRITERIA_WEIGHTS.time * 0.5;
-        }
-      }
-      
-      if (userData.job) {
-        if (userData.job === "Pengusaha" && property.category.toLowerCase().includes("komersial")) {
-          score += 0.05;
-        }
-        else if (userData.job === "Mahasiswa" && property.category.toLowerCase().includes("residensial")) {
-          score += 0.05;
-        }
-      }
-      
-      if (userData.age) {
-        if (userData.age === "18-24" && property.category.toLowerCase().includes("apartemen")) {
-          score += 0.05;
-        }
-        else if (userData.age === "35-44" && property.category.toLowerCase().includes("rumah")) {
-          score += 0.05;
-        }
-      }
-      
-      if (userData.facility) {
-        const userFacilities = userData.facility.split(',').map(f => f.trim().toLowerCase());
-        if (userFacilities.includes("rumah sakit") && 
-            (property.location.toLowerCase().includes("jakarta selatan") || 
-             property.location.toLowerCase().includes("jakarta pusat"))) {
-          score += 0.03;
-        }
+        setProperties(recommendedProperties);
         
-        if (userFacilities.includes("transportasi umum") && 
-            (property.location.toLowerCase().includes("jakarta pusat") || 
-             property.location.toLowerCase().includes("jakarta timur"))) {
-          score += 0.03;
-        }
+      } catch (error) {
+        console.error("Error in dashboard initialization:", error);
+        setProperties([]);
+      } finally {
+        setLoading(false);
       }
-      
-      return { ...property, mcdaScore: Math.min(score, 1.0) };
-    });
+    };
 
-    const filteredProperties = scoredProperties
-      .filter(property => (property.mcdaScore || 0) >= 0.25)
-      .sort((a, b) => (b.mcdaScore || 0) - (a.mcdaScore || 0));
-    return filteredProperties;
-  };
+    initializeDashboard();
+  }, [user?.id, router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-bl from-[#B0E0F9] via-[#f9f9f9] to-[#91E0B5]">
@@ -470,7 +231,7 @@ export default function Dashboard() {
         )}
       </div>
       {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 p-12 overflow-x-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 p-10 overflow-x-hidden">
         {/* Left: Property Cards */}
         <div className="lg:col-span-3 space-y-6 bg-white rounded-xl outline outline-2 outline-[#b8ccdc] px-16 py-12">
           <h2 className="text-xl font-bold text-[#17488D]">
@@ -488,11 +249,6 @@ export default function Dashboard() {
                   return (
                     <div key={index} className="relative flex flex-col h-full">
                       <PropertyCard {...prop} />
-                      {prop.mcdaScore !== undefined && (
-                        <div className="absolute top-0 right-0 bg-green-600 text-white px-2 py-1 rounded-bl-lg text-xs font-semibold">
-                          Match Score: {(prop.mcdaScore * 100).toFixed(0)}%
-                        </div>
-                      )}
                     </div>
                   );
                 })

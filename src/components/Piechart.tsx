@@ -124,7 +124,7 @@ const Piechart: React.FC<ChartDashboardProps> = ({ properties = [] }) => {
         </div>
       ) : (
         <div className="text-center py-8">
-          <p className="text-gray-500">Tidak ada properti yang direkomendasikan</p>
+          <p className="text-gray-500">Memuat properti...</p>
         </div>
       )}
     </div>
