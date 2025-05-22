@@ -38,7 +38,6 @@ export default function MapPage() {
   const [selectedPropertyToFocus, setSelectedPropertyToFocus] = useState<
     [number, number, number] | null
   >(null);
-  const [mapInstance, setMapInstance] = useState<Map | null>(null);
 
   const [religionOpacity, setReligionOpacity] = useState<number>(15);
   const [ageOpacity, setAgeOpacity] = useState<number>(15);
