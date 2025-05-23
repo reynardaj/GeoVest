@@ -24,7 +24,7 @@ const recommendedNews = [
       "Bagaimana Suku Bunga Mempengaruhi Tren Properti di Indonesia Tahun Ini?",
     category: "Market Trends",
     date: "1 week ago",
-    image: "/recommended-1.jpeg",
+    image: "/recommended-1.png",
   },
   {
     id: "5-faktor-yang-mempengaruhi",
