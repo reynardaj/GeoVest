@@ -353,10 +353,10 @@ const MapDrawingTool: React.FC<MapDrawingToolProps> = ({ map }) => {
 
   return (
     <>
-      <div className="fixed bottom-[5%] right-[35%] z-50 flex flex-col items-end space-y-2">
+      <div className="fixed bottom-[15px] left-[125px] z-50 flex flex-col items-end space-y-2">
         <button
           onClick={toggleDrawingMode}
-          className={`p-3 rounded-full shadow-lg transition-all duration-300
+          className={`fixed bottom-[125px] left-[15px] p-3 rounded-full shadow-lg transition-all duration-300
             ${drawingMode ? "bg-red-500 text-white" : "bg-blue-600 text-white"}
             hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2
             ${drawingMode ? "focus:ring-red-700" : "focus:ring-blue-800"}`}
@@ -366,8 +366,8 @@ const MapDrawingTool: React.FC<MapDrawingToolProps> = ({ map }) => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="black"
+            strokeWidth={1}
+            stroke="white"
             className="w-6 h-6"
           >
             {drawingMode ? (

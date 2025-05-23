@@ -7,12 +7,19 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "GeoVest - AI-Powered Geospatial Investment Insights",
+  title: "GeoVest",
   description:
     "Make smarter investment decisions with AI-driven geospatial insights on property markets, historical trends, and price movements.",
-  icons: {
-    icon: '/logo1.svg'
-  }
+  icons: [
+    {
+      media:  '(prefers-color-scheme: light)',
+      url: "/logo1.svg",
+    },
+    {
+      media:  '(prefers-color-scheme: dark)',
+      url: "/logo.svg",
+    },
+  ]
 };
 
 interface ChildProps {
