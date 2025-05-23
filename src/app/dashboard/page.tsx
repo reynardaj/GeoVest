@@ -233,7 +233,7 @@ export default function Dashboard() {
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 p-10 overflow-x-hidden">
         {/* Left: Property Cards */}
-        <div className="lg:col-span-3 space-y-6 bg-white rounded-xl outline outline-2 outline-[#b8ccdc] px-16 py-12">
+        <div className="lg:col-span-3 space-y-6 bg-white rounded-xl outline outline-2 outline-[#b8ccdc] px-8 py-6 xl:px-16 xl:py-12">
           <h2 className="text-xl font-bold text-[#17488D]">
             Rekomendasi Properti Anda
           </h2>
