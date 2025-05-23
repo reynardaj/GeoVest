@@ -509,10 +509,10 @@ export default function MapPage() {
                   <strong className="font-semibold">Jumlah Kecamatan:</strong>{" "}
                   {regionData?.jumlahKecamatan?.toLocaleString("id-ID")}
                 </p>
-                <p>
-                  <strong className="font-semibold">Jumlah Desa:</strong>{" "}
-                  {regionData?.jumlahDesa?.toLocaleString("id-ID")}
-                </p>
+                {/* <p> */}
+                  {/* <strong className="font-semibold">Jumlah Desa:</strong>{" "} */}
+                  {/* {regionData?.jumlahDesa?.toLocaleString("id-ID")} */}
+                {/* </p> */}
                 <p>
                   <strong className="font-semibold">Jumlah Penduduk:</strong> Rp{" "}
                   {regionData?.jumlahPenduduk?.toLocaleString("id-ID")}

@@ -460,7 +460,7 @@ const PropertyAnalytics = ({
             {ageData.length > 0 && (
               <div>
                 <h3 className="text-xl font-bold text-center text-[#17488D] mb-8">
-                  Distribusi Umur {regionName || "Jakarta"}
+                  Distribusi Umur {regionName || "Jakarta"} (2024)
                 </h3>
                 <div className="h-[400px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
@@ -527,7 +527,7 @@ const PropertyAnalytics = ({
             {religionData.length > 0 && (
               <div>
                 <h3 className="text-xl font-bold text-center text-[#17488D] mb-8">
-                  Distribusi Agama {regionName || "Jakarta"}
+                  Distribusi Agama {regionName || "Jakarta"} (2024)
                 </h3>
                 <div className="h-[350px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
