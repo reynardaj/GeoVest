@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GeoVest
 
-## Getting Started
+**Empowering Data-Driven Investment Decisions through Geospatial Analytics and AI.**
 
-First, run the development server:
+GeoVest is a comprehensive platform designed to revolutionize investment analysis, particularly in real estate and regional development. By combining rich geospatial data visualization with advanced AI-driven analytics, GeoVest provides investors and analysts with unparalleled insights to make informed decisions.
+
+## 🌟 Features
+
+GeoVest offers a powerful suite of features to explore, analyze, and understand investment opportunities:
+
+* **Interactive Map Page (Core):**
+    * **Dynamic Data Visualization:** Explore regions and properties with interactive map layers showing various demographic (e.g., age, religion, income), economic, and environmental (e.g., flood visibility) data.
+    * **Property & Region Details:** Click on regions or properties to view detailed information, including population statistics, area, property specifications, and pricing.
+    * **Layer Controls:** Easily toggle visibility and adjust opacity for different data layers (e.g., infrastructure, flood zones, demographic bins).
+    * **Price and Category Filtering:** Filter properties based on price ranges, categories, and investment types.
+    * **Demographic Binning:** Analyze population distribution by age and religion using dynamically calculated Jenks natural breaks.
+    * **Map Drawing Tools:** Utilize drawing tools directly on the map for custom analysis.
+    * **Base Map Switching:** Choose from various base map styles to suit your analytical needs.
+    * **Mobile Responsiveness:** A fully responsive interface with a dedicated mobile drawer menu for seamless access on smaller devices.
+
+* **Dashboard Page (AI-Powered MCDA):**
+    * **LLM-based Multi-Criteria Decision Analysis (MCDA):** Leverage AI to perform complex decision analysis based on multiple criteria, helping users weigh different factors for investment opportunities. (This is a significant feature that sets GeoVest apart!)
+
+* **Landing Page:** A compelling introduction to GeoVest, highlighting its value proposition and core functionalities.
+
+* **News Page:** Stay updated with the latest trends, market insights, and project developments relevant to geospatial investment.
+
+## 🚀 Getting Started
+
+To get GeoVest up and running on your local machine, follow these steps:
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+* [Node.js](https://nodejs.org/en/) (v18 or higher recommended)
+* [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+* [Git](https://git-scm.com/)
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [https://github.com/your-username/geovest.git](https://github.com/your-username/geovest.git)
+    cd geovest
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3.  **Environment Variables:**
+    Create a `.env.local` file in the root directory and add your environment variables.
+    *(Example - adapt based on your actual needs, e.g., MapLibre GL API keys, backend API URLs, etc.)*
+
+    ```
+    NEXT_PUBLIC_MAPLIBRE_API_KEY=your_maplibre_api_key
+    NEXT_PUBLIC_BACKEND_API_URL=http://localhost:8000/api
+    ```
+
+### Running the Project
+
+To start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Frontend:**
+    * [Next.js](https://nextjs.org/) (React Framework)
+    * [TypeScript](https://www.typescriptlang.org/)
+    * [Tailwind CSS](https://tailwindcss.com/) (for styling)
+    * [MapLibre GL JS](https://maplibre.org/) (for interactive maps)
+    * [`re-resizable`](https://github.com/bokuweb/re-resizable) (for UI resizing)
+    * [Lucide React](https://lucide.dev/icons/) (for icons)
+* **Backend:**
+    * OpenAI API / Google Gemini API (for LLM integration on Dashboard)
 
-## Learn More
+## 📞 Contact
 
-To learn more about Next.js, take a look at the following resources:
+For any questions or inquiries, please open an issue in the GitHub repository or contact:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* [Your Name/Organization Name] - [Your Email Address]
