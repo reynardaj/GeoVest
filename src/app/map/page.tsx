@@ -159,11 +159,16 @@ export default function MapPage() {
     if (!binRanges[binField])
       return ["Bin 1", "Bin 2", "Bin 3", "Bin 4", "Bin 5"];
     const breaks = binRanges[binField];
+    const isPerKm2 = binField.includes('_per_km2');
+    const unit = isPerKm2 ? ' per km²' : '';
+    console.log("Fetching range labels for", binField, "with breaks", breaks);
+  
     return breaks.slice(0, -1).map((start, i) => {
       const end = breaks[i + 1];
-      return i === breaks.length - 2
+      const range = i === breaks.length - 2
         ? `${Math.round(start)}+`
         : `${Math.round(start)}–${Math.round(end)}`;
+      return `${range}${unit}`;
     });
   };
 
