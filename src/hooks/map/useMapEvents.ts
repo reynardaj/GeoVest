@@ -35,7 +35,7 @@ export function useMapEvents(
       console.log("Region Click event fired!", e.originalEvent.type, e.originalEvent);
       const feature = e.features?.[0];
       if (!feature || feature.id == null) return;
-      // e.originalEvent.preventDefault(); // Prevent background click
+      e.originalEvent.preventDefault(); // Prevent background click
       const handler = handlersRef.current.onRegionClick;
       if (handler !== undefined && handler !== null) {
         console.log("Region Click: No feature or feature ID is null.");
@@ -192,6 +192,7 @@ export function useMapEvents(
       map.off("click", JAKARTA_FILL_LAYER_ID, handleRegionClick);
       map.off("click", PROPERTIES_LAYER_ID, handlePropertyClick);
       map.off("click", handleBackgroundClick);
+      map.off("touchend", handleMapTouchEnd);
       map.off("mousemove", JAKARTA_FILL_LAYER_ID, handleRegionMouseMove);
       map.off("mouseleave", JAKARTA_FILL_LAYER_ID, handleRegionMouseLeave);
       map.off("mousemove", PROPERTIES_LAYER_ID, handlePropertyMouseMove);

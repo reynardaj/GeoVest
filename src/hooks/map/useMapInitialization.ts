@@ -82,8 +82,8 @@ useEffect(() => {
         styleUrl
       );
       // On error, revert to null/false state to signal failure
-      setMapInstance(null);
-      setIsLoaded(false);
+      // setMapInstance(null);
+      // setIsLoaded(false);
     });
 
     // Cleanup function - this runs when the component unmounts OR
