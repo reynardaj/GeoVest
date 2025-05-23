@@ -3,29 +3,102 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
-type InvestorTypeKey = 'young_investor' | 'long_term_planner' | 'commercial_investor' | 'purpose_driven_investor';
+type InvestorTypeKey = 'private_investor' | 'corporate_developer' | 'strategic_partner' | 'public_planner' | 'urban_visionary';
 
 const USER_TYPES: Record<InvestorTypeKey, { title: string; description: string }> = {
-  'young_investor': {
-    title: 'The Young Investor 🔥',
-    description: 'Kamu baru mulai berinvestasi dan ingin mendapatkan properti dengan modal terjangkau serta pertumbuhan nilai yang cepat. Properti kecil seperti apartemen di lokasi strategis bisa menjadi pilihan terbaik untukmu!'
+  'private_investor': {
+    title: 'The Private Investor 🧑‍💼',
+    description: 'Pengguna individu yang mencari peluang investasi properti secara mandiri. Biasanya berfokus pada pertumbuhan modal atau penghasilan pasif. Mereka membutuhkan rekomendasi properti yang selaras dengan anggaran pribadi dan horizon waktu investasi tertentu.'
   },
-  'long_term_planner': {
-    title: 'The Long-Term Planner 📈',
-    description: 'Kamu berinvestasi untuk masa depan dan ingin properti yang aman, stabil, dan cocok untuk keluarga. Rumah tapak di area yang berkembang, dekat sekolah dan fasilitas umum, akan membantumu membangun aset jangka panjang.'
+  'corporate_developer': {
+    title: 'The Corporate Developer 🏢',
+    description: 'Perusahaan pengembang properti yang mencari lokasi strategis untuk proyek residensial, komersial, atau mixed-use. Mereka membutuhkan data geospasial yang akurat, izin lahan, proyeksi ROI kawasan, serta potensi pertumbuhan nilai lahan untuk skala besar.'
   },
-  'commercial_investor': {
-    title: 'The Commercial Investor 🏢',
-    description: 'Kamu memiliki dana besar dan fokus pada properti dengan potensi arus kas yang tinggi dan nilai komersial. Investasi pada ruko, kantor, atau properti campuran di kawasan bisnis akan membantumu memaksimalkan potensi profit.'
+  'strategic_partner': {
+    title: 'The Strategic Partner (B2B) 🤝',
+    description: 'Pihak ketiga seperti bank, lembaga keuangan, atau operator infrastruktur yang tertarik untuk berkolaborasi dalam pembangunan kawasan. Mereka membutuhkan analisis risiko kawasan, keterkaitan transportasi, hingga potensi permintaan pasar.'
   },
-  'purpose_driven_investor': {
-    title: 'The Purpose-Driven Investor 🌱',
-    description: 'Kamu tertarik pada properti yang tidak hanya menguntungkan secara finansial, tapi juga berdampak positif pada lingkungan dan masyarakat. Properti ramah lingkungan di kawasan berkelanjutan bisa menjadi pilihan ideal bagimu.'
+  'public_planner': {
+    title: 'The Public Planner 🏛️',
+    description: 'Instansi pemerintah seperti Bappeda, dinas tata ruang, atau kementerian yang bertanggung jawab atas perencanaan kota dan pengawasan tata ruang. Mereka membutuhkan informasi properti berdasarkan peraturan zonasi, status sertifikat seperti HGB atau hak pakai, serta kesesuaian dengan Rencana Tata Ruang Wilayah (RTRW) dan rencana pengadaan lahan strategis.'
+  },
+  'urban_visionary': {
+    title: 'The Urban Visionary 🏙️',
+    description: 'Kelompok atau individu yang fokus pada pengembangan kawasan tematik: TOD (Transit-Oriented Development), kawasan hijau, smart city, atau pembangunan berkelanjutan. Mereka mencari properti atau lahan dengan potensi transformatif tinggi berdasarkan infrastruktur yang sedang atau akan dibangun.'
   }
 };
 
+function normalizeInvestorType(rawResponse: string): InvestorTypeKey | null {
+  // Clean the response
+  const cleaned = rawResponse.toLowerCase().trim().replace(/[^\w_]/g, '');
+  
+  // Direct match
+  if (isValidInvestorType(cleaned)) {
+    return cleaned;
+  }
+  
+  // Fuzzy matching for common variations
+  const typeMap: Record<string, InvestorTypeKey> = {
+    'privateinvestor': 'private_investor',
+    'private': 'private_investor',
+    'individual': 'private_investor',
+    'corporatedeveloper': 'corporate_developer',
+    'corporate': 'corporate_developer',
+    'developer': 'corporate_developer',
+    'strategicpartner': 'strategic_partner',
+    'strategic': 'strategic_partner',
+    'partner': 'strategic_partner',
+    'b2b': 'strategic_partner',
+    'publicplanner': 'public_planner',
+    'public': 'public_planner',
+    'planner': 'public_planner',
+    'government': 'public_planner',
+    'urbanvisionary': 'urban_visionary',
+    'urban': 'urban_visionary',
+    'visionary': 'urban_visionary',
+    'smart': 'urban_visionary'
+  };
+  
+  return typeMap[cleaned] || null;
+}
+
 function isValidInvestorType(type: string): type is InvestorTypeKey {
   return Object.keys(USER_TYPES).includes(type);
+}
+
+function determineTypeByProfile(formData: any): InvestorTypeKey {
+  // Rule-based fallback logic
+  const income = formData.income?.toLowerCase() || '';
+  const fund = formData.fund?.toLowerCase() || '';
+  const job = formData.job?.toLowerCase() || '';
+  const variety = formData.variety || [];
+  
+  // Corporate developer indicators
+  if (job.includes('pengusaha') && 
+      (fund.includes('5 m') || fund.includes('100+ juta') || fund.includes('500 juta'))) {
+    return 'corporate_developer';
+  }
+  
+  // Public planner indicators
+  if (job.includes('pendidik') || 
+      variety.some((v: string) => v.includes('HGB') || v.includes('hak pakai'))) {
+    return 'public_planner';
+  }
+  
+  // Urban visionary indicators
+  if (variety.some((v: string) => v.includes('campuran')) ||
+      formData.facility?.includes('Transportasi Umum')) {
+    return 'urban_visionary';
+  }
+  
+  // Strategic partner indicators  
+  if (job.includes('insinyur') && 
+      (fund.includes('500 juta') || fund.includes('1-5 m'))) {
+    return 'strategic_partner';
+  }
+  
+  // Default to private investor
+  return 'private_investor';
 }
 
 export async function POST(request: NextRequest) {
@@ -39,83 +112,83 @@ export async function POST(request: NextRequest) {
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `
-Analyze the following user profile data for a property investment recommendation system and determine which investor type they belong to. 
+You are analyzing a user profile for property investment classification. You must respond with EXACTLY ONE of these five options:
+
+private_investor
+corporate_developer  
+strategic_partner
+public_planner
+urban_visionary
 
 User Profile:
-- Full Name: ${formData.fullName}
 - Age: ${formData.age}
-- Job: ${formData.job}
+- Job: ${formData.job}  
 - Income: ${formData.income}
 - Investment Fund: ${formData.fund}
 - Payment Plan: ${formData.plan}
-- Property Variety Preferences: ${formData.variety?.join(', ') || 'Not specified'}
-- Investment Timeline: ${formData.time}
-- Preferred Location: ${formData.location}
-- Facility Preferences: ${formData.facility?.join(', ') || 'Not specified'}
+- Property Types: ${formData.variety?.join(', ') || 'Not specified'}
+- Timeline: ${formData.time}
+- Location: ${formData.location}
+- Facilities: ${formData.facility?.join(', ') || 'Not specified'}
 
-Based on this profile, classify the user into ONE of these four investor types:
+Classification Rules:
+- private_investor: Individual investors, employees, students, nurses with personal funds
+- corporate_developer: Business owners with large funds (>100M), developers, large-scale projects
+- strategic_partner: Engineers, professionals seeking partnerships, B2B focus
+- public_planner: Educators, government workers, those interested in HGB/land rights
+- urban_visionary: Mixed-use property interest, public transport focus, modern development
 
-1. **young_investor**: For users who are just starting to invest, typically younger (18-34), with lower to moderate income and funds (< 500 Juta), looking for affordable properties with quick value growth.
-
-2. **long_term_planner**: For users with moderate to good funds (500 Juta - 5M), stable income, focused on long-term investment, family-oriented, prefer residential properties for living and inheritance.
-
-3. **commercial_investor**: For users with large funds (> 5M), high income, experienced investors or business people, focused on commercial properties, cashflow, and business potential.
-
-4. **purpose_driven_investor**: For users who show interest in sustainable, environmentally friendly, or socially impactful properties, regardless of their financial capacity.
-
-Consider the following factors in your analysis:
-- Age and income level
-- Investment fund amount
-- Property type preferences (residential vs commercial vs mixed)
-- Investment timeline
-- Overall investment goals and risk tolerance
-
-Respond with ONLY the investor type key (young_investor, long_term_planner, commercial_investor, or purpose_driven_investor). Do not include any explanation or additional text.
-`;
+Respond with only one of the five exact terms above. No explanation, no punctuation, no additional text.`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    const investorType = response.text().trim().toLowerCase();
-
-    if (!isValidInvestorType(investorType)) {
-      let fallbackType: InvestorTypeKey = 'young_investor';
-
-      if (formData.fund === '> 5 M') {
-        fallbackType = 'commercial_investor';
-      } else if (formData.fund === '500 Juta-1 M' || formData.fund === '1-5 M') {
-        fallbackType = 'long_term_planner';
-      } else if (formData.variety?.includes('Properti ramah lingkungan') || 
-                 formData.variety?.includes('Properti berkelanjutan')) {
-        fallbackType = 'purpose_driven_investor';
-      }
-
+    const rawResponse = response.text();
+    
+    console.log('Raw Gemini response:', rawResponse); // Debug log
+    
+    const normalizedType = normalizeInvestorType(rawResponse);
+    
+    if (!normalizedType) {
+      console.log('Normalization failed, using rule-based fallback'); // Debug log
+      const fallbackType = determineTypeByProfile(formData);
+      
       return NextResponse.json({
         success: true,
         userType: fallbackType,
         title: USER_TYPES[fallbackType].title,
         description: USER_TYPES[fallbackType].description,
-        fallback: true
+        fallback: true,
+        debug: {
+          rawResponse,
+          reason: 'Rule-based classification used'
+        }
       });
     }
 
     return NextResponse.json({
       success: true,
-      userType: investorType,
-      title: USER_TYPES[investorType].title,
-      description: USER_TYPES[investorType].description,
-      fallback: false
+      userType: normalizedType,
+      title: USER_TYPES[normalizedType].title,
+      description: USER_TYPES[normalizedType].description,
+      fallback: false,
+      debug: {
+        rawResponse,
+        normalizedType
+      }
     });
 
   } catch (error) {
     console.error('Error determining user type:', error);
     
+    const fallbackType = determineTypeByProfile(FormData);
+    
     return NextResponse.json({
       success: true,
-      userType: 'young_investor' as InvestorTypeKey,
-      title: USER_TYPES.young_investor.title,
-      description: USER_TYPES.young_investor.description,
+      userType: fallbackType,
+      title: USER_TYPES[fallbackType].title,
+      description: USER_TYPES[fallbackType].description,
       fallback: true,
-      error: 'Used fallback due to API error'
+      error: 'Used rule-based fallback due to API error'
     });
   }
 }

@@ -15,7 +15,7 @@ interface UserTypeData {
 export default function form() {
     const { user, isLoaded, isSignedIn } = useUser();
     const [dataSaved, setDataSaved] = useState(false);
-    const [step, setStep] = useState(13);
+    const [step, setStep] = useState(1);
     const [userTypeData, setUserTypeData] = useState<UserTypeData | null>(null);
     const [isLoadingUserType, setIsLoadingUserType] = useState(false);
     const [formData, setFormData] = useState({
@@ -89,7 +89,6 @@ export default function form() {
         setStep(step + 1);
     };
 
-    // Function to determine user type using API
     const determineUserType = async () => {
         setIsLoadingUserType(true);
         try {
@@ -101,18 +100,15 @@ export default function form() {
                 body: JSON.stringify({ formData })
             });
 
-            // Check if response is ok and has content
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // Check if response has content
             const text = await response.text();
             if (!text) {
                 throw new Error('Empty response from server');
             }
 
-            // Parse JSON
             const data = JSON.parse(text);
             
             if (data.success) {
@@ -124,21 +120,19 @@ export default function form() {
                 });
             } else {
                 console.error('Error from API:', data.error);
-                // Fallback to default user type
                 setUserTypeData({
-                    userType: 'young_investor',
-                    title: 'The Young Investor 🔥',
-                    description: 'Kamu baru mulai berinvestasi dan ingin mendapatkan properti dengan modal terjangkau serta pertumbuhan nilai yang cepat. Properti kecil seperti apartemen di lokasi strategis bisa menjadi pilihan terbaik untukmu!',
+                    userType: 'private_investor',
+                    title: 'The Private Investor 🧑‍💼',
+                    description: 'Pengguna individu yang mencari peluang investasi properti secara mandiri. Biasanya berfokus pada pertumbuhan modal atau penghasilan pasif. Mereka membutuhkan rekomendasi properti yang selaras dengan anggaran pribadi dan horizon waktu investasi tertentu.',
                     fallback: true
                 });
             }
         } catch (error) {
             console.error('Error determining user type:', error);
-            // Fallback to default user type
             setUserTypeData({
-                userType: 'young_investor',
-                title: 'The Young Investor 🔥',
-                description: 'Kamu baru mulai berinvestasi dan ingin mendapatkan properti dengan modal terjangkau serta pertumbuhan nilai yang cepat. Properti kecil seperti apartemen di lokasi strategis bisa menjadi pilihan terbaik untukmu!',
+                userType: 'private_investor',
+                title: 'The Private Investor 🧑‍💼',
+                description: 'Pengguna individu yang mencari peluang investasi properti secara mandiri. Biasanya berfokus pada pertumbuhan modal atau penghasilan pasif. Mereka membutuhkan rekomendasi properti yang selaras dengan anggaran pribadi dan horizon waktu investasi tertentu.',
                 fallback: true
             });
         } finally {
@@ -165,8 +159,7 @@ export default function form() {
                 variety: varietyString,
                 time: formData.time,
                 location: formData.location,
-                facility: facilityString,
-                user_type: userTypeData?.userType || 'young_investor' // Save the determined user type
+                facility: facilityString
             };
 
             const { error } = await supabase
@@ -194,7 +187,6 @@ export default function form() {
         attemptSave();
     }, [step, isLoaded, dataSaved, userTypeData, isLoadingUserType]);
 
-    // Determine user type when reaching step 13
     useEffect(() => {
         if (step === 13 && !userTypeData && !isLoadingUserType) {
             determineUserType();
@@ -656,12 +648,12 @@ export default function form() {
 
                 {step === 13 && (
                     <div className="w-full h-full flex justify-center overflow-hidden">
-                        <div className="pt-10 w-full absolute h-[200px] bg-[#b8ccdc] top-[74px] text-[#17488D] font-semibold text-xl">
+                        <div className="pt-10 px-5 w-full absolute h-[200px] bg-[#b8ccdc] top-[74px] text-[#17488D] font-semibold text-lg xl:text-xl">
                             Berdasarkan jawaban Anda, berikut rekomendasi GeoVest untuk Anda!
                         </div>
-                        <div className="relative bg-[#DDEBF3] w-[50%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
+                        <div className="relative bg-[#DDEBF3] w-[75%] xl:w-[50%] lg:w-[70%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
                             {isLoadingUserType ? (
-                                <div className="flex items-center justify-center h-full text-[#17488D] text-xl">
+                                <div className="flex pt-40 items-start justify-center h-full text-[#17488D] text-xl">
                                     Menganalisis profil Anda...
                                 </div>
                             ) : userTypeData ? (
@@ -669,10 +661,10 @@ export default function form() {
                                     <div className="flex text-left justify-between items-start gap-6">
                                     {/* Left Column */}
                                     <div className="flex flex-col gap-4 w-[60%]">
-                                        <h1 className="text-2xl font-bold text-[#17488D]">
+                                        <h1 className="text-xl xl:text-2xl font-bold text-[#17488D]">
                                             {userTypeData.title}
                                         </h1>
-                                        <p className="text-[#17488D]">
+                                        <p className="text-sm xl:text-lg text-[#17488D]">
                                             {userTypeData.description}
                                         </p>
 
@@ -700,8 +692,8 @@ export default function form() {
                                         
                                         {/* Button */}
                                         <Link href="/dashboard">
-                                            <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white font-semibold px-4 py-2 rounded-xl">
-                                                Lihat Rekomendasi Properti
+                                            <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white text-xs md:text-base lg:text-lg xl:text-xl font-semibold px-4 py-2 rounded-xl">
+                                                Rekomendasi Properti
                                             </button>
                                         </Link>
                                         
@@ -709,11 +701,11 @@ export default function form() {
                                 </div>
                             </div>
                             ) : (
-                                <div className="flex items-center justify-center h-full">
-                                    <div className="text-[#17488D] text-xl">
-                                        Terjadi kesalahan saat menganalisis profil Anda.
-                                    </div>
+                            <div className="flex items-center justify-center h-full">
+                                <div className="text-[#17488D] text-xl">
+                                    Terjadi kesalahan saat menganalisis profil Anda.
                                 </div>
+                            </div>
                             )}
                         </div>
                     </div>
