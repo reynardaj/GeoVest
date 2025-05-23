@@ -22,19 +22,23 @@ export function useMapEvents(
   }, [handlers]);
 
   useEffect(() => {
-    if (!map || !isLoaded) return;
-
-    
+    console.log("this runs");
+    if (!map || !isLoaded){
+          console.log("Error"); // this doesn't run
+      return;
+    }
 
     // --- Region Click ---
     const handleRegionClick = (
       e: MapMouseEvent & { features?: MapGeoJSONFeature[] }
     ) => {
+      console.log("Region Click event fired!", e.originalEvent.type, e.originalEvent);
       const feature = e.features?.[0];
       if (!feature || feature.id == null) return;
-      e.originalEvent.preventDefault(); // Prevent background click
+      // e.originalEvent.preventDefault(); // Prevent background click
       const handler = handlersRef.current.onRegionClick;
       if (handler !== undefined && handler !== null) {
+        console.log("Region Click: No feature or feature ID is null.");
         handler(feature, map);
       }
     };
@@ -59,6 +63,36 @@ export function useMapEvents(
     };
     map.on("click", handleBackgroundClick);
 
+    // --- NEW: Handle touchend for mobile clicks ---
+    const handleMapTouchEnd = (e: MapMouseEvent) => {
+        console.log("Map Touchend event fired!", e.originalEvent.type, e.originalEvent);
+
+        // Query rendered features at the event point (where the touch ended)
+        const features = map.queryRenderedFeatures(e.point, {
+            layers: [JAKARTA_FILL_LAYER_ID, PROPERTIES_LAYER_ID]
+        });
+
+        if (features.length > 0) {
+            const feature = features[0]; // Get the topmost feature
+            console.log("Map Touchend: Found feature:", feature.layer.id, feature.id ?? feature.properties?.id);
+
+            if (feature.layer.id === JAKARTA_FILL_LAYER_ID) {
+                // Call the same handler as the 'click' event
+                handlersRef.current.onRegionClick?.(feature, map);
+            } else if (feature.layer.id === PROPERTIES_LAYER_ID) {
+                // Call the same handler as the 'click' event
+                handlersRef.current.onPropertyClick?.(feature, map);
+            }
+            // e.originalEvent.preventDefault(); // Be cautious with preventDefault on touchend, it can break map scrolling/zooming.
+                                                 // Generally, MapLibre handles this.
+        } else {
+            console.log("Map Touchend: No features found at point. Calling background click.");
+            // If no features are found, treat it as a background click
+            handlersRef.current.onBackgroundClick?.(map);
+        }
+    };
+    map.on("touchend", handleMapTouchEnd);
+    
     // --- Region Mousemove ---
     const handleRegionMouseMove = (
       e: MapMouseEvent & { features?: MapGeoJSONFeature[] }
