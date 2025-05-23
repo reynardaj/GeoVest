@@ -4,6 +4,7 @@
 
 GeoVest is a comprehensive platform designed to revolutionize investment analysis, particularly in real estate and regional development. By combining rich geospatial data visualization with advanced AI-driven analytics, GeoVest provides investors and analysts with unparalleled insights to make informed decisions.
 
+
 ## 🌟 Features
 
 GeoVest offers a powerful suite of features to explore, analyze, and understand investment opportunities:
@@ -25,6 +26,7 @@ GeoVest offers a powerful suite of features to explore, analyze, and understand 
 
 * **News Page:** Stay updated with the latest trends, market insights, and project developments relevant to geospatial investment.
 
+
 ## 🚀 Getting Started
 
 To get GeoVest up and running on your local machine, follow these steps:
@@ -36,6 +38,7 @@ Make sure you have the following installed:
 * [Node.js](https://nodejs.org/en/) (v18 or higher recommended)
 * [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 * [Git](https://git-scm.com/)
+
 
 ### Installation
 
@@ -55,13 +58,21 @@ Make sure you have the following installed:
     ```
 
 3.  **Environment Variables:**
-    Create a `.env.local` file in the root directory and add your environment variables.
-    *(Example - adapt based on your actual needs, e.g., MapLibre GL API keys, backend API URLs, etc.)*
+    Create a `.env` and `.env.local` file in the root directory and add your environment variables.
 
     ```
-    NEXT_PUBLIC_MAPLIBRE_API_KEY=your_maplibre_api_key
-    NEXT_PUBLIC_BACKEND_API_URL=http://localhost:8000/api
+    # .env
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=key
+    CLERK_SECRET_KEY=key
+    NEXT_PUBLIC_MAPID_MAP_SERVICE_KEY=key
+
+    #.env.local
+    NEXT_PUBLIC_SUPABASE_URL=key
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=key
+    GEMINI_API_KEY=key
+    NEXT_PUBLIC_BASE_URL=key
     ```
+
 
 ### Running the Project
 
@@ -75,6 +86,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
+
 ## 🛠 Technologies Used
 
 * **Frontend:**
@@ -86,6 +98,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
     * [Lucide React](https://lucide.dev/icons/) (for icons)
 * **Backend:**
     * OpenAI API / Google Gemini API (for LLM integration on Dashboard)
+
 
 ## 📞 Contact
 
