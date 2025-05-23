@@ -558,7 +558,7 @@ export default async function NewsDetailPage({
 
   return (
     <main className="min-h-screen bg-white">
-      <NavbarNews />
+      <NavbarNews isSignedIn={false} />
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb dan Navigasi Kembali */}
