@@ -45,7 +45,7 @@ Make sure you have the following installed:
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/your-username/geovest.git](https://github.com/your-username/geovest.git)
+    git clone https://github.com/reynardaj/GeoVest.git
     cd geovest
     ```
 
@@ -102,6 +102,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ## 📞 Contact
 
-For any questions or inquiries, please open an issue in the GitHub repository or contact:
+For any questions or inquiries, please contact:
 
-* [Your Name/Organization Name] - [Your Email Address]
+* Ellen Chandra (ellen.chandra001@binus.ac.id)
+* Kelson Vincien (kelson.vincien@gmail.com)
+* Reynard Amadeus Joshua (reynard.joshua4949@gmail.com)
+* Steven Imanuel Lambert (steven.lambert@binus.ac.id)
