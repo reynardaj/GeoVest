@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from 'next/link';
 import { useUser } from '@clerk/nextjs';
 import { supabase } from '@/lib/supabase';
+import Piechart from "@/components/PiechartForm";
 
 interface UserTypeData {
     userType: string;
@@ -12,12 +13,83 @@ interface UserTypeData {
     fallback?: boolean;
 }
 
+interface Property {
+    image: string;
+    title: string;
+    location: string;
+    price: number;
+    category: string;
+    landArea: number;
+    buildingArea: number;
+    status: string;
+    certificateType: string;
+    propertyUrl: string;
+    coordinates?: [number, number, number];
+    fund: string;
+    mcdaScore?: number;
+}
+
+interface UserFormData {
+    userid: string;
+    fullname: string;
+    nickname: string;
+    job?: string;
+    age?: string;
+    income?: string;
+    fund?: string;
+    plan?: string;
+    variety?: string;
+    time?: string;
+    location?: string;
+    facility?: string;
+}
+
+interface FormDatas {
+    fund?: string;
+    location?: string;
+    variety?: string[];
+    plan?: string;
+    time?: string;
+    facility?: string;
+    [key: string]: any;
+}
+
+interface GeoJSONFeature {
+    type: string;
+    id?: number;
+    geometry: {
+        coordinates: [number, number, number];
+        type: string;
+    };
+    properties: {
+        property_name: string;
+        property_category: string;
+        property_status: string;
+        property_price: number;
+        building_area: number;
+        land_area: number;
+        certificate_type: string;
+        property_url: string;
+    };
+}
+
+interface GeoJSONData {
+    type: string;
+    features: GeoJSONFeature[];
+}
+
 export default function form() {
     const { user, isLoaded, isSignedIn } = useUser();
     const [dataSaved, setDataSaved] = useState(false);
     const [step, setStep] = useState(1);
     const [userTypeData, setUserTypeData] = useState<UserTypeData | null>(null);
     const [isLoadingUserType, setIsLoadingUserType] = useState(false);
+
+    const [properties, setProperties] = useState<Property[]>([]);
+    const [userFormData, setUserFormData] = useState<UserFormData | null>(null);
+    const [piechartProperties, setPiechartProperties] = useState<Property[]>([]);
+    const [piechartLoading, setPiechartLoading] = useState<boolean>(false);
+
     const [formData, setFormData] = useState({
         fullName: "",
         nickname: "",
@@ -54,7 +126,7 @@ export default function form() {
     ]
 
     const varieties = [
-        "Residensial", "Komersial", "Properti Campuran", "Properti dengan HGB", "Properti dengan Hak Pakai", "Properti dengan status hak terbatas (seperti sewa, girik, atau tanah adat)"
+        "Residensial", "Komersial", "Properti Campuran", "Properti dengan HGB", "Properti dengan Hak Pakai", "Properti dengan Hak Pengelolaan"
     ];
 
     const times = [
@@ -178,20 +250,133 @@ export default function form() {
     };
 
     useEffect(() => {
-        const attemptSave = async () => {
-            if (step === 13 && !dataSaved && isLoaded && !isLoadingUserType && userTypeData) {
-                await saveFormDataToServer();
+    const attemptSave = async () => {
+        if (step === 13 && !dataSaved && isLoaded && isSignedIn && user) {
+            await saveFormDataToServer();
+        }
+    };
+    
+    attemptSave();
+}, [step, isLoaded, isSignedIn, dataSaved]);
+
+    useEffect(() => {
+        const handleUserTypeAndRecommendations = async () => {
+            if (step === 13 && dataSaved && !userTypeData && !isLoadingUserType) {
+                await determineUserType();
             }
         };
         
-        attemptSave();
-    }, [step, isLoaded, dataSaved, userTypeData, isLoadingUserType]);
+        handleUserTypeAndRecommendations();
+    }, [step, dataSaved, userTypeData, isLoadingUserType]);
 
-    useEffect(() => {
-        if (step === 13 && !userTypeData && !isLoadingUserType) {
-            determineUserType();
+    const getRecommendations = async (
+        propertiesData: Property[], 
+        userData?: UserFormData, 
+        basicFormData?: FormData
+        ) => {
+            try {
+            const requestBody = {
+                properties: propertiesData,
+                userData: userData,
+                formData: basicFormData,
+                recommendationType: userData ? 'mcda' : 'basic'
+            };
+        
+            const response = await fetch('/api/recommendations', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+        
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        
+            const result = await response.json();
+            
+            if (result.success) {
+                return result.properties;
+            } else {
+                throw new Error(result.error || 'Unknown error occurred');
+            }
+        } catch (error) {
+            console.error('Error calling recommendation API:', error);
+            return propertiesData;
         }
-    }, [step]);
+    };
+    
+    useEffect(() => {
+        const loadPropertiesWithRecommendations = async () => {
+            if (step === 13 && dataSaved && userTypeData && user?.id && !piechartLoading) {
+                setPiechartLoading(true);
+                
+                try {
+                    const { data: userData, error } = await supabase
+                        .from('user_form')
+                        .select('*')
+                        .eq('userid', user.id)
+                        .single();
+
+                    if (error) {
+                        console.error('Error fetching user form data:', error);
+                        return;
+                    }
+
+                    const response = await fetch("/properties.geojson");
+                    const geoData: GeoJSONData = await response.json();
+                    
+                    const propertiesFromGeoJSON: Property[] = geoData.features.map(
+                        (feature: GeoJSONFeature, index) => {
+                            const { properties: prop, geometry } = feature;
+                            const propertyId = feature.id || index;
+                            return {
+                                image: prop.property_url || "/property/property1.png",
+                                title: prop.property_name,
+                                location: prop.property_name.split(",")[1]
+                                    ? prop.property_name.split(",")[1].trim()
+                                    : "Jakarta",
+                                price: prop.property_price,
+                                category: prop.property_category,
+                                landArea: prop.land_area,
+                                buildingArea: prop.building_area,
+                                status: prop.property_status,
+                                certificateType: prop.certificate_type,
+                                propertyUrl: prop.property_url,
+                                coordinates: [
+                                    geometry.coordinates[0],
+                                    geometry.coordinates[1],
+                                    propertyId,
+                                ],
+                                fund: "",
+                            };
+                        }
+                    );
+
+                    if (propertiesFromGeoJSON.length === 0) {
+                        setPiechartLoading(false);
+                        return;
+                    }
+
+                    const recommendedProperties = await getRecommendations(propertiesFromGeoJSON, userData);
+                    
+                    setProperties(recommendedProperties);
+                    setPiechartProperties(recommendedProperties);
+                    setUserFormData(userData);
+                    
+                } catch (error) {
+                    console.error("Error loading properties:", error);
+                    setProperties([]);
+                    setPiechartProperties([]);
+                } finally {
+                    setPiechartLoading(false);
+                }
+            }
+        };
+
+        loadPropertiesWithRecommendations();
+    }, [step, dataSaved, userTypeData, user?.id, piechartLoading]);
 
     return (
         <div
@@ -651,7 +836,7 @@ export default function form() {
                         <div className="pt-10 px-5 w-full absolute h-[200px] bg-[#b8ccdc] top-[74px] text-[#17488D] font-semibold text-lg xl:text-xl">
                             Berdasarkan jawaban Anda, berikut rekomendasi GeoVest untuk Anda!
                         </div>
-                        <div className="relative bg-[#DDEBF3] w-[75%] xl:w-[50%] lg:w-[70%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
+                        <div className="relative bg-[#DDEBF3] w-[90%] xl:w-[50%] lg:w-[70%] h-full top-[174px] border-2 border-[#17488D] rounded-xl px-[5%] py-[3%]">
                             {isLoadingUserType ? (
                                 <div className="flex pt-40 items-start justify-center h-full text-[#17488D] text-xl">
                                     Menganalisis profil Anda...
@@ -688,22 +873,23 @@ export default function form() {
                                     </div>
 
                                     {/* Right Column */}
-                                    <div className="flex flex-col items-center w-[40%] justify-between gap-10">
+                                    <div className="flex flex-col items-center w-[40%] justify-between">
                                         
                                         {/* Button */}
                                         <Link href="/dashboard">
-                                            <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white text-xs md:text-base lg:text-lg xl:text-xl font-semibold px-4 py-2 rounded-xl">
+                                            <button className="bg-[#17488D] hover:bg-[#0b2e5e] text-white text-xs md:text-base lg:text-lg font-semibold px-4 py-2 rounded-xl">
                                                 Rekomendasi Properti
                                             </button>
                                         </Link>
                                         
+                                        <Piechart properties={piechartProperties}/>
                                     </div>
                                 </div>
                             </div>
                             ) : (
                             <div className="flex items-center justify-center h-full">
                                 <div className="text-[#17488D] text-xl">
-                                    Terjadi kesalahan saat menganalisis profil Anda.
+                                    Menganalisis profil Anda...
                                 </div>
                             </div>
                             )}

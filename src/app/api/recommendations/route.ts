@@ -121,14 +121,14 @@ async function getDynamicWeights(userData: UserFormData): Promise<CriteriaWeight
     const result = await response.json();
     
     if (result.success && result.weights) {
-      console.log('Dynamic weights received:', result.weights);
+      // console.log('Dynamic weights received:', result.weights);
       return result.weights;
     } else {
       throw new Error(result.error || 'Failed to get dynamic weights');
     }
   } catch (error) {
     console.error('Error fetching dynamic weights:', error);
-    console.log('Falling back to default weights');
+    // console.log('Falling back to default weights');
     return DEFAULT_CRITERIA_WEIGHTS;
   }
 }
@@ -172,7 +172,7 @@ async function recommendPropertiesWithMCDA(
 ): Promise<Property[]> {
   const CRITERIA_WEIGHTS = await getDynamicWeights(userData);
   
-  console.log('Using criteria weights:', CRITERIA_WEIGHTS);
+  // console.log('Using criteria weights:', CRITERIA_WEIGHTS);
   
   const locationKeywords = LOCATIONS.reduce((acc, loc) => {
     const words = loc.toLowerCase().split(' ');

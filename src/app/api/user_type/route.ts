@@ -29,15 +29,12 @@ const USER_TYPES: Record<InvestorTypeKey, { title: string; description: string }
 };
 
 function normalizeInvestorType(rawResponse: string): InvestorTypeKey | null {
-  // Clean the response
   const cleaned = rawResponse.toLowerCase().trim().replace(/[^\w_]/g, '');
   
-  // Direct match
   if (isValidInvestorType(cleaned)) {
     return cleaned;
   }
   
-  // Fuzzy matching for common variations
   const typeMap: Record<string, InvestorTypeKey> = {
     'privateinvestor': 'private_investor',
     'private': 'private_investor',
@@ -67,37 +64,31 @@ function isValidInvestorType(type: string): type is InvestorTypeKey {
 }
 
 function determineTypeByProfile(formData: any): InvestorTypeKey {
-  // Rule-based fallback logic
   const income = formData.income?.toLowerCase() || '';
   const fund = formData.fund?.toLowerCase() || '';
   const job = formData.job?.toLowerCase() || '';
   const variety = formData.variety || [];
   
-  // Corporate developer indicators
   if (job.includes('pengusaha') && 
       (fund.includes('5 m') || fund.includes('100+ juta') || fund.includes('500 juta'))) {
     return 'corporate_developer';
   }
   
-  // Public planner indicators
   if (job.includes('pendidik') || 
       variety.some((v: string) => v.includes('HGB') || v.includes('hak pakai'))) {
     return 'public_planner';
   }
   
-  // Urban visionary indicators
   if (variety.some((v: string) => v.includes('campuran')) ||
       formData.facility?.includes('Transportasi Umum')) {
     return 'urban_visionary';
   }
   
-  // Strategic partner indicators  
   if (job.includes('insinyur') && 
       (fund.includes('500 juta') || fund.includes('1-5 m'))) {
     return 'strategic_partner';
   }
   
-  // Default to private investor
   return 'private_investor';
 }
 
@@ -144,12 +135,12 @@ Respond with only one of the five exact terms above. No explanation, no punctuat
     const response = await result.response;
     const rawResponse = response.text();
     
-    console.log('Raw Gemini response:', rawResponse); // Debug log
+    // console.log('Raw Gemini response:', rawResponse);
     
     const normalizedType = normalizeInvestorType(rawResponse);
     
     if (!normalizedType) {
-      console.log('Normalization failed, using rule-based fallback'); // Debug log
+      // console.log('Normalization failed, using rule-based fallback');
       const fallbackType = determineTypeByProfile(formData);
       
       return NextResponse.json({
