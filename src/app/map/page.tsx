@@ -265,13 +265,12 @@ export default function MapPage() {
       setRegionPopupVisibility(false);
     },
     [clickedRegionId]
-  ); // Depends on clickedRegionId
+  );
 
   const handleRegionBarZoom = useCallback((center: [number, number]) => {
     setTargetMapCenter(center);
   }, []);
 
-  // Memoize the handlers passed to the map component
   const mapEventHandlers: MapEventHandlers = useMemo(
     () => ({
       onRegionClick: handleRegionClick,
@@ -462,11 +461,7 @@ export default function MapPage() {
 
             {mapInstance && (
               <>
-                {console.log("mapInstance in render:", mapInstance)} {/* This log should now appear! */}
-                {/*
-                  Make sure MapDrawingTool receives mapInstance directly or through props
-                  If MapDrawingTool is a child of MapPage and depends on mapInstance:
-                */}
+                {console.log("mapInstance in render:", mapInstance)}
                 <MapDrawingTool map={mapInstance} />
               </>
             )}

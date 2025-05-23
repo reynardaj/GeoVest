@@ -85,7 +85,7 @@ function Menu({
 
   return (
     <div className={`bg-[#fff] justify-center z-50 overflow-hidden h-full ${!isMobile ? 'shadow-xl rounded-tl-lg' : ''}`}>
-      <div className="ml-[5px] flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
+      <div className="ml-[3px] flex flex-row justify-between text-[#17488D] font-bold 2xl:text-[17px] md:text-[15px] sticky top-0 bg-white z-10">
         <button
           onClick={() => setActiveTab("Filters")}
           className={`relative w-[25%] py-4 hover:bg-[#ededed] hover:rounded-tl-lg

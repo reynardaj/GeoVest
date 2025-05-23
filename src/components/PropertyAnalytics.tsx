@@ -421,7 +421,8 @@ const PropertyAnalytics = ({
           <>
             <div>
               <h2 className="text-xl font-bold text-center text-[#17488D] mb-8">
-                ROI Pasar di {regionName || "Jakarta"}
+                {/* ROI Pasar di {regionName || "Jakarta"} */}
+                Compounding ROI di Jakarta
               </h2>
               <ResponsiveContainer width={270} height={250}>
                 <BarChart data={displayedRoiData}>
